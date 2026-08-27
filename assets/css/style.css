@@ -1331,3 +1331,25 @@ a[data-demo]{cursor:pointer}
   .hero-fact .hero-fact__num{width:20px;flex:none}
   .hero-fact__label{margin-top:0}
 }
+
+/* ============================================================
+   33. Фонд ФОРТЕФОРМА
+   ============================================================ */
+/* блок на странице «О нас» */
+.ff-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center}
+.ff-mark img{width:min(190px,52%);height:auto;filter:brightness(0) invert(1)}
+.ff-mark b{
+  color:#fff;font-size:clamp(20px,2vw,26px);font-weight:600;
+  letter-spacing:.22em;text-indent:.22em;
+}
+.ff-mark span{
+  font-size:14px;color:rgba(255,255,255,.55);max-width:300px;line-height:1.45;
+}
+/* строчное упоминание */
+.ff-inline{
+  display:inline-flex;align-items:center;gap:7px;
+  font-weight:600;color:var(--ink);white-space:nowrap;
+  border-bottom:1px solid var(--gold);
+}
+.ff-inline img{width:22px;height:auto;flex:none}
+.ff-inline:hover{color:var(--gold-dark)}

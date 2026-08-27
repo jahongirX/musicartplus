@@ -89,6 +89,12 @@ TEACHERS = [
       bio='Актриса театра и кино, певица, художественный руководитель и дирижёр хора «Force Мажор».',
       facts=['Актриса театра и кино','Педагог по вокалу, сценической речи и актёрскому мастерству','Художественный руководитель и дирижёр хора «Force Мажор»','Преподаватель ГИТИСа и ВГИКа'],
       schedule=sc(('Ср','15:00 – 20:00'),('Пт','15:00 – 20:00'),('Вс','11:00 – 16:00'))),
+ dict(slug='kofanov', name='Кофанов Сергей', photo='kofanov.jpg',
+      subject='Вокал', role='Певец, педагог по вокалу',
+      short='Постановка голоса, дыхание и работа над репертуаром. Действующий артист сцены.',
+      bio='Певец и педагог по вокалу. Совмещает преподавание с концертной деятельностью — поэтому на занятиях много живой практики и работы со сценой.',
+      facts=['Певец, педагог по вокалу','Артист Центра исполнительских искусств (бывш. «Градский холл»)','Артист-вокалист Центрального оркестра ФСИН'],
+      schedule=sc(('Вт','16:00 – 21:00'),('Чт','16:00 – 21:00'),('Сб','12:00 – 18:00'))),
  dict(slug='goncharov', name='Гончаров Серафим', photo='goncharov.jpg',
       subject='Скрипка · раннее музыкальное развитие', role='Выпускник Московской консерватории им. П. И. Чайковского',
       short='Скрипка и музыкальное развитие малышей от 3 лет. Автор книги «Горизонты детства».',
@@ -629,7 +635,7 @@ for i, (img, alt) in enumerate(HERO_SLIDES):
                '<img src="assets/img/gallery/' + img + '" alt="' + alt + '" '
                + ('fetchpriority="high"' if i == 0 else 'loading="lazy"') + ' width="1400" height="900"></div>')
 
-FACTS = [('11','педагогов и приглашённых артистов'),('8','направлений обучения'),
+FACTS = [('12','педагогов и приглашённых артистов'),('8','направлений обучения'),
          ('3+','возраст первых занятий, лет'),('∞','взрослые любого возраста и подготовки')]
 facts_html = ''.join('<div class="hero-fact"><div class="hero-fact__num">' + n + '</div>'
                      '<div class="hero-fact__label">' + l + '</div></div>' for n, l in FACTS)
@@ -709,7 +715,8 @@ INDEX = '''
           <li><span class="tick">''' + ico('check') + '''</span><span>Уникальная авторская методика: традиции музыкального образования и современные подходы</span></li>
           <li><span class="tick">''' + ico('check') + '''</span><span>Педагоги Московской консерватории, РАМ им. Гнесиных, ГИТИСа и ВГИКа</span></li>
           <li><span class="tick">''' + ico('check') + '''</span><span>Индивидуальная программа под характер, возраст и цели ребёнка</span></li>
-          <li><span class="tick">''' + ico('check') + '''</span><span>Проект поддержан фондом ФОРТЕФОРМА</span></li>
+          <li><span class="tick">''' + ico('check') + '''</span><span>Проект поддержан фондом
+            <a class="ff-inline" href="''' + FUND + '''" target="_blank" rel="noopener"><img src="assets/img/ui/forteforma.svg" alt="" width="45" height="34">ФОРТЕФОРМА</a></span></li>
         </ul>
         <div class="flex-center mt-l" style="justify-content:flex-start">
           <a class="btn btn--dark" href="about.html">Подробнее о центре</a>
@@ -766,7 +773,7 @@ INDEX = '''
       </div>
       ''' + slider_nav('teachers-home') + '''
     </div>
-    ''' + slider([teacher_card(t, reveal=False) for t in TEACHERS[:6]], 'teachers-home') + '''
+    ''' + slider([teacher_card(t, reveal=False) for t in TEACHERS], 'teachers-home') + '''
     <div class="flex-center mt-l"><a class="btn btn--ghost" href="teachers.html">Все педагоги''' + ico('ar', 'btn__ico') + '''</a></div>
   </div>
 </section>
@@ -950,8 +957,10 @@ ABOUT = page_hero('О нас', 'Центр искусств, где ребёнк
           <a class="btn btn--gold" href="''' + FUND + '''" target="_blank" rel="noopener">Сайт фонда''' + ico('ar', 'btn__ico') + '''</a>
         </div>
       </div>
-      <div class="reveal reveal--right" style="display:grid;place-items:center">
-        <img src="assets/img/ui/logo-white.png" alt="MusicArtPlus" style="max-width:320px;width:70%" loading="lazy">
+      <div class="reveal reveal--right ff-mark">
+        <img src="assets/img/ui/forteforma.svg" alt="Фонд ФОРТЕФОРМА" loading="lazy">
+        <b>ФОРТЕФОРМА</b>
+        <span>Фонд поддержки и развития культурных и социальных проектов</span>
       </div>
     </div>
   </div>
@@ -1138,7 +1147,7 @@ TEACHPAGE = page_hero('Педагоги', 'Педагоги, которым до
       </div>
     </div>
     ''' + slider([teacher_card(t, reveal=False) for t in TEACHERS], 'teachers-all',
-                    preset='gridMobile', grid='slider--grid slider--grid-4') + '''
+                    preset='gridMobile', grid='slider--grid slider--grid-3') + '''
   </div>
 </section>
 

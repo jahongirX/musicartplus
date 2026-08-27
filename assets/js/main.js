@@ -345,7 +345,7 @@
               '<a class="btn btn--gold" href="' + CRM.forTeacher(d.slug) + '"' +
                 ' data-crm="' + esc(d.slug) + '" data-crm-name="' + esc(d.name) + '"' +
                 ' data-crm-photo="' + esc(d.photo) + '">Записаться на урок</a>' +
-              '<a class="btn btn--ghost" href="tel:+79031021640">Позвонить в школу</a>' +
+              '<a class="btn btn--ghost" href="tel:+79031025111">Позвонить в центр</a>' +
             '</div>' +
           '</div>' +
         '</div>';
@@ -493,7 +493,7 @@
       if (agree && !agree.checked) { ok = false; agree.focus(); }
       if (!ok) return;
 
-      /* Здесь будет отправка заявки в CRM «Мой класс» / на почту школы.
+      /* Здесь будет отправка заявки в CRM «Мой класс» / на почту центра.
          На этапе вёрстки — визуальное подтверждение. */
       form.classList.add('is-sent');
       var btn = $('button[type="submit"]', form);
