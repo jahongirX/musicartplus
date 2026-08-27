@@ -102,10 +102,20 @@ strong,b{font-weight:600;color:var(--ink)}
 .gold-text{color:var(--gold-deep)}
 
 /* подчёркивание «росчерком» */
+/* акцентная фраза: золотой цвет и тонкое подчёркивание, без маркера */
+.accent{
+  color:var(--gold-dark);
+  text-decoration:underline;
+  text-decoration-color:rgba(243,183,30,.55);
+  text-decoration-thickness:2px;
+  text-underline-offset:.16em;
+  text-decoration-skip-ink:auto;
+}
+/* старый маркер оставлен для внутренних страниц */
 .brush{
   display:inline;
   background-image:linear-gradient(90deg,var(--gold) 0%,rgba(243,183,30,.5) 100%);
-  background-repeat:no-repeat;background-position:0 92%;background-size:0 .26em;
+  background-repeat:no-repeat;background-position:0 92%;
   padding-inline:.08em;border-radius:.14em;background-size:100% .26em;
   -webkit-box-decoration-break:clone;box-decoration-break:clone;
   transition:background-size .9s var(--e-out) .15s;
@@ -1020,16 +1030,19 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
   body{color:#000}
 }
 
-/* ---------- 24. Прозрачная шапка над тёмным первым экраном ---------- */
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck):not(.menu) .nav__link,
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .header__phone{color:#fff}
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .socials a{color:#fff;border-color:rgba(255,255,255,.3)}
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .socials a:hover{color:var(--ink);border-color:var(--gold)}
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .burger{border-color:rgba(255,255,255,.3)}
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .burger span{background:#fff}
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .logo__light{opacity:1}
-body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .logo__dark{opacity:0}
-/* пока меню открыто, шапка всегда «светлая»: см. :not(.menu-open) выше */
+/* ---------- 24. Прозрачная шапка над тёмным первым экраном ----------
+   Только для десктопа: на мобильном шапка всегда белая (см. блок 31). */
+@media (min-width:1081px){
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck):not(.menu) .nav__link,
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .header__phone{color:#fff}
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .socials a{color:#fff;border-color:rgba(255,255,255,.3)}
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .socials a:hover{color:var(--ink);border-color:var(--gold)}
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .burger{border-color:rgba(255,255,255,.3)}
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .burger span{background:#fff}
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .logo__light{opacity:1}
+  body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .logo__dark{opacity:0}
+  /* пока меню открыто, шапка всегда «светлая»: см. :not(.menu-open) выше */
+}
 
 /* ---------- 25. Логотип в подвале ---------- */
 .footer__logo{filter:none;mix-blend-mode:normal}
@@ -1200,3 +1213,101 @@ body[data-hero="dark"]:not(.menu-open) .header:not(.is-stuck) .logo__dark{opacit
 
 /* ---------- 30. Демо-режим: переходы на другие страницы отключены ---------- */
 a[data-demo]{cursor:pointer}
+
+/* ============================================================
+   31. Правки по замечаниям заказчика
+   ============================================================ */
+
+/* --- Блок 4: восемь направлений иконками --- */
+.dir-mini-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:clamp(14px,1.8vw,22px);
+}
+.dir-mini{
+  display:flex;align-items:center;gap:16px;
+  padding:clamp(18px,1.8vw,24px);border-radius:var(--r-lg);
+  background:#fff;border:1px solid var(--ink-06);
+  transition:transform .45s var(--e),box-shadow .45s var(--e),border-color .45s var(--e);
+}
+.dir-mini:hover{transform:translateY(-5px);box-shadow:var(--sh-2);border-color:transparent}
+.dir-mini__ico{
+  width:56px;height:56px;flex:none;border-radius:18px;
+  background:var(--gold-mist);display:grid;place-items:center;color:var(--gold-dark);
+  transition:background .4s var(--e),color .4s var(--e),transform .5s var(--e);
+}
+.dir-mini:hover .dir-mini__ico{background:var(--gold);color:var(--ink);transform:rotate(-6deg) scale(1.05)}
+.dir-mini__ico svg{width:28px;height:28px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.dir-mini__body b{display:block;color:var(--ink);font-size:17px;font-weight:600;line-height:1.25}
+.dir-mini__body span{font-size:13.5px;color:var(--gold-dark);font-weight:600}
+
+/* --- Блок 7: перебивка поуже --- */
+.interlude__narrow{max-width:760px}
+.interlude__narrow .reveal{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr) !important}
+
+/* --- Блок 9: карта во всю ширину --- */
+.section--map{padding-bottom:0}
+.contact-info--row{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(14px,1.6vw,20px);
+  align-content:initial;margin-bottom:clamp(30px,3.6vw,50px);
+}
+.contact-info--row .ci{flex-direction:column;align-items:flex-start;gap:12px}
+.map-wrap--full{
+  width:100%;border-radius:0;box-shadow:none;
+  min-height:clamp(320px,38vw,520px);
+}
+.map-wrap--full iframe{min-height:clamp(320px,38vw,520px)}
+
+/* --- Значки: мягче и разнообразнее --- */
+.deco{opacity:.1}
+.deco--gold{opacity:.28}
+.section--cream .deco{opacity:.13}
+
+/* --- Подвал: логотип фонда --- */
+.footer__fund{
+  margin-top:26px;padding:14px 18px;border-radius:var(--r-md);
+  border:1px solid rgba(255,255,255,.12);
+  display:inline-flex;align-items:center;gap:14px;font-size:14.4px;
+  transition:border-color .3s var(--e),background .3s var(--e);
+}
+.footer__fund:hover{border-color:rgba(243,183,30,.5);background:rgba(255,255,255,.04)}
+.footer__fund img{width:42px;height:auto;flex:none;filter:brightness(0) invert(1)}
+.footer__fund span{line-height:1.35}
+.footer__fund b{display:block;color:var(--gold);font-weight:700;letter-spacing:.04em}
+
+/* --- Фон: мягкие переливы --- */
+.section--cream{
+  background:
+    radial-gradient(70% 60% at 12% 0%,rgba(243,183,30,.10) 0%,rgba(243,183,30,0) 60%),
+    radial-gradient(60% 60% at 92% 100%,rgba(243,183,30,.08) 0%,rgba(243,183,30,0) 60%),
+    var(--cream);
+}
+.section--mist,.section:not([class*="--"]){position:relative}
+#about,#video,#booking{
+  background:
+    radial-gradient(50% 45% at 100% 0%,rgba(243,183,30,.07) 0%,rgba(243,183,30,0) 65%),
+    radial-gradient(45% 40% at 0% 100%,rgba(243,183,30,.05) 0%,rgba(243,183,30,0) 65%);
+}
+
+/* --- Первый экран: метка компактнее на мобильном --- */
+.hero__eyebrow .he-wide{display:inline}
+
+/* --- Мобильная шапка: всегда белая --- */
+@media (max-width:1080px){
+  /* шапка всегда на белом — так логотип читается лучше */
+  .header::after{opacity:1}
+  .logo__light{opacity:0}
+  .burger{background:var(--ink);border-color:var(--ink)}
+  .burger span{background:#fff}
+  .burger:hover{border-color:var(--ink);background:#2a2521}
+}
+@media (max-width:900px){
+  .contact-info--row{grid-template-columns:repeat(2,1fr)}
+  .dir-mini-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:720px){
+  .hero__eyebrow .he-wide{display:none}
+  .hero__eyebrow{font-size:12px;padding:7px 14px 7px 12px;margin-bottom:16px}
+  .contact-info--row{grid-template-columns:1fr}
+  .dir-mini-grid{grid-template-columns:1fr}
+  .interlude__narrow .reveal{grid-template-columns:1fr !important}
+}
