@@ -56,6 +56,7 @@
 /* ---------- 2. Сброс ---------- */
 *,*::before,*::after{box-sizing:border-box}
 *{
+  line-height:1.2;
   -webkit-font-feature-settings:"lnum";
   -moz-font-feature-settings:"lnum";
   font-feature-settings:"lnum";
@@ -1310,4 +1311,23 @@ a[data-demo]{cursor:pointer}
   .contact-info--row{grid-template-columns:1fr}
   .dir-mini-grid{grid-template-columns:1fr}
   .interlude__narrow .reveal{grid-template-columns:1fr !important}
+}
+
+/* ============================================================
+   32. Правки: перенос в шапке секции и цифры первого экрана
+   ============================================================ */
+
+/* «Канал на Rutube» не должен ломаться на строки */
+.sec-head{flex-wrap:wrap}
+.sec-head > .link-arrow,
+.sec-head > .slider__nav,
+.sec-head > .carousel__nav{flex:none;white-space:nowrap}
+.link-arrow{white-space:nowrap}
+
+/* первый экран: цифра и подпись в строку на мобильном */
+@media (max-width:720px){
+  .hero__facts{flex-direction:column;gap:14px}
+  .hero-fact{display:flex;gap:10px;align-items:center}
+  .hero-fact .hero-fact__num{width:20px;flex:none}
+  .hero-fact__label{margin-top:0}
 }
