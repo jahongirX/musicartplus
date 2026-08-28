@@ -345,7 +345,9 @@
               '<a class="btn btn--gold" href="' + CRM.forTeacher(d.slug) + '"' +
                 ' data-crm="' + esc(d.slug) + '" data-crm-name="' + esc(d.name) + '"' +
                 ' data-crm-photo="' + esc(d.photo) + '">Записаться на урок</a>' +
-              '<a class="btn btn--ghost" href="tel:+79031025111">Позвонить в центр</a>' +
+              '<a class="btn btn--ghost" href="tel:+79031025111">' +
+                '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 3h3l1.5 4-2 1.5a12.2 12.2 0 006.4 6.4l1.5-2 4 1.5v3a2 2 0 01-2.2 2A17.2 17.2 0 014.6 5.2 2 2 0 016.6 3z"/></svg>' +
+                '+7 903 102-51-11</a>' +
             '</div>' +
           '</div>' +
         '</div>';

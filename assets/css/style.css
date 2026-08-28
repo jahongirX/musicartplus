@@ -170,6 +170,7 @@ strong,b{font-weight:600;color:var(--ink)}
   transition:transform .35s var(--e),box-shadow .35s var(--e),background .3s var(--e),color .3s var(--e),border-color .3s var(--e);
   will-change:transform;white-space:nowrap;
 }
+.btn > svg{width:18px;height:18px;flex:none;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .btn:hover{transform:translateY(-2px)}
 .btn:active{transform:translateY(0)}
 .btn--gold{box-shadow:var(--sh-gold)}
@@ -1353,3 +1354,72 @@ a[data-demo]{cursor:pointer}
 }
 .ff-inline img{width:22px;height:auto;flex:none}
 .ff-inline:hover{color:var(--gold-dark)}
+
+/* ============================================================
+   34. Виджет CRM «Мой класс»
+   ============================================================ */
+/* контейнер схлопывается, пока скрипт не отрисовал виджет */
+#SiteWidgetMoyklass139193:empty{display:none}
+
+
+/* секция скрыта целиком, пока скрипт CRM не отрисовал виджет */
+.mk-section:has(#SiteWidgetMoyklass139193:empty){display:none}
+.mk-widget{margin-top:clamp(24px,3vw,38px)}
+.mk-widget > div{background:#fff;border:1px solid var(--ink-06);border-radius:var(--r-lg);
+  overflow-x:auto;overflow-y:hidden;overscroll-behavior-x:contain}
+
+/* Виджет «Мой класс» приходит со своей зелёной темой и Open Sans —
+   перекрашиваем в палитру сайта. Правки только цвета и шрифта:
+   если разметка виджета изменится, правила просто перестанут применяться.
+   Постоянное решение — задать цвет в настройках виджета в «Моём классе». */
+#SiteWidgetMoyklass139193,
+#SiteWidgetMoyklass139193Modal,
+#SiteWidgetMoyklass139193 *,
+#SiteWidgetMoyklass139193Modal *{font-family:var(--font) !important}
+
+html #SiteWidgetMoyklass139193 .wdgMoyklass-color,
+html #SiteWidgetMoyklass139193 .btnColor,
+html #SiteWidgetMoyklass139193 .loader,
+html #SiteWidgetMoyklass139193 .colorTextSchema,
+html #SiteWidgetMoyklass139193 .wdgMoyklass-scheduleLessonsMini span,
+html #SiteWidgetMoyklass139193Modal .wdgMoyklass-color,
+html #SiteWidgetMoyklass139193Modal .btnColor,
+html #SiteWidgetMoyklass139193Modal .loader,
+html #SiteWidgetMoyklass139193Modal .colorTextSchema,
+html #SiteWidgetMoyklass139193Modal .FormLessonsContent-count span,
+html #SiteWidgetMoyklass139193Modal .FormLessonsContent-count i{color:var(--gold-dark) !important}
+
+html #SiteWidgetMoyklass139193 .wdgMoyklass-BGcolor,
+html #SiteWidgetMoyklass139193 .wdgMoyklass-btn,
+html #SiteWidgetMoyklass139193 .lesson-register-link,
+html #SiteWidgetMoyklass139193 .active .colorTextSchema,
+html #SiteWidgetMoyklass139193Modal .wdgMoyklass-BGcolor,
+html #SiteWidgetMoyklass139193Modal .wdgMoyklass-btn,
+html #SiteWidgetMoyklass139193Modal .active .colorTextSchema,
+html #SiteWidgetMoyklass139193Modal .radio:not(checked) + label:after{
+  background-color:var(--gold) !important;color:var(--ink) !important;
+}
+
+html #SiteWidgetMoyklass139193 .combo-schedule_calendar-filter,
+html #SiteWidgetMoyklass139193 .wdgMoyklass-course-title,
+html #SiteWidgetMoyklass139193 .hello-week__day.is-active.is-today{
+  border-color:var(--gold) !important;border-bottom-color:var(--gold) !important;
+}
+
+/* фактические классы, которые виджет красит в зелёный */
+html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-TypeItem.success,
+html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-TypeItem.success i,
+html #SiteWidgetMoyklass139193 i[class^="icon-mc-"],
+html #SiteWidgetMoyklass139193 i[class*=" icon-mc-"]{color:var(--gold-dark) !important}
+
+html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-TypeItem.success,
+html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-submenu,
+html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-submenu > *{border-bottom-color:var(--gold) !important}
+
+html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-submenu .active,
+html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-submenu > .active{
+  background-color:var(--gold) !important;color:var(--ink) !important;
+}
+
+/* у секции уже есть свой заголовок — внутренний заголовок виджета прячем */
+html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}

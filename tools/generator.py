@@ -399,18 +399,47 @@ MODALS = '''
 </div>
 
 <script src="assets/js/main.js" defer></script>
+
 </body>
 </html>
 '''
 
-def modals(swiper=False):
-    lib = '<script src="assets/vendor/swiper/swiper-bundle.min.js" defer></script>\n' if swiper else ''
-    return MODALS.replace('<script src="assets/js/main.js" defer></script>',
-                          lib + '<script src="assets/js/main.js" defer></script>')
+MK_ID  = '139193'
+MK_KEY = '01pmDhdEhbM62kYtpQgSetFqsRKoHvtpnQf2'
 
-def page(fname, title, desc, slug, body, hero='light', swiper=False):
+MK_SCRIPT = ('\n<!-- MoyKlass widget begin -->\n'
+             '<script src="https://app.moyklass.com/api/site/widget/?id=' + MK_KEY + '"'
+             ' type="text/javascript" charset="UTF-8"></script>\n'
+             '<!-- MoyKlass widget end -->')
+
+def mk_widget(title='Расписание занятий',
+              lead='Актуальные группы и свободное время — напрямую из системы «Мой класс».'):
+    """Секция с виджетом CRM. Контейнер пуст до отрисовки — CSS его прячет."""
+    return ('<section class="section section--cream mk-section" id="raspisanie">'
+            '<div class="container">'
+            '<div class="sec-head reveal"><div>'
+            '<span class="eyebrow">ЗАПИСЬ ОНЛАЙН</span>'
+            '<h2 class="h2">' + title + '</h2>'
+            '<p class="lead" style="max-width:640px">' + lead + '</p>'
+            '</div></div>'
+            '<div class="mk-widget reveal" data-delay="1">'
+            '<div id="SiteWidgetMoyklass' + MK_ID + '"></div>'
+            '</div>'
+            '</div></section>')
+
+def modals(swiper=False, widget=False):
+    lib = '<script src="assets/vendor/swiper/swiper-bundle.min.js" defer></script>\n' if swiper else ''
+    out = MODALS.replace('<script src="assets/js/main.js" defer></script>',
+                         lib + '<script src="assets/js/main.js" defer></script>')
+    if widget:
+        out = out.replace('\n</body>', MK_SCRIPT + '\n</body>')
+    return out
+
+def page(fname, title, desc, slug, body, hero='light', swiper=False, widget=False):
+    if widget:
+        body = body + mk_widget()
     html = (head(title, desc, slug, hero, swiper) + header(slug) +
-            '<main>' + body + '</main>' + FOOTER + modals(swiper))
+            '<main>' + body + '</main>' + FOOTER + modals(swiper, widget))
     io.open(os.path.join(OUT, fname), 'w', encoding='utf-8').write(html)
     return fname
 
@@ -839,7 +868,7 @@ INDEX = '''
 page('index.html',
      'MusicArtPlus — центр искусств для детей в Москве | музыка, живопись, сцена',
      'Центр искусств MusicArtPlus: фортепиано, скрипка, вокал, актёрское мастерство и живопись для детей от 3 лет. Москва, м. Минская. Запись на пробный урок.',
-     'home', INDEX, hero='dark', swiper=True)
+     'home', INDEX, hero='dark', swiper=True, widget=True)
 print('index.html готов')
 
 # ================================================================ О НАС
@@ -1119,7 +1148,7 @@ DIRPAGE = page_hero('Наши направления', 'Восемь путей 
 
 page('directions.html', 'Наши направления — музыка, вокал, сцена и живопись | MusicArtPlus',
      'Направления обучения в MusicArtPlus: фортепиано, скрипка, труба, вокал, актёрское мастерство, живопись, сольфеджио и раннее музыкальное развитие с 3 лет.',
-     'directions', DIRPAGE, hero='dark')
+     'directions', DIRPAGE, hero='dark', widget=True)
 print('directions.html готов')
 
 # ================================================================ ПЕДАГОГИ
@@ -1224,7 +1253,7 @@ TEACHPAGE = page_hero('Педагоги', 'Педагоги, которым до
 
 page('teachers.html', 'Педагоги центра искусств MusicArtPlus — Москва',
      'Преподаватели MusicArtPlus: фортепиано, скрипка, труба, вокал, живопись и сольфеджио. Биографии, расписание и запись на урок онлайн.',
-     'teachers', TEACHPAGE, hero='dark', swiper=True)
+     'teachers', TEACHPAGE, hero='dark', swiper=True, widget=True)
 print('teachers.html готов')
 
 # ================================================================ НОВОСТИ
