@@ -1,0 +1,155 @@
+{
+    "key": "group_map_direction",
+    "title": "Направление",
+    "fields": [
+        {
+            "key": "field_map_dir_icon",
+            "label": "Иконка",
+            "name": "dir_icon",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {
+                "piano": "Фортепиано",
+                "violin": "Скрипка",
+                "trumpet": "Труба",
+                "mic": "Микрофон",
+                "masks": "Театральные маски",
+                "palette": "Палитра",
+                "note": "Нота",
+                "child": "Ребёнок",
+                "users": "Группа",
+                "book": "Книга",
+                "online": "Онлайн",
+                "cap": "Выпускная шапочка",
+                "person": "Человек",
+                "chat": "Диалог",
+                "spark": "Искра",
+                "scale": "Весы",
+                "cal": "Календарь",
+                "heart": "Сердце",
+                "star": "Звезда",
+                "clock": "Часы"
+            },
+            "multiple": 0,
+            "allow_null": 0,
+            "default_value": false,
+            "ui": 0,
+            "ajax": 0,
+            "placeholder": "",
+            "return_format": "value",
+            "create_options": 0,
+            "save_options": 0
+        },
+        {
+            "key": "field_map_dir_short",
+            "label": "Кратко",
+            "name": "dir_short",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_dir_age",
+            "label": "Возраст",
+            "name": "dir_age",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placeholder": "с 5 лет",
+            "default_value": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_dir_format",
+            "label": "Формат",
+            "name": "dir_format",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placeholder": "индивидуально",
+            "default_value": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_dir_featured",
+            "label": "Показывать на главной",
+            "name": "dir_featured",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 0,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "map_direction"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1787987869,
+    "local_file": "\/Users\/jahongirxushboqov\/Documents\/asadbek-project\/wordpress\/wp-content\/themes\/musicartplus\/acf-json\/group_map_direction.json"
+}

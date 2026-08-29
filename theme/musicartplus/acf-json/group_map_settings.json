@@ -1,0 +1,550 @@
+{
+    "key": "group_map_settings",
+    "title": "Настройки сайта",
+    "fields": [
+        {
+            "key": "field_map_tab_contacts",
+            "label": "Контакты",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_phone",
+            "label": "Телефон",
+            "name": "phone",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Как показывать на сайте.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placeholder": "+7 903 102-51-11",
+            "default_value": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_phone_href",
+            "label": "Телефон для набора",
+            "name": "phone_href",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Без пробелов и скобок — по нему звонят с телефона.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placeholder": "+79031025111",
+            "default_value": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_email",
+            "label": "Почта",
+            "name": "email",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_address",
+            "label": "Адрес",
+            "name": "address",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_address_note",
+            "label": "Уточнение к адресу",
+            "name": "address_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placeholder": "вход со стороны запасного входа",
+            "default_value": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_work_hours",
+            "label": "Часы работы",
+            "name": "work_hours",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Показывается в блоке «Как нас найти».",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placeholder": "Пн–Вс, 10:00–20:00",
+            "default_value": "",
+            "maxlength": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_footer_about",
+            "label": "Текст в подвале",
+            "name": "footer_about",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Абзац под логотипом в подвале.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_map_embed",
+            "label": "Код карты",
+            "name": "map_embed",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Ссылка на карту из Яндекс.Конструктора. Подставится в блок «Как нас найти».",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_tab_social",
+            "label": "Соцсети",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_telegram",
+            "label": "Telegram",
+            "name": "telegram",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_instagram",
+            "label": "Instagram",
+            "name": "instagram",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_rutube",
+            "label": "Rutube",
+            "name": "rutube",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_fund_url",
+            "label": "Сайт фонда",
+            "name": "fund_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_fund_name",
+            "label": "Название фонда",
+            "name": "fund_name",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_tab_crm",
+            "label": "CRM «Мой класс»",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_crm_url",
+            "label": "Ссылка на запись",
+            "name": "crm_url",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Куда вести посетителя, если на сайте не сработал JavaScript.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_crm_widget_enabled",
+            "label": "Показывать виджет расписания",
+            "name": "crm_widget_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 1,
+            "ui": 1,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
+        },
+        {
+            "key": "field_map_crm_widget_key",
+            "label": "Ключ виджета",
+            "name": "crm_widget_key",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Из кода виджета «Мой класс»: параметр id в адресе скрипта.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_crm_widget_id",
+            "label": "Номер контейнера виджета",
+            "name": "crm_widget_id",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Цифры из id=\"SiteWidgetMoyklass…\".",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_crm_filial_id",
+            "label": "ID филиала",
+            "name": "crm_filial_id",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Оставьте пустым — сайт возьмёт первый филиал из CRM.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_crm_source_id",
+            "label": "Способ заведения заявки",
+            "name": "crm_source_id",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "3 — «Виджет: Форма». По нему в CRM видно заявки с сайта.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "min": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_crm_adv_source_id",
+            "label": "Источник обращения",
+            "name": "crm_adv_source_id",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Необязательно. ID из справочника источников в CRM.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "min": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_notify_email",
+            "label": "Куда слать заявки",
+            "name": "notify_email",
+            "aria-label": "",
+            "type": "email",
+            "instructions": "Пусто — на почту администратора сайта.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_tab_form",
+            "label": "Форма записи",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_directions_list",
+            "label": "Направления в форме",
+            "name": "directions_list",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "По одному в строке. Пусто — список по умолчанию.",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 10,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_privacy_url",
+            "label": "Ссылка на политику конфиденциальности",
+            "name": "privacy_url",
+            "aria-label": "",
+            "type": "page_link",
+            "instructions": "",
+            "required": false,
+            "conditional_logic": false,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "allow_null": 1,
+            "post_type": [],
+            "taxonomy": [],
+            "multiple": 0,
+            "allow_archives": 1
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "map-settings"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": false,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1787987869,
+    "local_file": "\/Users\/jahongirxushboqov\/Documents\/asadbek-project\/wordpress\/wp-content\/themes\/musicartplus\/acf-json\/group_map_settings.json"
+}
