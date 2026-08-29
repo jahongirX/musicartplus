@@ -54,6 +54,23 @@ function map_acf_json_load( $paths ) {
 add_filter( 'acf/settings/load_json', 'map_acf_json_load' );
 
 /**
+ * Убирает из файла группы путь к нему самому.
+ *
+ * ACF дописывает в JSON ключ local_file с абсолютным путём — своим на каждой
+ * машине. В репозитории он создаёт ложные расхождения, а при загрузке ACF
+ * подставляет его заново.
+ *
+ * @param array $post Группа полей.
+ * @return array
+ */
+function map_acf_strip_local_file( $post ) {
+	unset( $post['local_file'] );
+
+	return $post;
+}
+add_filter( 'acf/prepare_field_group_for_export', 'map_acf_strip_local_file' );
+
+/**
  * Переносит группы полей из JSON в базу, если их там ещё нет.
  *
  * Без этого на новой копии сайта список групп пуст, а поля не появляются на

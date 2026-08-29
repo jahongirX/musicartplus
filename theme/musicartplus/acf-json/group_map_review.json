@@ -1,6 +1,6 @@
 {
     "key": "group_map_review",
-    "title": "",
+    "title": "Отзыв",
     "fields": [
         {
             "key": "field_map_review_author",
@@ -113,6 +113,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787987869,
-    "local_file": "\/Users\/jahongirxushboqov\/Documents\/asadbek-project\/wordpress\/wp-content\/themes\/musicartplus\/acf-json\/group_map_review.json"
+    "modified": 1787988358
 }
