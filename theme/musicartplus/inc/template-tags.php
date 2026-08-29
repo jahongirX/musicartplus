@@ -492,3 +492,104 @@ function map_form_card( $title, $subtitle, $ident = 'form-main' ) {
 	</div>
 	<?php
 }
+
+/**
+ * Ролик внутри новости.
+ *
+ * Открывается тем же окном, что и видео на главной: разметка карточки общая,
+ * скрипту достаточно атрибутов data-video.
+ *
+ * @param int $post_id Запись; по умолчанию текущая.
+ * @return void
+ */
+function map_the_article_video( $post_id = 0 ) {
+	$post_id = $post_id ? (int) $post_id : get_the_ID();
+
+	$url  = (string) map_field( 'news_video_url', $post_id, '' );
+	$file = (string) map_field( 'news_video_file', $post_id, '' );
+	$src  = $url ? $url : $file;
+
+	if ( ! $src ) {
+		return;
+	}
+
+	// Файл проигрываем сами, ссылку отдаём во встроенный проигрыватель сервиса.
+	$kind = $url ? 'iframe' : 'file';
+
+	$poster_id = (int) map_field( 'news_video_poster', $post_id, 0 );
+	$poster    = $poster_id ? wp_get_attachment_image_url( $poster_id, 'map-card' ) : '';
+
+	if ( ! $poster ) {
+		$poster = get_the_post_thumbnail_url( $post_id, 'map-card' );
+	}
+
+	if ( ! $poster ) {
+		return;
+	}
+
+	$title    = (string) map_field( 'news_video_title', $post_id, __( 'Смотреть видео', 'musicartplus' ) );
+	$subtitle = (string) map_field( 'news_video_subtitle', $post_id, '' );
+	$vertical = (bool) map_field( 'news_video_vertical', $post_id, false );
+
+	$attrs = array(
+		'data-video'      => $src,
+		'data-video-type' => $kind,
+	);
+
+	if ( 'iframe' === $kind ) {
+		$attrs['data-video-page'] = str_replace( '/embed/', '/', $src );
+		$attrs['data-video-host'] = map_video_host( $src );
+	}
+
+	if ( $vertical ) {
+		$attrs['data-video-ratio'] = 'vertical';
+	}
+
+	$out = '';
+
+	foreach ( $attrs as $key => $value ) {
+		$out .= sprintf( ' %s="%s"', esc_attr( $key ), esc_attr( $value ) );
+	}
+
+	printf(
+		'<figure class="article__video">'
+			. '<button class="video-card video-card--wide%1$s" type="button"%2$s aria-label="%3$s">'
+			. '<img src="%4$s" alt="" loading="lazy">'
+			. '<span class="video-card__play">%5$s</span>'
+			. '<span class="video-card__cap"><b>%6$s</b><span>%7$s</span></span>'
+			. '</button></figure>',
+		$vertical ? ' video-card--v' : '',
+		$out, // экранировано выше
+		esc_attr( sprintf( __( 'Смотреть: %s', 'musicartplus' ), $title ) ),
+		esc_url( $poster ),
+		map_icon( 'play' ),
+		esc_html( $title ),
+		esc_html( $subtitle )
+	);
+}
+
+/**
+ * Название сервиса по адресу ролика — для запасной ссылки в окне просмотра.
+ *
+ * @param string $url Адрес.
+ * @return string
+ */
+function map_video_host( $url ) {
+	$host = wp_parse_url( $url, PHP_URL_HOST );
+
+	$known = array(
+		'kinescope' => 'Kinescope',
+		'rutube'    => 'Rutube',
+		'vk'        => 'VK Видео',
+		'youtube'   => 'YouTube',
+		'youtu.be'  => 'YouTube',
+	);
+
+	foreach ( $known as $needle => $label ) {
+		if ( false !== strpos( (string) $host, $needle ) ) {
+			return $label;
+		}
+	}
+
+	return __( 'первоисточник', 'musicartplus' );
+}

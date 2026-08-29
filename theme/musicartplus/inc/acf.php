@@ -85,13 +85,20 @@ function map_acf_sync_json() {
 	}
 
 	foreach ( acf_get_field_groups() as $group ) {
-		// Непустой ID — группа уже есть в базе.
-		if ( ! empty( $group['ID'] ) ) {
+		if ( empty( $group['local'] ) || 'json' !== $group['local'] ) {
 			continue;
 		}
 
-		if ( empty( $group['local'] ) || 'json' !== $group['local'] ) {
-			continue;
+		if ( ! empty( $group['ID'] ) ) {
+			// Группа в базе есть. Переносим заново, только если файл новее —
+			// так правки, приехавшие с обновлением темы, доходят до админки
+			// сами. После сохранения из админки время в файле и в базе
+			// совпадает, поэтому свои правки этим не затрёт.
+			$saved = (int) get_post_modified_time( 'U', true, $group['ID'] );
+
+			if ( empty( $group['modified'] ) || (int) $group['modified'] <= $saved ) {
+				continue;
+			}
 		}
 
 		$group['fields'] = acf_get_fields( $group );

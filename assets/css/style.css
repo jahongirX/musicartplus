@@ -1423,3 +1423,34 @@ html #SiteWidgetMoyklass139193 .WdgMoyklassSchedule-submenu > .active{
 
 /* у секции уже есть свой заголовок — внутренний заголовок виджета прячем */
 html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}
+
+/* ---------------------------------------------------------------- 36. Видео и фотографии внутри новости */
+.article__video{margin:clamp(28px,3.4vw,44px) 0 0}
+@media (min-width:1000px){
+  .article__video{margin-inline:-70px}
+}
+.video-card--wide{aspect-ratio:16/9;width:100%}
+/* Вертикальный ролик снят на телефон: во всю ширину он превратился бы в две
+   чёрные полосы по краям, поэтому карточку держим узкой и по центру. */
+.video-card--v{aspect-ratio:9/13;max-width:340px;margin-inline:auto}
+.video-card--v .video-card__play{width:60px;height:60px}
+
+.article__gallery{
+  margin-top:clamp(22px,2.6vw,34px);
+  display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1.2vw,16px);
+}
+@media (min-width:1000px){
+  .article__gallery{margin-inline:-70px;grid-template-columns:repeat(4,1fr)}
+}
+.article__shot{margin:0;border-radius:var(--r-md);overflow:hidden;background:var(--cream)}
+/* Снимки приходят и вертикальные, и горизонтальные — квадрат щадит и те и
+   другие, а сдвиг кадра вверх спасает лица от обрезки. */
+.article__shot img{
+  display:block;width:100%;aspect-ratio:1/1;object-fit:cover;object-position:center 30%;
+  transition:transform .8s var(--e);
+}
+.article__shot:hover img{transform:scale(1.04)}
+
+/* Вертикальное видео в окне просмотра */
+.modal__box--video.is-vertical{width:min(420px,100%)}
+.modal__box--video.is-vertical .modal__video{aspect-ratio:9/16}

@@ -69,6 +69,131 @@
             "max_height": 0,
             "max_size": 0,
             "mime_types": ""
+        },
+        {
+            "key": "field_map_news_video_url",
+            "label": "Ссылка на видео",
+            "name": "news_video_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Адрес ролика на Kinescope, Rutube или YouTube — либо путь к файлу в медиатеке.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "https://kinescope.io/embed/…",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_news_video_file",
+            "label": "Видеофайл",
+            "name": "news_video_file",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "Если ролик короткий и лежит у нас — загрузите файл вместо ссылки.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "library": "all",
+            "min_size": "",
+            "max_size": "",
+            "mime_types": "mp4,webm"
+        },
+        {
+            "key": "field_map_news_video_poster",
+            "label": "Обложка ролика",
+            "name": "news_video_poster",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
+            "key": "field_map_news_video_title",
+            "label": "Подпись к ролику",
+            "name": "news_video_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_news_video_subtitle",
+            "label": "Вторая строка",
+            "name": "news_video_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_news_video_vertical",
+            "label": "Вертикальный ролик",
+            "name": "news_video_vertical",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Снято на телефон вертикально — окно просмотра станет узким.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "message": "",
+            "default_value": 0,
+            "ui": 0,
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [

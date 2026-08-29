@@ -263,6 +263,14 @@
         var src  = card.getAttribute('data-video');
         var type = card.getAttribute('data-video-type') || 'iframe';
         var page = card.getAttribute('data-video-page') || '';
+        var host = card.getAttribute('data-video-host') || 'Rutube';
+
+        // Ролики, снятые на телефон, вертикальные: в окне 16:9 от них остаётся
+        // узкая полоска между двумя чёрными полями.
+        var box = videoModal.querySelector('.modal__box--video');
+        if (box) {
+          box.classList.toggle('is-vertical', card.getAttribute('data-video-ratio') === 'vertical');
+        }
 
         stage.innerHTML =
           '<div class="v-load"><span class="v-load__spin"></span><span>Загружаем видео…</span></div>' +
@@ -289,7 +297,7 @@
         if (vFoot) {
           if (page) {
             vFoot.innerHTML = '<span>Видео не запускается?</span>' +
-              '<a href="' + page + '" target="_blank" rel="noopener">Открыть на Rutube' +
+              '<a href="' + page + '" target="_blank" rel="noopener">Открыть на ' + host +
               '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" ' +
               'stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9"/>' +
               '<path d="M18 14v4a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h4"/></svg></a>';

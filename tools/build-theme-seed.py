@@ -96,6 +96,17 @@ for n in ns['NEWS']:
         'image': 'assets/img/gallery/' + n['img'],
         'date': '%s-%02d-%02d 12:00:00' % (n['y'], MONTHS[n['m']], int(n['d'])),
         'body': ns['FULL'].get(n['slug'], []),
+        'photos': ['assets/img/gallery/' + img for img, _ in n.get('photos', [])],
+        'video': ({
+            'url':      n['video']['src'],
+            'kind':     n['video']['typ'],
+            'page':     n['video'].get('page', ''),
+            'host':     n['video'].get('host', ''),
+            'poster':   n['video']['poster'],
+            'title':    n['video']['title'],
+            'subtitle': n['video']['sub'],
+            'vertical': bool(n['video'].get('vertical')),
+        } if n.get('video') else None),
     })
 
 front = {

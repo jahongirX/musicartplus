@@ -60,16 +60,15 @@ while ( have_posts() ) :
 
 			<div class="article__body"><?php the_content(); ?></div>
 
+			<?php map_the_article_video(); ?>
+
 			<?php if ( $map_gallery ) : ?>
-				<div class="gallery">
+				<div class="article__gallery">
 					<?php foreach ( (array) $map_gallery as $map_item ) : ?>
-						<?php
-						$map_gid  = is_array( $map_item ) ? $map_item['ID'] : $map_item;
-						$map_full = wp_get_attachment_image_url( $map_gid, 'full' );
-						?>
-						<a class="gallery__item" href="<?php echo esc_url( $map_full ); ?>" data-lightbox>
+						<?php $map_gid = is_array( $map_item ) ? $map_item['ID'] : $map_item; ?>
+						<figure class="article__shot">
 							<?php echo wp_get_attachment_image( $map_gid, 'map-card', false, array( 'loading' => 'lazy' ) ); ?>
-						</a>
+						</figure>
 					<?php endforeach; ?>
 				</div>
 			<?php endif; ?>
