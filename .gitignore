@@ -1,3 +1,13 @@
 .DS_Store
 Thumbs.db
 *.log
+
+# Секреты интеграций. Ключ API «Моего класса» задаётся константой
+# MOYKLASS_API_KEY в wp-config.php и в репозиторий не попадает.
+theme/musicartplus/inc/config.local.php
+wp-config.php
+*.env
+.env*
+
+# Служебное
+theme/musicartplus/acf-json/.tmp
