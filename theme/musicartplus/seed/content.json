@@ -90,32 +90,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": "15:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": "15:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": "14:00 – 19:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": "11:00 – 15:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": ""
     }
    ]
   },
@@ -135,32 +135,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": "16:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": "16:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": "12:00 – 17:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": ""
     }
    ]
   },
@@ -180,32 +180,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": "12:00 – 18:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": "12:00 – 18:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": "14:00 – 19:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": "10:00 – 14:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": ""
     }
    ]
   },
@@ -225,32 +225,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": "15:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": "15:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": "11:00 – 16:00"
     }
    ]
   },
@@ -269,32 +269,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": "16:00 – 21:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": "16:00 – 21:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": "12:00 – 18:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": ""
     }
    ]
   },
@@ -314,32 +314,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": "10:00 – 14:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": "15:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": "15:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": "10:00 – 15:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": ""
     }
    ]
   },
@@ -359,32 +359,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": "14:00 – 19:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": "14:00 – 19:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": "11:00 – 16:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": ""
     }
    ]
   },
@@ -404,32 +404,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": "16:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": "16:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": ""
     }
    ]
   },
@@ -448,32 +448,32 @@
    ],
    "schedule": [
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пн",
+     "time": "16:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Ср",
+     "time": "16:00 – 20:00"
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Чт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Пт",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Сб",
+     "time": ""
     },
     {
-     "day": "day",
-     "time": "time"
+     "day": "Вс",
+     "time": "12:00 – 17:00"
     }
    ]
   }

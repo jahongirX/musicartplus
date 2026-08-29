@@ -47,7 +47,9 @@ for t in ns['TEACHERS']:
         'short': t['short'],
         'bio': t['bio'],
         'facts': t['facts'],
-        'schedule': [{'day': d, 'time': v} for d, v in t['schedule']],
+        # sc() в генераторе уже отдаёт [{'day': ..., 'time': ...}] —
+        # распаковывать это как пары нельзя, получатся ключи вместо значений.
+        'schedule': t['schedule'],
     })
 
 guests = []

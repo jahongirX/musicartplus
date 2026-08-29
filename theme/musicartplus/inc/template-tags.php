@@ -49,12 +49,17 @@ function map_teacher_data( $post ) {
 	$schedule = map_field( 'schedule', $post->ID, array() );
 	$rows     = array();
 
+	// Скрипт модального окна ждёт объекты вида {day, time} — см. main.js,
+	// блок отрисовки расписания. Массив пар он не поймёт.
 	foreach ( (array) $schedule as $row ) {
 		if ( empty( $row['day'] ) ) {
 			continue;
 		}
 
-		$rows[] = array( $row['day'], isset( $row['time'] ) ? $row['time'] : '' );
+		$rows[] = array(
+			'day'  => $row['day'],
+			'time' => isset( $row['time'] ) ? $row['time'] : '',
+		);
 	}
 
 	return array(
