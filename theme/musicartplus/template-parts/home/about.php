@@ -25,12 +25,12 @@ $map_teach  = map_page_by_template( 'page-teachers.php' );
 				</div>
 				<div class="about-visual__badge">
 					<img src="<?php echo esc_url( map_asset( 'assets/img/ui/logo-color.png' ) ); ?>" alt="" width="176" height="103" loading="lazy">
-					<div><b><?php echo esc_html( get_bloginfo( 'name' ) ); ?></b><span><?php esc_html_e( 'центр искусств', 'musicartplus' ); ?></span></div>
+					<div><b><?php echo esc_html( get_bloginfo( 'name' ) ); ?></b><span><?php echo esc_html( get_bloginfo( 'description' ) ? get_bloginfo( 'description' ) : __( 'центр искусств', 'musicartplus' ) ); ?></span></div>
 				</div>
 			</div>
 
 			<div class="reveal reveal--right">
-				<span class="eyebrow"><?php esc_html_e( 'О центре искусств', 'musicartplus' ); ?></span>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'about_eyebrow', 'О центре искусств' ) ); ?></span>
 				<h2 class="h2"><?php echo wp_kses_post( map_field( 'about_title', get_the_ID() ) ); ?></h2>
 
 				<?php if ( map_field( 'about_text', get_the_ID() ) ) : ?>
@@ -40,7 +40,7 @@ $map_teach  = map_page_by_template( 'page-teachers.php' );
 				<?php if ( $map_points ) : ?>
 					<ul class="about-list">
 						<?php foreach ( $map_points as $map_point ) : ?>
-							<li><span class="tick"><?php map_the_icon( 'check' ); ?></span><span><?php echo wp_kses_post( $map_point ); ?></span></li>
+							<li><span class="tick"><?php map_the_icon( map_home_field( 'about_point_icon', 'check' ) ); ?></span><span><?php echo wp_kses_post( $map_point ); ?></span></li>
 						<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>
@@ -48,10 +48,10 @@ $map_teach  = map_page_by_template( 'page-teachers.php' );
 				<?php if ( $map_about || $map_teach ) : ?>
 					<div class="flex-center mt-l" style="justify-content:flex-start">
 						<?php if ( $map_about ) : ?>
-							<a class="btn btn--dark" href="<?php echo esc_url( get_permalink( $map_about ) ); ?>"><?php esc_html_e( 'Подробнее о центре', 'musicartplus' ); ?></a>
+							<a class="btn btn--dark" href="<?php echo esc_url( get_permalink( $map_about ) ); ?>"><?php echo esc_html( map_home_field( 'about_btn_text', 'Подробнее о центре' ) ); ?></a>
 						<?php endif; ?>
 						<?php if ( $map_teach ) : ?>
-							<a class="link-arrow" href="<?php echo esc_url( get_permalink( $map_teach ) ); ?>"><?php esc_html_e( 'Наши педагоги', 'musicartplus' ); ?><?php map_the_icon( 'ar' ); ?></a>
+							<a class="link-arrow" href="<?php echo esc_url( get_permalink( $map_teach ) ); ?>"><?php echo esc_html( map_home_field( 'about_link_text', 'Наши педагоги' ) ); ?><?php map_the_icon( 'ar' ); ?></a>
 						<?php endif; ?>
 					</div>
 				<?php endif; ?>

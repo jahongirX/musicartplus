@@ -19,7 +19,11 @@ if ( ! $map_image && ! is_home() ) {
 }
 
 if ( ! $map_image ) {
-	$map_image = map_asset( 'assets/img/gallery/g07.jpg' );
+	$map_image = map_image_url(
+		map_opt( 'hero_default_image' ),
+		'map-hero',
+		map_asset( 'assets/img/gallery/g07.jpg' )
+	);
 }
 ?>
 <section class="page-hero<?php echo $map_image ? ' page-hero--photo' : ''; ?>">

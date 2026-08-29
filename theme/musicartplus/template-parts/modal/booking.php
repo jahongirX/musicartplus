@@ -23,16 +23,17 @@ $map_privacy = get_privacy_policy_url();
 		<div class="bk">
 			<aside class="bk__aside">
 				<img src="<?php echo esc_url( map_asset( 'assets/img/ui/logo-color.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" width="176" height="103">
-				<h4><?php esc_html_e( 'Первый урок — чтобы просто попробовать', 'musicartplus' ); ?></h4>
-				<p><?php esc_html_e( 'Знакомство с педагогом и инструментом. Ни к чему не обязывает.', 'musicartplus' ); ?></p>
+				<h4><?php echo esc_html( map_opt( 'booking_aside_title', __( 'Первый урок — чтобы просто попробовать', 'musicartplus' ) ) ); ?></h4>
+				<p><?php echo esc_html( map_opt( 'booking_aside_text', __( 'Знакомство с педагогом и инструментом. Ни к чему не обязывает.', 'musicartplus' ) ) ); ?></p>
 
 				<ul class="about-list">
 					<?php
-					$map_points = array(
+					// Пункты задаются в настройках темы по одному в строке.
+					$map_points = map_lines( map_opt( 'booking_points' ), array(
 						__( 'Подберём педагога под возраст и характер', 'musicartplus' ),
 						__( 'Заниматься можно на инструментах центра', 'musicartplus' ),
 						__( 'Очно у метро Минская или онлайн', 'musicartplus' ),
-					);
+					) );
 
 					foreach ( $map_points as $map_point ) :
 						?>
@@ -41,14 +42,14 @@ $map_privacy = get_privacy_policy_url();
 				</ul>
 
 				<div class="bk__phone">
-					<span><?php esc_html_e( 'Или позвоните', 'musicartplus' ); ?></span>
+					<span><?php echo esc_html( map_opt( 'booking_phone_label', __( 'Или позвоните', 'musicartplus' ) ) ); ?></span>
 					<a href="tel:<?php echo esc_attr( map_phone_href() ); ?>"><?php echo esc_html( map_opt( 'phone' ) ); ?></a>
 				</div>
 			</aside>
 
 			<div class="bk__main">
-				<h3 class="bk__title" id="bk-title"><?php esc_html_e( 'Записаться на пробный урок', 'musicartplus' ); ?></h3>
-				<p class="bk__sub"><?php esc_html_e( 'Заполните два поля — остальное уточним по телефону.', 'musicartplus' ); ?></p>
+				<h3 class="bk__title" id="bk-title"><?php echo esc_html( map_opt( 'booking_title', __( 'Записаться на пробный урок', 'musicartplus' ) ) ); ?></h3>
+				<p class="bk__sub"><?php echo esc_html( map_opt( 'booking_subtitle', __( 'Заполните два поля — остальное уточним по телефону.', 'musicartplus' ) ) ); ?></p>
 
 				<div class="bk__ctx" data-bk-ctx>
 					<img alt="" data-bk-photo>
@@ -88,7 +89,7 @@ $map_privacy = get_privacy_policy_url();
 					<label class="check">
 						<input type="checkbox" name="consent" required>
 						<span>
-							<?php esc_html_e( 'Я согласен(-на) на обработку персональных данных', 'musicartplus' ); ?>
+							<?php echo esc_html( map_opt( 'booking_consent_text', __( 'Я согласен(-на) на обработку персональных данных', 'musicartplus' ) ) ); ?>
 							<?php if ( $map_privacy ) : ?>
 								<?php esc_html_e( 'и принимаю', 'musicartplus' ); ?>
 								<a href="<?php echo esc_url( $map_privacy ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'политику конфиденциальности', 'musicartplus' ); ?></a>
@@ -96,12 +97,12 @@ $map_privacy = get_privacy_policy_url();
 						</span>
 					</label>
 
-					<button class="btn btn--gold btn--block btn--lg" type="submit" data-label="<?php esc_attr_e( 'Отправить заявку', 'musicartplus' ); ?>"><?php esc_html_e( 'Отправить заявку', 'musicartplus' ); ?></button>
+					<button class="btn btn--gold btn--block btn--lg" type="submit" data-label="<?php echo esc_attr( map_opt( 'booking_submit_label', __( 'Отправить заявку', 'musicartplus' ) ) ); ?>"><?php echo esc_html( map_opt( 'booking_submit_label', __( 'Отправить заявку', 'musicartplus' ) ) ); ?></button>
 
-					<div class="form__ok"><?php esc_html_e( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ); ?></div>
+					<div class="form__ok"><?php echo esc_html( map_opt( 'booking_success_text', __( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ) ) ); ?></div>
 
 					<p class="form__note">
-						<?php esc_html_e( 'Или выберите время сами в системе «Мой класс» —', 'musicartplus' ); ?>
+						<?php echo esc_html( map_opt( 'booking_crm_note', __( 'Или выберите время сами в системе «Мой класс» —', 'musicartplus' ) ) ); ?>
 						<a data-bk-crm href="<?php echo esc_url( map_crm_url() ); ?>" target="_blank" rel="noopener" style="color:var(--gold-dark);font-weight:600"><?php esc_html_e( 'открыть расписание', 'musicartplus' ); ?></a>
 					</p>
 				</form>

@@ -10,7 +10,7 @@ defined( 'ABSPATH' ) || exit;
 // Переключатель «Показывать на главной» в карточке направления.
 // Если его никто не включил (свежая установка), показываем первые восемь —
 // иначе блок на главной оказался бы пустым.
-$map_dirs = map_get_featured_directions( 8 );
+$map_dirs = map_get_featured_directions( max( 1, (int) map_home_field( 'dirs_limit', 8 ) ) );
 
 if ( ! $map_dirs ) {
 	return;
@@ -23,9 +23,9 @@ $map_dir_page = map_page_by_template( 'page-directions.php' );
 	<div class="container">
 		<div class="sec-head sec-head--center">
 			<div class="sec-head__text">
-				<span class="eyebrow"><?php esc_html_e( 'Наши направления', 'musicartplus' ); ?></span>
-				<h2 class="h2"><?php echo esc_html( sprintf( _n( '%d путь к искусству', '%d путей к искусству', count( $map_dirs ), 'musicartplus' ), count( $map_dirs ) ) ); ?></h2>
-				<p class="sec-head__desc"><?php esc_html_e( 'Инструменты, вокал, сцена и живопись — можно выбрать одно направление или собрать своё сочетание.', 'musicartplus' ); ?></p>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'dirs_eyebrow', 'Наши направления' ) ); ?></span>
+				<h2 class="h2"><?php echo esc_html( map_sec_title( map_home_field( 'dirs_title', _n( '%d путь к искусству', '%d путей к искусству', count( $map_dirs ), 'musicartplus' ) ), count( $map_dirs ) ) ); ?></h2>
+				<p class="sec-head__desc"><?php echo esc_html( map_home_field( 'dirs_text', 'Инструменты, вокал, сцена и живопись — можно выбрать одно направление или собрать своё сочетание.' ) ); ?></p>
 			</div>
 		</div>
 
@@ -43,7 +43,7 @@ $map_dir_page = map_page_by_template( 'page-directions.php' );
 
 		<?php if ( $map_dir_page ) : ?>
 			<div class="flex-center mt-l">
-				<a class="btn btn--gold" href="<?php echo esc_url( get_permalink( $map_dir_page ) ); ?>"><?php esc_html_e( 'Посмотреть все направления', 'musicartplus' ); ?><?php map_the_icon( 'ar', 'btn__ico' ); ?></a>
+				<a class="btn btn--gold" href="<?php echo esc_url( get_permalink( $map_dir_page ) ); ?>"><?php echo esc_html( map_home_field( 'dirs_btn_text', 'Посмотреть все направления' ) ); ?><?php map_the_icon( 'ar', 'btn__ico' ); ?></a>
 			</div>
 		<?php endif; ?>
 	</div>

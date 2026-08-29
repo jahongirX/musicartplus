@@ -1,0 +1,451 @@
+# -*- coding: utf-8 -*-
+"""Достраивает группы полей ACF в theme/musicartplus/acf-json.
+
+Скрипт ТОЛЬКО добавляет: поле, которое уже есть в файле, он не трогает, порядок
+существующих не меняет. Поэтому его можно запускать повторно и после правок из
+админки — свои изменения заказчика он не затрёт.
+
+Ключи новых полей содержат имя группы (field_map_home_..., field_map_set_...):
+одинаковое имя поля в разных группах допустимо, а вот одинаковый ключ ACF
+ломает всё — он должен быть уникален на весь сайт.
+"""
+import io
+import json
+import os
+import zlib
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+JSON_DIR = os.path.join(ROOT, 'theme', 'musicartplus', 'acf-json')
+
+
+def f(name, label, ftype='text', **extra):
+    """Описание поля. Всё лишнее ACF допишет сам при первом сохранении."""
+    d = {'name': name, 'label': label, 'type': ftype}
+    d.update(extra)
+    return d
+
+
+# ------------------------------------------------------------------ настройки
+SETTINGS = [
+    ('Логотип', [
+        f('logo_color', 'Логотип для светлой шапки', 'image', return_format='id',
+          instructions='Цветной. Показывается на внутренних страницах и при прокрутке.'),
+        f('logo_white', 'Логотип для тёмной шапки и подвала', 'image', return_format='id',
+          instructions='Белый. Показывается поверх фотографии на первом экране.'),
+        f('favicon', 'Значок вкладки', 'image', return_format='id',
+          instructions='Квадратный PNG, лучше 512×512.'),
+    ]),
+    ('Контакты', [
+        f('lessons_format', 'Формат занятий', 'text', default_value='Очно в центре и онлайн'),
+        f('lessons_format_note', 'Уточнение к формату', 'text',
+          default_value='Некоторые педагоги проводят занятия на дому'),
+    ]),
+    ('Соцсети', [
+        f('rutube_label', 'Подпись ссылки на Rutube', 'text', default_value='Канал на Rutube'),
+        f('fund_logo', 'Логотип фонда', 'image', return_format='id'),
+        f('fund_prefix', 'Подпись перед названием фонда', 'text', default_value='При поддержке фонда'),
+    ]),
+    ('Подвал', [
+        f('footer_menu_title', 'Заголовок колонки с разделами', 'text', default_value='Разделы'),
+        f('footer_directions_title', 'Заголовок колонки с направлениями', 'text', default_value='Направления'),
+        f('footer_directions_count', 'Сколько направлений показывать', 'number',
+          default_value=5, min=1, max=12),
+        f('footer_contacts_title', 'Заголовок колонки с контактами', 'text', default_value='Контакты'),
+        f('footer_copyright', 'Строка копирайта', 'text', default_value='Все права защищены.',
+          instructions='Год и название центра подставляются перед этой строкой.'),
+    ]),
+    ('Кнопки', [
+        f('cta_label', 'Надпись на кнопке записи', 'text', default_value='Записаться на пробный урок'),
+        f('cta_label_short', 'Короткая надпись (шапка)', 'text', default_value='Записаться'),
+    ]),
+    ('CRM «Мой класс»', [
+        f('schedule_eyebrow', 'Расписание: надглавие', 'text', default_value='ЗАПИСЬ ОНЛАЙН'),
+        f('schedule_title', 'Расписание: заголовок', 'text', default_value='Расписание занятий'),
+        f('schedule_text', 'Расписание: текст', 'textarea', rows=3,
+          default_value='Актуальные группы и свободное время — напрямую из системы «Мой класс».'),
+    ]),
+    ('Форма записи', [
+        f('booking_title', 'Заголовок окна', 'text', default_value='Записаться на пробный урок'),
+        f('booking_subtitle', 'Подзаголовок окна', 'text',
+          default_value='Заполните два поля — остальное уточним по телефону.'),
+        f('booking_aside_title', 'Заголовок левой колонки', 'text',
+          default_value='Первый урок — чтобы просто попробовать'),
+        f('booking_aside_text', 'Текст левой колонки', 'textarea', rows=3,
+          default_value='Знакомство с педагогом и инструментом. Ни к чему не обязывает.'),
+        f('booking_points', 'Что получит посетитель', 'textarea', rows=4,
+          instructions='По одному пункту в строке.',
+          default_value='Подберём педагога под возраст и характер\nПокажем центр и инструменты\nОтветим на вопросы родителей'),
+        f('booking_submit_label', 'Надпись на кнопке отправки', 'text', default_value='Отправить заявку'),
+        f('booking_consent_text', 'Текст согласия на обработку данных', 'textarea', rows=2,
+          default_value='Я согласен(-на) на обработку персональных данных'),
+        f('booking_phone_label', 'Подпись перед телефоном', 'text', default_value='Или позвоните'),
+        f('booking_crm_note', 'Подпись перед ссылкой на расписание', 'text',
+          default_value='Или выберите время сами в системе «Мой класс»'),
+        f('booking_success_text', 'Сообщение после отправки', 'textarea', rows=2,
+          default_value='Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.'),
+    ]),
+    ('Служебные страницы', [
+        f('hero_default_image', 'Фон первого экрана по умолчанию', 'image', return_format='id',
+          instructions='Показывается на страницах без своей фотографии.'),
+        f('err404_eyebrow', '404: надглавие', 'text', default_value='Ошибка 404'),
+        f('err404_title', '404: заголовок', 'text', default_value='Такой страницы нет'),
+        f('err404_text', '404: текст', 'textarea', rows=2,
+          default_value='Возможно, она переехала. Вернитесь на главную или запишитесь на урок.'),
+        f('err404_btn_home', '404: кнопка на главную', 'text', default_value='На главную'),
+        f('err404_btn_cta', '404: кнопка записи', 'text', default_value='Записаться на урок'),
+        f('search_empty', 'Поиск: когда ничего не нашлось', 'textarea', rows=2,
+          default_value='Ничего не нашлось. Попробуйте другой запрос.'),
+        f('archive_empty', 'Список новостей: когда пусто', 'textarea', rows=2,
+          default_value='Здесь пока пусто.'),
+    ]),
+]
+
+# ------------------------------------------------------------------ главная
+HOME = [
+    ('Первый экран', [
+        f('hero_eyebrow_icon', 'Иконка надглавия', 'select', choices={}, allow_null=1,
+          instructions='Список берётся из набора иконок темы.'),
+        f('hero_btn_primary', 'Первая кнопка: текст', 'text', default_value='Записаться на пробный урок'),
+        f('hero_btn_secondary', 'Вторая кнопка: текст', 'text', default_value='Наши направления'),
+        f('hero_btn_secondary_url', 'Вторая кнопка: ссылка', 'text', default_value='#directions'),
+    ]),
+    ('О центре', [
+        f('about_eyebrow', 'Надглавие', 'text', default_value='О центре'),
+        f('about_point_icon', 'Иконка пунктов списка', 'select', choices={}, allow_null=1),
+        f('about_btn_text', 'Кнопка: текст', 'text', default_value='Подробнее о центре'),
+        f('about_link_text', 'Ссылка рядом: текст', 'text', default_value='Наши педагоги'),
+    ]),
+    ('Новости', [
+        f('news_eyebrow', 'Надглавие', 'text', default_value='Новости'),
+        f('news_title', 'Заголовок', 'text', default_value='Чем живёт центр'),
+        f('news_text', 'Текст под заголовком', 'textarea', rows=2),
+        f('news_count', 'Сколько новостей показывать', 'number', default_value=3, min=1, max=9),
+        f('news_btn_text', 'Кнопка: текст', 'text', default_value='Все новости'),
+    ]),
+    ('Направления', [
+        f('dirs_eyebrow', 'Надглавие', 'text', default_value='Наши направления'),
+        f('dirs_title', 'Заголовок', 'text',
+          instructions='Можно вставить %d — подставится число направлений.',
+          default_value='%d путей к искусству'),
+        f('dirs_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Инструменты, вокал, сцена и живопись — можно выбрать одно направление или собрать своё сочетание.'),
+        f('dirs_limit', 'Сколько направлений показывать', 'number', default_value=6, min=1, max=12),
+        f('dirs_btn_text', 'Кнопка: текст', 'text', default_value='Посмотреть все направления'),
+    ]),
+    ('Педагоги', [
+        f('teachers_eyebrow', 'Надглавие', 'text', default_value='Педагоги'),
+        f('teachers_title', 'Заголовок', 'text', default_value='Люди, к которым хочется возвращаться'),
+        f('teachers_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Нажмите на фотографию, чтобы открыть биографию, расписание и записаться на урок.'),
+        f('teachers_btn_text', 'Кнопка: текст', 'text', default_value='Все педагоги'),
+    ]),
+    ('Видео', [
+        f('video_eyebrow', 'Надглавие', 'text', default_value='Видео'),
+        f('video_title', 'Заголовок', 'text', default_value='Как у нас проходят занятия'),
+        f('video_text', 'Текст под заголовком', 'textarea', rows=2),
+    ]),
+    ('Отзывы', [
+        f('reviews_eyebrow', 'Надглавие', 'text', default_value='Отзывы'),
+        f('reviews_title', 'Заголовок', 'text', default_value='Что говорят родители и ученики'),
+        f('reviews_text', 'Текст под заголовком', 'textarea', rows=2),
+    ]),
+    ('Разделители', [
+        f('brush_eyebrow', 'Полоса с кистью: надглавие', 'text'),
+        f('brush_title', 'Полоса с кистью: заголовок', 'text'),
+        f('brush_text', 'Полоса с кистью: текст', 'textarea', rows=2),
+        f('brush_video', 'Полоса с кистью: видео', 'file', return_format='url', mime_types='mp4,webm'),
+        f('brush_poster', 'Полоса с кистью: обложка видео', 'image', return_format='id'),
+        f('notes_caption', 'Нотная полоса: подпись', 'text'),
+    ]),
+    ('Как нас найти', [
+        f('contacts_eyebrow', 'Надглавие', 'text', default_value='Как нас найти'),
+        f('contacts_title', 'Заголовок', 'text', default_value='Мы рядом с метро Минская'),
+        f('contacts_text', 'Текст под заголовком', 'textarea', rows=2),
+    ]),
+    ('Призыв к записи', [
+        f('cta_eyebrow', 'Надглавие', 'text', default_value='Запись'),
+        f('cta_form_title', 'Заголовок карточки формы', 'text'),
+        f('cta_form_text', 'Текст карточки формы', 'textarea', rows=2),
+    ]),
+]
+
+# ------------------------------------------------------------------ страницы
+PAGE_ABOUT = [
+    ('Призыв к записи', [
+        f('about_cta_title', 'Заголовок', 'text'),
+        f('about_cta_text', 'Текст', 'textarea', rows=2),
+    ]),
+]
+
+PAGE_DIRS = [
+    ('Секция направлений', [
+        f('dirs_eyebrow', 'Надглавие', 'text', default_value='Направления'),
+        f('dirs_title', 'Заголовок', 'text', default_value='Выберите, с чего начать'),
+        f('dirs_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Можно заниматься одним направлением или собрать своё сочетание.'),
+    ]),
+    ('Призыв к записи', [
+        f('dirs_cta_title', 'Заголовок', 'text'),
+        f('dirs_cta_text', 'Текст', 'textarea', rows=2),
+    ]),
+]
+
+PAGE_TEACHERS = [
+    ('Основной состав', [
+        f('teachers_eyebrow', 'Надглавие', 'text', default_value='Основной состав'),
+        f('teachers_title', 'Заголовок', 'text', default_value='Наши преподаватели'),
+        f('teachers_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Кнопка «Записаться» ведёт в систему «Мой класс» — там видно свободное время педагога.'),
+    ]),
+    ('Приглашённые мастера', [
+        f('guests_eyebrow', 'Надглавие', 'text', default_value='Приглашённые мастера'),
+        f('guests_title', 'Заголовок', 'text', default_value='Мастера, которые приходят'),
+        f('guests_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Профессора и заслуженные деятели искусств проводят у нас мастер-классы и творческие встречи.'),
+    ]),
+    ('Призыв к записи', [
+        f('teachers_cta_title', 'Заголовок', 'text'),
+        f('teachers_cta_text', 'Текст', 'textarea', rows=2),
+    ]),
+]
+
+PAGE_NEWS = [
+    ('Первый экран', [
+        f('news_hero_title', 'Заголовок', 'text', default_value='Чем живёт центр искусств'),
+        f('news_hero_text', 'Текст под заголовком', 'textarea', rows=2),
+        f('news_hero_image', 'Фон первого экрана', 'image', return_format='id'),
+    ]),
+    ('Похожие новости', [
+        f('news_related_eyebrow', 'Надглавие', 'text', default_value='Читайте также'),
+        f('news_related_title', 'Заголовок', 'text', default_value='Другие новости центра'),
+        f('news_related_count', 'Сколько показывать', 'number', default_value=3, min=1, max=6),
+    ]),
+    ('Призыв к записи', [
+        f('news_cta_title', 'Заголовок', 'text'),
+        f('news_cta_text', 'Текст', 'textarea', rows=2),
+    ]),
+]
+
+# группа -> (файл, префикс ключей, описание вкладок)
+PLAN = [
+    ('group_map_settings',   'set',     SETTINGS),
+    ('group_map_front',      'home',    HOME),
+    ('group_map_page_about', 'pgabout', PAGE_ABOUT),
+    ('group_map_page_dirs',  'pgdirs',  PAGE_DIRS),
+    ('group_map_page_teach', 'pgteach', PAGE_TEACHERS),
+    ('group_map_page_news',  'pgnews',  PAGE_NEWS),
+]
+
+# группы, которых ещё нет — их надо создать целиком
+NEW_GROUPS = {
+    'group_map_page_about': ('Страница «О нас»', [[{
+        'param': 'page_template', 'operator': '==', 'value': 'page-about.php'}]]),
+    'group_map_page_dirs': ('Страница «Наши направления»', [[{
+        'param': 'page_template', 'operator': '==', 'value': 'page-directions.php'}]]),
+    'group_map_page_teach': ('Страница «Педагоги»', [[{
+        'param': 'page_template', 'operator': '==', 'value': 'page-teachers.php'}]]),
+    'group_map_page_news': ('Страница новостей', [[{
+        'param': 'page_type', 'operator': '==', 'value': 'posts_page'}]]),
+}
+
+
+def blank_group(key, title, location):
+    return {
+        'key': key, 'title': title, 'fields': [], 'location': location,
+        'menu_order': 0, 'position': 'normal', 'style': 'default',
+        'label_placement': 'top', 'instruction_placement': 'label',
+        'hide_on_screen': '', 'active': True, 'description': '',
+        'show_in_rest': 0,
+    }
+
+
+def full_field(spec, prefix):
+    d = {
+        'key': 'field_map_%s_%s' % (prefix, spec['name']),
+        'label': spec['label'],
+        'name': spec['name'],
+        'aria-label': '',
+        'type': spec['type'],
+        'instructions': spec.get('instructions', ''),
+        'required': 0,
+        'conditional_logic': 0,
+        'wrapper': {'width': '', 'class': '', 'id': ''},
+    }
+    for k, v in spec.items():
+        if k not in ('name', 'label', 'type', 'instructions'):
+            d[k] = v
+    return d
+
+
+def tab_field(label, prefix):
+    # hash() в Python рандомизируется от запуска к запуску — ключ обязан быть
+    # устойчивым, иначе повторный прогон заведёт вкладки заново.
+    stamp = format(zlib.crc32(label.encode('utf-8')) & 0xFFFFF, 'x')
+    return {
+        'key': 'field_map_%s_tab_%s' % (prefix, stamp),
+        'label': label, 'name': '', 'aria-label': '', 'type': 'tab',
+        'instructions': '', 'required': 0, 'conditional_logic': 0,
+        'wrapper': {'width': '', 'class': '', 'id': ''},
+        'placement': 'top', 'endpoint': 0, 'selected': 0,
+    }
+
+
+added_total = 0
+
+for key, prefix, plan in PLAN:
+    path = os.path.join(JSON_DIR, key + '.json')
+
+    if os.path.exists(path):
+        group = json.load(io.open(path, encoding='utf-8'))
+    else:
+        title, location = NEW_GROUPS[key]
+        group = blank_group(key, title, location)
+
+    fields = group['fields']
+    have = set(x.get('name') for x in fields if x.get('name'))
+    added = []
+
+    for tab_label, specs in plan:
+        # ищем вкладку; нет — заводим в конце
+        idx = None
+        for i, x in enumerate(fields):
+            if x['type'] == 'tab' and x['label'] == tab_label:
+                idx = i
+                break
+
+        if idx is None:
+            fields.append(tab_field(tab_label, prefix))
+            idx = len(fields) - 1
+
+        # конец блока вкладки — следующая вкладка или конец списка
+        end = len(fields)
+        for i in range(idx + 1, len(fields)):
+            if fields[i]['type'] == 'tab':
+                end = i
+                break
+
+        insert_at = end
+        for spec in specs:
+            if spec['name'] in have:
+                continue
+            fields.insert(insert_at, full_field(spec, prefix))
+            insert_at += 1
+            have.add(spec['name'])
+            added.append('%s/%s' % (tab_label, spec['name']))
+
+    io.open(path, 'w', encoding='utf-8').write(
+        json.dumps(group, ensure_ascii=False, indent=4) + '\n')
+
+    added_total += len(added)
+    state = 'создана' if key in NEW_GROUPS and not added else ''
+    print('%-24s полей всего %-3d  добавлено %-3d %s' % (
+        key, len(fields), len(added), state))
+    for a in added:
+        print('      + %s' % a)
+
+print('\nвсего добавлено полей: %d' % added_total)
+
+# --------------------------------------------- вкладки в остальных группах
+# Поля тут уже есть — вкладки только раскладывают их по смыслу. Скрипт вставит
+# вкладку перед указанным полем, если её ещё нет.
+TABS_BEFORE = [
+    ('group_map_teacher', 'teach', [
+        ('Основное', 'subject'),
+        ('Подробно', 'bio'),
+        ('Расписание', 'schedule'),
+    ]),
+    ('group_map_direction', 'dir', [
+        ('Основное', 'dir_icon'),
+        ('На главной', 'dir_featured'),
+    ]),
+    ('group_map_news', 'news', [
+        ('Текст', 'news_badge'),
+        ('Галерея', 'news_gallery'),
+        ('Видео', 'news_video_url'),
+    ]),
+]
+
+for key, prefix, tabs in TABS_BEFORE:
+    path = os.path.join(JSON_DIR, key + '.json')
+
+    if not os.path.exists(path):
+        continue
+
+    group = json.load(io.open(path, encoding='utf-8'))
+    fields = group['fields']
+    have = set(x['label'] for x in fields if x['type'] == 'tab')
+    added = 0
+
+    for label, before in tabs:
+        if label in have:
+            continue
+
+        idx = None
+        for i, x in enumerate(fields):
+            if x.get('name') == before:
+                idx = i
+                break
+
+        if idx is None:
+            continue
+
+        fields.insert(idx, tab_field(label, prefix))
+        added += 1
+
+    if added:
+        io.open(path, 'w', encoding='utf-8').write(
+            json.dumps(group, ensure_ascii=False, indent=4) + '\n')
+
+    print('%-24s вкладок добавлено %d' % (key, added))
+
+# --------------------------------------------- порядок вкладок
+# Новые вкладки скрипт дописывает в конец. Здесь задаём, в каком порядке они
+# должны идти — по порядку блоков на самой странице, чтобы редактор искал
+# настройку там же, где видит блок.
+TAB_ORDER = {
+    'group_map_settings': [
+        'Логотип', 'Контакты', 'Соцсети', 'Подвал', 'Кнопки',
+        'CRM «Мой класс»', 'Форма записи', 'Служебные страницы',
+    ],
+    'group_map_front': [
+        'Первый экран', 'О центре', 'Новости', 'Направления', 'Педагоги',
+        'Видео', 'Разделители', 'Отзывы', 'Как нас найти', 'Призыв к записи',
+    ],
+}
+
+for key, order in TAB_ORDER.items():
+    path = os.path.join(JSON_DIR, key + '.json')
+
+    if not os.path.exists(path):
+        continue
+
+    group = json.load(io.open(path, encoding='utf-8'))
+    fields = group['fields']
+
+    # разрезаем список на блоки «вкладка + её поля»
+    head, blocks, current = [], [], None
+
+    for x in fields:
+        if x['type'] == 'tab':
+            current = [x['label'], [x]]
+            blocks.append(current)
+        elif current is None:
+            head.append(x)
+        else:
+            current[1].append(x)
+
+    known = [b for b in blocks if b[0] in order]
+    rest = [b for b in blocks if b[0] not in order]
+    known.sort(key=lambda b: order.index(b[0]))
+
+    new_fields = head[:]
+    for b in known + rest:
+        new_fields.extend(b[1])
+
+    if [x['key'] for x in new_fields] != [x['key'] for x in fields]:
+        group['fields'] = new_fields
+        io.open(path, 'w', encoding='utf-8').write(
+            json.dumps(group, ensure_ascii=False, indent=4) + '\n')
+        print('%-24s вкладки переставлены' % key)
+    else:
+        print('%-24s порядок вкладок уже верный' % key)

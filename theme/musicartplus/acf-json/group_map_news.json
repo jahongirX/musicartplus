@@ -3,6 +3,24 @@
     "title": "Оформление новости",
     "fields": [
         {
+            "key": "field_map_news_tab_aeecd",
+            "label": "Текст",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_map_news_badge",
             "label": "Метка",
             "name": "news_badge",
@@ -43,6 +61,24 @@
             "placeholder": ""
         },
         {
+            "key": "field_map_news_tab_2ae53",
+            "label": "Галерея",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_map_news_gallery",
             "label": "Галерея",
             "name": "news_gallery",
@@ -69,6 +105,24 @@
             "max_height": 0,
             "max_size": 0,
             "mime_types": ""
+        },
+        {
+            "key": "field_map_news_tab_69651",
+            "label": "Видео",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
         },
         {
             "key": "field_map_news_video_url",

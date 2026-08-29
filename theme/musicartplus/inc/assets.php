@@ -108,7 +108,7 @@ function map_js_config() {
 		'strings'  => array(
 			'sending'   => __( 'Отправляем…', 'musicartplus' ),
 			'error'     => __( 'Не удалось отправить. Позвоните нам, пожалуйста.', 'musicartplus' ),
-			'success'   => __( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ),
+			'success'   => map_opt( 'booking_success_text', __( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ) ),
 		),
 	);
 }

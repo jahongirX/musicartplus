@@ -105,7 +105,7 @@ while ( have_posts() ) :
 
 	<?php
 	$map_others = get_posts( array(
-		'posts_per_page' => 3,
+		'posts_per_page' => max( 1, (int) map_blog_field( 'news_related_count', 3 ) ),
 		'post__not_in'   => array( get_the_ID() ),
 		'no_found_rows'  => true,
 	) );
@@ -116,8 +116,8 @@ while ( have_posts() ) :
 			<div class="container">
 				<div class="sec-head">
 					<div class="sec-head__text">
-						<span class="eyebrow"><?php esc_html_e( 'Читайте также', 'musicartplus' ); ?></span>
-						<h2 class="h2"><?php esc_html_e( 'Другие новости центра', 'musicartplus' ); ?></h2>
+						<span class="eyebrow"><?php echo esc_html( map_blog_field( 'news_related_eyebrow', __( 'Читайте также', 'musicartplus' ) ) ); ?></span>
+						<h2 class="h2"><?php echo esc_html( map_blog_field( 'news_related_title', __( 'Другие новости центра', 'musicartplus' ) ) ); ?></h2>
 					</div>
 					<a class="link-arrow" href="<?php echo esc_url( $map_link ); ?>"><?php esc_html_e( 'Все новости', 'musicartplus' ); ?><?php map_the_icon( 'ar' ); ?></a>
 				</div>
@@ -132,8 +132,8 @@ while ( have_posts() ) :
 	endif;
 
 	map_cta_band(
-		__( 'Хотите так же?', 'musicartplus' ),
-		__( 'Приходите на пробный урок — покажем центр, познакомим с педагогом и расскажем о программе.', 'musicartplus' )
+		map_blog_field( 'news_cta_title', __( 'Хотите так же?', 'musicartplus' ) ),
+		map_blog_field( 'news_cta_text', __( 'Приходите на пробный урок — покажем центр, познакомим с педагогом и расскажем о программе.', 'musicartplus' ) )
 	);
 
 endwhile;

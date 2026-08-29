@@ -123,6 +123,8 @@ function map_acf_icon_field( $field ) {
 	return $field;
 }
 add_filter( 'acf/load_field/key=field_map_dir_icon', 'map_acf_icon_field' );
+add_filter( 'acf/load_field/key=field_map_home_hero_eyebrow_icon', 'map_acf_icon_field' );
+add_filter( 'acf/load_field/key=field_map_home_about_point_icon', 'map_acf_icon_field' );
 
 /**
  * Страница настроек сайта.

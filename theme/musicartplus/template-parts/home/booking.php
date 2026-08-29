@@ -14,7 +14,7 @@ $map_quote = map_get_items( 'map_review', 1 );
 	<div class="container">
 		<div class="contact-grid">
 			<div class="reveal reveal--left">
-				<span class="eyebrow"><?php esc_html_e( 'Связаться с нами', 'musicartplus' ); ?></span>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'cta_eyebrow', 'Связаться с нами' ) ); ?></span>
 				<h2 class="h2"><?php echo esc_html( map_field( 'cta_title', get_the_ID(), __( 'Первый урок — чтобы просто попробовать', 'musicartplus' ) ) ); ?></h2>
 				<p class="lead" style="margin-top:18px"><?php echo esc_html( map_field( 'cta_text', get_the_ID(), __( 'Оставьте имя и телефон: мы перезвоним, расспросим о ребёнке и подберём педагога и удобное время. Пробное занятие ни к чему не обязывает.', 'musicartplus' ) ) ); ?></p>
 

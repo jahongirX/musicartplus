@@ -174,6 +174,71 @@
             ]
         },
         {
+            "key": "field_map_home_hero_eyebrow_icon",
+            "label": "Иконка надглавия",
+            "name": "hero_eyebrow_icon",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "Список берётся из набора иконок темы.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {},
+            "allow_null": 1
+        },
+        {
+            "key": "field_map_home_hero_btn_primary",
+            "label": "Первая кнопка: текст",
+            "name": "hero_btn_primary",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Записаться на пробный урок"
+        },
+        {
+            "key": "field_map_home_hero_btn_secondary",
+            "label": "Вторая кнопка: текст",
+            "name": "hero_btn_secondary",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наши направления"
+        },
+        {
+            "key": "field_map_home_hero_btn_secondary_url",
+            "label": "Вторая кнопка: ссылка",
+            "name": "hero_btn_secondary_url",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "#directions"
+        },
+        {
             "key": "field_map_tab_about",
             "label": "О центре",
             "name": "",
@@ -275,6 +340,355 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_map_home_about_eyebrow",
+            "label": "Надглавие",
+            "name": "about_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "О центре"
+        },
+        {
+            "key": "field_map_home_about_point_icon",
+            "label": "Иконка пунктов списка",
+            "name": "about_point_icon",
+            "aria-label": "",
+            "type": "select",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "choices": {},
+            "allow_null": 1
+        },
+        {
+            "key": "field_map_home_about_btn_text",
+            "label": "Кнопка: текст",
+            "name": "about_btn_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Подробнее о центре"
+        },
+        {
+            "key": "field_map_home_about_link_text",
+            "label": "Ссылка рядом: текст",
+            "name": "about_link_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наши педагоги"
+        },
+        {
+            "key": "field_map_home_tab_842ca",
+            "label": "Новости",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_home_news_eyebrow",
+            "label": "Надглавие",
+            "name": "news_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Новости"
+        },
+        {
+            "key": "field_map_home_news_title",
+            "label": "Заголовок",
+            "name": "news_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Чем живёт центр"
+        },
+        {
+            "key": "field_map_home_news_text",
+            "label": "Текст под заголовком",
+            "name": "news_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
+            "key": "field_map_home_news_count",
+            "label": "Сколько новостей показывать",
+            "name": "news_count",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "min": 1,
+            "max": 9
+        },
+        {
+            "key": "field_map_home_news_btn_text",
+            "label": "Кнопка: текст",
+            "name": "news_btn_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Все новости"
+        },
+        {
+            "key": "field_map_home_tab_5eeb2",
+            "label": "Направления",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_home_dirs_eyebrow",
+            "label": "Надглавие",
+            "name": "dirs_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наши направления"
+        },
+        {
+            "key": "field_map_home_dirs_title",
+            "label": "Заголовок",
+            "name": "dirs_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Можно вставить %d — подставится число направлений.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "%d путей к искусству"
+        },
+        {
+            "key": "field_map_home_dirs_text",
+            "label": "Текст под заголовком",
+            "name": "dirs_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Инструменты, вокал, сцена и живопись — можно выбрать одно направление или собрать своё сочетание."
+        },
+        {
+            "key": "field_map_home_dirs_limit",
+            "label": "Сколько направлений показывать",
+            "name": "dirs_limit",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 6,
+            "min": 1,
+            "max": 12
+        },
+        {
+            "key": "field_map_home_dirs_btn_text",
+            "label": "Кнопка: текст",
+            "name": "dirs_btn_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Посмотреть все направления"
+        },
+        {
+            "key": "field_map_home_tab_a64cb",
+            "label": "Педагоги",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_home_teachers_eyebrow",
+            "label": "Надглавие",
+            "name": "teachers_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Педагоги"
+        },
+        {
+            "key": "field_map_home_teachers_title",
+            "label": "Заголовок",
+            "name": "teachers_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Люди, к которым хочется возвращаться"
+        },
+        {
+            "key": "field_map_home_teachers_text",
+            "label": "Текст под заголовком",
+            "name": "teachers_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Нажмите на фотографию, чтобы открыть биографию, расписание и записаться на урок."
+        },
+        {
+            "key": "field_map_home_teachers_btn_text",
+            "label": "Кнопка: текст",
+            "name": "teachers_btn_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Все педагоги"
         },
         {
             "key": "field_map_tab_video",
@@ -404,6 +818,298 @@
             ]
         },
         {
+            "key": "field_map_home_video_eyebrow",
+            "label": "Надглавие",
+            "name": "video_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Видео"
+        },
+        {
+            "key": "field_map_home_video_title",
+            "label": "Заголовок",
+            "name": "video_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Как у нас проходят занятия"
+        },
+        {
+            "key": "field_map_home_video_text",
+            "label": "Текст под заголовком",
+            "name": "video_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
+            "key": "field_map_home_tab_a06af",
+            "label": "Разделители",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_home_brush_eyebrow",
+            "label": "Полоса с кистью: надглавие",
+            "name": "brush_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_map_home_brush_title",
+            "label": "Полоса с кистью: заголовок",
+            "name": "brush_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_map_home_brush_text",
+            "label": "Полоса с кистью: текст",
+            "name": "brush_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
+            "key": "field_map_home_brush_video",
+            "label": "Полоса с кистью: видео",
+            "name": "brush_video",
+            "aria-label": "",
+            "type": "file",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "mime_types": "mp4,webm"
+        },
+        {
+            "key": "field_map_home_brush_poster",
+            "label": "Полоса с кистью: обложка видео",
+            "name": "brush_poster",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_home_notes_caption",
+            "label": "Нотная полоса: подпись",
+            "name": "notes_caption",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_map_home_tab_49145",
+            "label": "Отзывы",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_home_reviews_eyebrow",
+            "label": "Надглавие",
+            "name": "reviews_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Отзывы"
+        },
+        {
+            "key": "field_map_home_reviews_title",
+            "label": "Заголовок",
+            "name": "reviews_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Что говорят родители и ученики"
+        },
+        {
+            "key": "field_map_home_reviews_text",
+            "label": "Текст под заголовком",
+            "name": "reviews_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
+            "key": "field_map_home_tab_16c67",
+            "label": "Как нас найти",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_home_contacts_eyebrow",
+            "label": "Надглавие",
+            "name": "contacts_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Как нас найти"
+        },
+        {
+            "key": "field_map_home_contacts_title",
+            "label": "Заголовок",
+            "name": "contacts_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Мы рядом с метро Минская"
+        },
+        {
+            "key": "field_map_home_contacts_text",
+            "label": "Текст под заголовком",
+            "name": "contacts_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
             "key": "field_map_tab_cta",
             "label": "Призыв к записи",
             "name": "",
@@ -460,6 +1166,53 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_map_home_cta_eyebrow",
+            "label": "Надглавие",
+            "name": "cta_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Запись"
+        },
+        {
+            "key": "field_map_home_cta_form_title",
+            "label": "Заголовок карточки формы",
+            "name": "cta_form_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_map_home_cta_form_text",
+            "label": "Текст карточки формы",
+            "name": "cta_form_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
         }
     ],
     "location": [

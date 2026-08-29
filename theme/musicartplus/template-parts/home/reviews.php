@@ -18,8 +18,8 @@ if ( ! $map_reviews ) {
 	<div class="container">
 		<div class="sec-head">
 			<div class="sec-head__text">
-				<span class="eyebrow"><?php esc_html_e( 'Отзывы', 'musicartplus' ); ?></span>
-				<h2 class="h2"><?php esc_html_e( 'Что говорят родители и ученики', 'musicartplus' ); ?></h2>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'reviews_eyebrow', 'Отзывы' ) ); ?></span>
+				<h2 class="h2"><?php echo esc_html( map_home_field( 'reviews_title', 'Что говорят родители и ученики' ) ); ?></h2>
 			</div>
 			<?php map_slider_nav( 'reviews-home' ); ?>
 		</div>

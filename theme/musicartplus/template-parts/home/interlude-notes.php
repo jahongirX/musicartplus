@@ -23,5 +23,5 @@ defined( 'ABSPATH' ) || exit;
 			<ellipse cx="855" cy="64" rx="13" ry="9.5" transform="rotate(-18 855 64)"/>
 		</svg>
 	</div>
-	<p class="interlude__caption"><?php esc_html_e( 'каждый урок начинается с первой ноты', 'musicartplus' ); ?></p>
+	<p class="interlude__caption"><?php echo esc_html( map_home_field( 'notes_caption', 'каждый урок начинается с первой ноты' ) ); ?></p>
 </div>

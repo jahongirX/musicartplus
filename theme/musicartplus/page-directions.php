@@ -35,9 +35,9 @@ while ( have_posts() ) :
 			<div class="container">
 				<div class="sec-head sec-head--center">
 					<div class="sec-head__text">
-						<span class="eyebrow"><?php esc_html_e( 'Направления', 'musicartplus' ); ?></span>
-						<h2 class="h2"><?php esc_html_e( 'Выберите, с чего начать', 'musicartplus' ); ?></h2>
-						<p class="sec-head__desc"><?php esc_html_e( 'Можно заниматься одним направлением или собрать своё сочетание.', 'musicartplus' ); ?></p>
+						<span class="eyebrow"><?php echo esc_html( map_field( 'dirs_eyebrow', get_the_ID(), 'Направления' ) ); ?></span>
+						<h2 class="h2"><?php echo esc_html( map_field( 'dirs_title', get_the_ID(), 'Выберите, с чего начать' ) ); ?></h2>
+						<p class="sec-head__desc"><?php echo esc_html( map_field( 'dirs_text', get_the_ID(), 'Можно заниматься одним направлением или собрать своё сочетание.' ) ); ?></p>
 					</div>
 				</div>
 
@@ -54,8 +54,8 @@ while ( have_posts() ) :
 	map_widget_section();
 
 	map_cta_band(
-		__( 'Не знаете, что выбрать?', 'musicartplus' ),
-		__( 'Расскажите о ребёнке — подскажем направление и педагога на пробном уроке.', 'musicartplus' )
+		map_field( 'dirs_cta_title', get_the_ID(), __( 'Не знаете, что выбрать?', 'musicartplus' ) ),
+		map_field( 'dirs_cta_text', get_the_ID(), __( 'Расскажите о ребёнке — подскажем направление и педагога на пробном уроке.', 'musicartplus' ) )
 	);
 
 endwhile;

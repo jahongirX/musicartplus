@@ -39,7 +39,7 @@ get_template_part( 'template-parts/page/hero', null, array(
 			) );
 			?>
 		<?php else : ?>
-			<p class="lead"><?php esc_html_e( 'Ничего не нашлось. Попробуйте другой запрос.', 'musicartplus' ); ?></p>
+			<p class="lead"><?php echo esc_html( map_opt( 'search_empty', __( 'Ничего не нашлось. Попробуйте другой запрос.', 'musicartplus' ) ) ); ?></p>
 		<?php endif; ?>
 	</div>
 </section>

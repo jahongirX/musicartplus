@@ -19,9 +19,9 @@ if ( ! $map_embed ) {
 	<div class="container">
 		<div class="sec-head sec-head--center">
 			<div class="sec-head__text">
-				<span class="eyebrow"><?php esc_html_e( 'Как нас найти', 'musicartplus' ); ?></span>
-				<h2 class="h2"><?php esc_html_e( 'Мы рядом с метро Минская', 'musicartplus' ); ?></h2>
-				<p class="sec-head__desc"><?php esc_html_e( 'Центр находится на закрытой территории — перед первым визитом позвоните, и мы встретим вас у входа.', 'musicartplus' ); ?></p>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'contacts_eyebrow', 'Как нас найти' ) ); ?></span>
+				<h2 class="h2"><?php echo esc_html( map_home_field( 'contacts_title', 'Мы рядом с метро Минская' ) ); ?></h2>
+				<p class="sec-head__desc"><?php echo esc_html( map_home_field( 'contacts_text', 'Центр находится на закрытой территории — перед первым визитом позвоните, и мы встретим вас у входа.' ) ); ?></p>
 			</div>
 		</div>
 
@@ -58,8 +58,8 @@ if ( ! $map_embed ) {
 				<span class="ci__ico"><?php map_the_icon( 'clock' ); ?></span>
 				<div>
 					<b><?php esc_html_e( 'Занятия', 'musicartplus' ); ?></b>
-					<span><?php esc_html_e( 'Очно в центре и онлайн', 'musicartplus' ); ?></span>
-					<small><?php esc_html_e( 'Некоторые педагоги проводят занятия на дому', 'musicartplus' ); ?></small>
+					<span><?php echo esc_html( map_opt( 'lessons_format', __( 'Очно в центре и онлайн', 'musicartplus' ) ) ); ?></span>
+					<small><?php echo esc_html( map_opt( 'lessons_format_note', __( 'Некоторые педагоги проводят занятия на дому', 'musicartplus' ) ) ); ?></small>
 				</div>
 			</div>
 		</div>

@@ -3,6 +3,72 @@
     "title": "Настройки сайта",
     "fields": [
         {
+            "key": "field_map_set_tab_26104",
+            "label": "Логотип",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_set_logo_color",
+            "label": "Логотип для светлой шапки",
+            "name": "logo_color",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Цветной. Показывается на внутренних страницах и при прокрутке.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_set_logo_white",
+            "label": "Логотип для тёмной шапки и подвала",
+            "name": "logo_white",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Белый. Показывается поверх фотографии на первом экране.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_set_favicon",
+            "label": "Значок вкладки",
+            "name": "favicon",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Квадратный PNG, лучше 512×512.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
             "key": "field_map_tab_contacts",
             "label": "Контакты",
             "name": "",
@@ -180,6 +246,38 @@
             "placeholder": ""
         },
         {
+            "key": "field_map_set_lessons_format",
+            "label": "Формат занятий",
+            "name": "lessons_format",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Очно в центре и онлайн"
+        },
+        {
+            "key": "field_map_set_lessons_format_note",
+            "label": "Уточнение к формату",
+            "name": "lessons_format_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Некоторые педагоги проводят занятия на дому"
+        },
+        {
             "key": "field_map_tab_social",
             "label": "Соцсети",
             "name": "",
@@ -284,6 +382,204 @@
             "placeholder": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_map_set_rutube_label",
+            "label": "Подпись ссылки на Rutube",
+            "name": "rutube_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Канал на Rutube"
+        },
+        {
+            "key": "field_map_set_fund_logo",
+            "label": "Логотип фонда",
+            "name": "fund_logo",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_set_fund_prefix",
+            "label": "Подпись перед названием фонда",
+            "name": "fund_prefix",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "При поддержке фонда"
+        },
+        {
+            "key": "field_map_set_tab_ed031",
+            "label": "Подвал",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_set_footer_menu_title",
+            "label": "Заголовок колонки с разделами",
+            "name": "footer_menu_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Разделы"
+        },
+        {
+            "key": "field_map_set_footer_directions_title",
+            "label": "Заголовок колонки с направлениями",
+            "name": "footer_directions_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Направления"
+        },
+        {
+            "key": "field_map_set_footer_directions_count",
+            "label": "Сколько направлений показывать",
+            "name": "footer_directions_count",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 5,
+            "min": 1,
+            "max": 12
+        },
+        {
+            "key": "field_map_set_footer_contacts_title",
+            "label": "Заголовок колонки с контактами",
+            "name": "footer_contacts_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Контакты"
+        },
+        {
+            "key": "field_map_set_footer_copyright",
+            "label": "Строка копирайта",
+            "name": "footer_copyright",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Год и название центра подставляются перед этой строкой.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Все права защищены."
+        },
+        {
+            "key": "field_map_set_tab_a0f25",
+            "label": "Кнопки",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_set_cta_label",
+            "label": "Надпись на кнопке записи",
+            "name": "cta_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Записаться на пробный урок"
+        },
+        {
+            "key": "field_map_set_cta_label_short",
+            "label": "Короткая надпись (шапка)",
+            "name": "cta_label_short",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Записаться"
         },
         {
             "key": "field_map_tab_crm",
@@ -466,6 +762,55 @@
             "append": ""
         },
         {
+            "key": "field_map_set_schedule_eyebrow",
+            "label": "Расписание: надглавие",
+            "name": "schedule_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ЗАПИСЬ ОНЛАЙН"
+        },
+        {
+            "key": "field_map_set_schedule_title",
+            "label": "Расписание: заголовок",
+            "name": "schedule_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Расписание занятий"
+        },
+        {
+            "key": "field_map_set_schedule_text",
+            "label": "Расписание: текст",
+            "name": "schedule_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "Актуальные группы и свободное время — напрямую из системы «Мой класс»."
+        },
+        {
             "key": "field_map_tab_form",
             "label": "Форма записи",
             "name": "",
@@ -522,6 +867,319 @@
             "taxonomy": [],
             "multiple": 0,
             "allow_archives": 1
+        },
+        {
+            "key": "field_map_set_booking_title",
+            "label": "Заголовок окна",
+            "name": "booking_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Записаться на пробный урок"
+        },
+        {
+            "key": "field_map_set_booking_subtitle",
+            "label": "Подзаголовок окна",
+            "name": "booking_subtitle",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Заполните два поля — остальное уточним по телефону."
+        },
+        {
+            "key": "field_map_set_booking_aside_title",
+            "label": "Заголовок левой колонки",
+            "name": "booking_aside_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Первый урок — чтобы просто попробовать"
+        },
+        {
+            "key": "field_map_set_booking_aside_text",
+            "label": "Текст левой колонки",
+            "name": "booking_aside_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "Знакомство с педагогом и инструментом. Ни к чему не обязывает."
+        },
+        {
+            "key": "field_map_set_booking_points",
+            "label": "Что получит посетитель",
+            "name": "booking_points",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "По одному пункту в строке.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "Подберём педагога под возраст и характер\nПокажем центр и инструменты\nОтветим на вопросы родителей"
+        },
+        {
+            "key": "field_map_set_booking_submit_label",
+            "label": "Надпись на кнопке отправки",
+            "name": "booking_submit_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Отправить заявку"
+        },
+        {
+            "key": "field_map_set_booking_consent_text",
+            "label": "Текст согласия на обработку данных",
+            "name": "booking_consent_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Я согласен(-на) на обработку персональных данных"
+        },
+        {
+            "key": "field_map_set_booking_phone_label",
+            "label": "Подпись перед телефоном",
+            "name": "booking_phone_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Или позвоните"
+        },
+        {
+            "key": "field_map_set_booking_crm_note",
+            "label": "Подпись перед ссылкой на расписание",
+            "name": "booking_crm_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Или выберите время сами в системе «Мой класс»"
+        },
+        {
+            "key": "field_map_set_booking_success_text",
+            "label": "Сообщение после отправки",
+            "name": "booking_success_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время."
+        },
+        {
+            "key": "field_map_set_tab_58009",
+            "label": "Служебные страницы",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_set_hero_default_image",
+            "label": "Фон первого экрана по умолчанию",
+            "name": "hero_default_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Показывается на страницах без своей фотографии.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_set_err404_eyebrow",
+            "label": "404: надглавие",
+            "name": "err404_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Ошибка 404"
+        },
+        {
+            "key": "field_map_set_err404_title",
+            "label": "404: заголовок",
+            "name": "err404_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Такой страницы нет"
+        },
+        {
+            "key": "field_map_set_err404_text",
+            "label": "404: текст",
+            "name": "err404_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Возможно, она переехала. Вернитесь на главную или запишитесь на урок."
+        },
+        {
+            "key": "field_map_set_err404_btn_home",
+            "label": "404: кнопка на главную",
+            "name": "err404_btn_home",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "На главную"
+        },
+        {
+            "key": "field_map_set_err404_btn_cta",
+            "label": "404: кнопка записи",
+            "name": "err404_btn_cta",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Записаться на урок"
+        },
+        {
+            "key": "field_map_set_search_empty",
+            "label": "Поиск: когда ничего не нашлось",
+            "name": "search_empty",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Ничего не нашлось. Попробуйте другой запрос."
+        },
+        {
+            "key": "field_map_set_archive_empty",
+            "label": "Список новостей: когда пусто",
+            "name": "archive_empty",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Здесь пока пусто."
         }
     ],
     "location": [

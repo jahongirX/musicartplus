@@ -42,7 +42,7 @@ $map_title  = map_field( 'hero_title', get_the_ID(), get_bloginfo( 'name' ) );
 	<div class="container hero__inner">
 		<div class="hero__content">
 			<?php if ( map_field( 'hero_eyebrow', get_the_ID() ) ) : ?>
-				<span class="hero__eyebrow"><?php map_the_icon( 'pin2' ); ?><?php echo esc_html( map_field( 'hero_eyebrow', get_the_ID() ) ); ?></span>
+				<span class="hero__eyebrow"><?php map_the_icon( map_field( 'hero_eyebrow_icon', get_the_ID(), 'pin2' ) ); ?><?php echo esc_html( map_field( 'hero_eyebrow', get_the_ID() ) ); ?></span>
 			<?php endif; ?>
 
 			<h1 class="hero__title" data-reveal-title><?php echo esc_html( $map_title ); ?></h1>
@@ -52,8 +52,8 @@ $map_title  = map_field( 'hero_title', get_the_ID(), get_bloginfo( 'name' ) );
 			<?php endif; ?>
 
 			<div class="hero__actions">
-				<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php esc_html_e( 'Записаться на пробный урок', 'musicartplus' ); ?></a>
-				<a class="btn btn--light btn--lg" href="#directions"><?php esc_html_e( 'Наши направления', 'musicartplus' ); ?></a>
+				<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( map_field( 'hero_btn_primary', get_the_ID(), map_cta_label() ) ); ?></a>
+				<a class="btn btn--light btn--lg" href="<?php echo esc_url( map_field( 'hero_btn_secondary_url', get_the_ID(), '#directions' ) ); ?>"><?php echo esc_html( map_field( 'hero_btn_secondary', get_the_ID(), __( 'Наши направления', 'musicartplus' ) ) ); ?></a>
 			</div>
 		</div>
 

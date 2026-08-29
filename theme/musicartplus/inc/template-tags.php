@@ -370,9 +370,9 @@ function map_widget_section() {
 		<div class="container">
 			<div class="sec-head reveal">
 				<div>
-					<span class="eyebrow"><?php esc_html_e( 'ЗАПИСЬ ОНЛАЙН', 'musicartplus' ); ?></span>
-					<h2 class="h2"><?php esc_html_e( 'Расписание занятий', 'musicartplus' ); ?></h2>
-					<p class="lead" style="max-width:640px"><?php esc_html_e( 'Актуальные группы и свободное время — напрямую из системы «Мой класс».', 'musicartplus' ); ?></p>
+					<span class="eyebrow"><?php echo esc_html( map_opt( 'schedule_eyebrow', __( 'ЗАПИСЬ ОНЛАЙН', 'musicartplus' ) ) ); ?></span>
+					<h2 class="h2"><?php echo esc_html( map_opt( 'schedule_title', __( 'Расписание занятий', 'musicartplus' ) ) ); ?></h2>
+					<p class="lead" style="max-width:640px"><?php echo esc_html( map_opt( 'schedule_text', __( 'Актуальные группы и свободное время — напрямую из системы «Мой класс».', 'musicartplus' ) ) ); ?></p>
 				</div>
 			</div>
 			<div class="mk-widget reveal" data-delay="1">
@@ -399,7 +399,7 @@ function map_cta_band( $title, $text ) {
 				<p class="lead" style="color:rgba(255,255,255,.72)"><?php echo esc_html( $text ); ?></p>
 			</div>
 			<div class="cta-band__actions">
-				<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php esc_html_e( 'Записаться на пробный урок', 'musicartplus' ); ?></a>
+				<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( map_cta_label() ); ?></a>
 				<a class="btn btn--light btn--lg" href="tel:<?php echo esc_attr( map_phone_href() ); ?>"><?php echo esc_html( map_opt( 'phone' ) ); ?></a>
 			</div>
 		</div>
@@ -472,7 +472,7 @@ function map_form_card( $title, $subtitle, $ident = 'form-main' ) {
 			<label class="check">
 				<input type="checkbox" name="consent" required>
 				<span>
-					<?php esc_html_e( 'Я согласен(-на) на обработку персональных данных', 'musicartplus' ); ?>
+					<?php echo esc_html( map_opt( 'booking_consent_text', __( 'Я согласен(-на) на обработку персональных данных', 'musicartplus' ) ) ); ?>
 					<?php if ( $privacy ) : ?>
 						<?php esc_html_e( 'и принимаю', 'musicartplus' ); ?>
 						<a href="<?php echo esc_url( $privacy ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'политику конфиденциальности', 'musicartplus' ); ?></a>
@@ -480,12 +480,12 @@ function map_form_card( $title, $subtitle, $ident = 'form-main' ) {
 				</span>
 			</label>
 
-			<button class="btn btn--gold btn--block btn--lg" type="submit" data-label="<?php esc_attr_e( 'Записаться на пробный урок', 'musicartplus' ); ?>"><?php esc_html_e( 'Записаться на пробный урок', 'musicartplus' ); ?></button>
+			<button class="btn btn--gold btn--block btn--lg" type="submit" data-label="<?php echo esc_attr( map_opt( 'booking_submit_label', map_cta_label() ) ); ?>"><?php echo esc_html( map_opt( 'booking_submit_label', map_cta_label() ) ); ?></button>
 
-			<div class="form__ok"><?php esc_html_e( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ); ?></div>
+			<div class="form__ok"><?php echo esc_html( map_opt( 'booking_success_text', __( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ) ) ); ?></div>
 
 			<p class="form__note">
-				<?php esc_html_e( 'Или запишитесь сами в системе «Мой класс» —', 'musicartplus' ); ?>
+				<?php echo esc_html( map_opt( 'booking_crm_note', __( 'Или запишитесь сами в системе «Мой класс» —', 'musicartplus' ) ) ); ?>
 				<a data-crm="true" href="<?php echo esc_url( map_crm_url() ); ?>" style="color:var(--gold-dark);font-weight:600"><?php esc_html_e( 'открыть расписание', 'musicartplus' ); ?></a>
 			</p>
 		</form>

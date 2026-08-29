@@ -8,7 +8,7 @@
 defined( 'ABSPATH' ) || exit;
 
 $map_news = get_posts( array(
-	'posts_per_page' => 6,
+	'posts_per_page' => max( 1, (int) map_home_field( 'news_count', 6 ) ),
 	'no_found_rows'  => true,
 ) );
 
@@ -23,9 +23,9 @@ $map_news_page = (int) get_option( 'page_for_posts' );
 	<div class="container">
 		<div class="sec-head">
 			<div class="sec-head__text">
-				<span class="eyebrow"><?php esc_html_e( 'Новости', 'musicartplus' ); ?></span>
-				<h2 class="h2"><?php esc_html_e( 'Чем живёт центр искусств', 'musicartplus' ); ?></h2>
-				<p class="sec-head__desc"><?php esc_html_e( 'Концерты, мастер-классы, выставки и маленькие победы наших учеников.', 'musicartplus' ); ?></p>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'news_eyebrow', 'Новости' ) ); ?></span>
+				<h2 class="h2"><?php echo esc_html( map_home_field( 'news_title', 'Чем живёт центр искусств' ) ); ?></h2>
+				<p class="sec-head__desc"><?php echo esc_html( map_home_field( 'news_text', 'Концерты, мастер-классы, выставки и маленькие победы наших учеников.' ) ); ?></p>
 			</div>
 			<?php map_slider_nav( 'news' ); ?>
 		</div>
@@ -38,7 +38,7 @@ $map_news_page = (int) get_option( 'page_for_posts' );
 
 		<?php if ( $map_news_page ) : ?>
 			<div class="flex-center mt-l">
-				<a class="btn btn--ghost" href="<?php echo esc_url( get_permalink( $map_news_page ) ); ?>"><?php esc_html_e( 'Все новости', 'musicartplus' ); ?><?php map_the_icon( 'ar', 'btn__ico' ); ?></a>
+				<a class="btn btn--ghost" href="<?php echo esc_url( get_permalink( $map_news_page ) ); ?>"><?php echo esc_html( map_home_field( 'news_btn_text', 'Все новости' ) ); ?><?php map_the_icon( 'ar', 'btn__ico' ); ?></a>
 			</div>
 		<?php endif; ?>
 	</div>

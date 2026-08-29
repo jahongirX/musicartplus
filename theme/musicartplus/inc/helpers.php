@@ -149,14 +149,17 @@ function map_reveal( $delay = 0 ) {
  * @param string $value Значение поля.
  * @return string[]
  */
-function map_lines( $value ) {
+function map_lines( $value, $default = array() ) {
 	if ( is_array( $value ) ) {
-		return array_values( array_filter( array_map( 'trim', $value ), 'strlen' ) );
+		$lines = array_values( array_filter( array_map( 'trim', $value ), 'strlen' ) );
+
+		return $lines ? $lines : $default;
 	}
 
 	$lines = preg_split( '/\r\n|\r|\n/', (string) $value );
+	$lines = array_values( array_filter( array_map( 'trim', (array) $lines ), 'strlen' ) );
 
-	return array_values( array_filter( array_map( 'trim', (array) $lines ), 'strlen' ) );
+	return $lines ? $lines : $default;
 }
 
 /**
@@ -225,4 +228,130 @@ function map_page_subtitle( $post_id = 0 ) {
 	}
 
 	return trim( (string) $post->post_excerpt );
+}
+
+/**
+ * Адрес логотипа.
+ *
+ * Берётся из настроек темы; пока картинку не загрузили — из файлов темы,
+ * чтобы шапка не оставалась пустой на свежей установке.
+ *
+ * @param string $variant 'color' для светлой шапки, 'white' для тёмной.
+ * @return string
+ */
+function map_logo_url( $variant = 'color' ) {
+	$white = ( 'white' === $variant );
+	$id    = (int) map_opt( $white ? 'logo_white' : 'logo_color', 0 );
+
+	if ( $id ) {
+		$url = wp_get_attachment_image_url( $id, 'full' );
+
+		if ( $url ) {
+			return $url;
+		}
+	}
+
+	return map_asset( 'assets/img/ui/logo-' . ( $white ? 'white' : 'color' ) . '.png' );
+}
+
+/**
+ * Надпись на кнопке записи.
+ *
+ * @param bool $short Короткий вариант — для шапки, где места мало.
+ * @return string
+ */
+function map_cta_label( $short = false ) {
+	if ( $short ) {
+		return (string) map_opt( 'cta_label_short', __( 'Записаться', 'musicartplus' ) );
+	}
+
+	return (string) map_opt( 'cta_label', __( 'Записаться на пробный урок', 'musicartplus' ) );
+}
+
+/**
+ * Картинка из поля-изображения ACF с запасным вариантом.
+ *
+ * @param int|string $id       ID вложения (поле возвращает id).
+ * @param string     $size     Размер.
+ * @param string     $fallback Что подставить, если картинки нет.
+ * @return string
+ */
+function map_image_url( $id, $size = 'full', $fallback = '' ) {
+	$id = (int) $id;
+
+	if ( $id ) {
+		$url = wp_get_attachment_image_url( $id, $size );
+
+		if ( $url ) {
+			return $url;
+		}
+	}
+
+	return $fallback;
+}
+
+/**
+ * Поле главной страницы.
+ *
+ * Секции главной содержат свои циклы (новости, отзывы), внутри которых
+ * get_the_ID() указывает уже не на страницу. Поэтому запись берём явно.
+ *
+ * @param string $key     Имя поля.
+ * @param mixed  $default Что вернуть, если поле пустое.
+ * @return mixed
+ */
+function map_home_field( $key, $default = '' ) {
+	static $home = null;
+
+	if ( null === $home ) {
+		$home = (int) get_option( 'page_on_front' );
+	}
+
+	return map_field( $key, $home ? $home : get_the_ID(), $default );
+}
+
+/**
+ * Заголовок секции, в который можно подставить число.
+ *
+ * Заказчик волен убрать %d из заголовка — тогда просто вернём текст как есть.
+ * Без этой проверки sprintf на строке без плейсхолдера молча съел бы число,
+ * а на строке с процентом от акции («Скидка 20%») выдал бы предупреждение.
+ *
+ * @param string $template Шаблон заголовка.
+ * @param int    $count    Число для подстановки.
+ * @return string
+ */
+function map_sec_title( $template, $count ) {
+	$template = (string) $template;
+
+	if ( false === strpos( $template, '%d' ) ) {
+		return $template;
+	}
+
+	return sprintf( $template, (int) $count );
+}
+
+/**
+ * Поле страницы новостей.
+ *
+ * На самой странице новостей WordPress не выставляет её как текущую запись,
+ * а на странице отдельной новости get_the_ID() указывает на новость. Поэтому
+ * запись берём из настроек чтения.
+ *
+ * @param string $key     Имя поля.
+ * @param mixed  $default Что вернуть, если поле пустое.
+ * @return mixed
+ */
+function map_blog_field( $key, $default = '' ) {
+	static $blog = null;
+
+	if ( null === $blog ) {
+		$blog = (int) get_option( 'page_for_posts' );
+	}
+
+	if ( ! $blog ) {
+		return $default;
+	}
+
+	return map_field( $key, $blog, $default );
 }

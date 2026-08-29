@@ -18,12 +18,12 @@ if ( ! $map_videos ) {
 	<div class="container">
 		<div class="sec-head">
 			<div class="sec-head__text">
-				<span class="eyebrow"><?php esc_html_e( 'Видео', 'musicartplus' ); ?></span>
-				<h2 class="h2"><?php esc_html_e( 'Посмотрите, как мы работаем', 'musicartplus' ); ?></h2>
-				<p class="sec-head__desc"><?php esc_html_e( 'Съёмки занятий и мероприятий. Видео открывается прямо на сайте.', 'musicartplus' ); ?></p>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'video_eyebrow', 'Видео' ) ); ?></span>
+				<h2 class="h2"><?php echo esc_html( map_home_field( 'video_title', 'Посмотрите, как мы работаем' ) ); ?></h2>
+				<p class="sec-head__desc"><?php echo esc_html( map_home_field( 'video_text', 'Съёмки занятий и мероприятий. Видео открывается прямо на сайте.' ) ); ?></p>
 			</div>
 			<?php if ( map_opt( 'rutube' ) ) : ?>
-				<a class="link-arrow" href="<?php echo esc_url( map_opt( 'rutube' ) ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Канал на Rutube', 'musicartplus' ); ?><?php map_the_icon( 'ar' ); ?></a>
+				<a class="link-arrow" href="<?php echo esc_url( map_opt( 'rutube' ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( map_opt( 'rutube_label', __( 'Канал на Rutube', 'musicartplus' ) ) ); ?><?php map_the_icon( 'ar' ); ?></a>
 			<?php endif; ?>
 		</div>
 

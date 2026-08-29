@@ -27,9 +27,9 @@ while ( have_posts() ) :
 			<div class="container">
 				<div class="sec-head">
 					<div class="sec-head__text">
-						<span class="eyebrow"><?php esc_html_e( 'Основной состав', 'musicartplus' ); ?></span>
-						<h2 class="h2"><?php esc_html_e( 'Наши преподаватели', 'musicartplus' ); ?></h2>
-						<p class="sec-head__desc"><?php esc_html_e( 'Кнопка «Записаться» ведёт в систему «Мой класс» — там видно свободное время педагога.', 'musicartplus' ); ?></p>
+						<span class="eyebrow"><?php echo esc_html( map_field( 'teachers_eyebrow', get_the_ID(), 'Основной состав' ) ); ?></span>
+						<h2 class="h2"><?php echo esc_html( map_field( 'teachers_title', get_the_ID(), 'Наши преподаватели' ) ); ?></h2>
+						<p class="sec-head__desc"><?php echo esc_html( map_field( 'teachers_text', get_the_ID(), 'Кнопка «Записаться» ведёт в систему «Мой класс» — там видно свободное время педагога.' ) ); ?></p>
 					</div>
 				</div>
 
@@ -48,9 +48,9 @@ while ( have_posts() ) :
 			<div class="container">
 				<div class="sec-head sec-head--center">
 					<div class="sec-head__text">
-						<span class="eyebrow"><?php esc_html_e( 'Приглашённые мастера', 'musicartplus' ); ?></span>
-						<h2 class="h2"><?php esc_html_e( 'Мастера, которые приходят', 'musicartplus' ); ?></h2>
-						<p class="sec-head__desc"><?php esc_html_e( 'Профессора и заслуженные деятели искусств проводят у нас мастер-классы и творческие встречи.', 'musicartplus' ); ?></p>
+						<span class="eyebrow"><?php echo esc_html( map_field( 'guests_eyebrow', get_the_ID(), 'Приглашённые мастера' ) ); ?></span>
+						<h2 class="h2"><?php echo esc_html( map_field( 'guests_title', get_the_ID(), 'Мастера, которые приходят' ) ); ?></h2>
+						<p class="sec-head__desc"><?php echo esc_html( map_field( 'guests_text', get_the_ID(), 'Профессора и заслуженные деятели искусств проводят у нас мастер-классы и творческие встречи.' ) ); ?></p>
 					</div>
 				</div>
 
@@ -68,8 +68,8 @@ while ( have_posts() ) :
 	get_template_part( 'template-parts/home/reviews' );
 
 	map_cta_band(
-		__( 'Хотите заниматься у наших педагогов?', 'musicartplus' ),
-		__( 'Оставьте заявку — подберём педагога под возраст, характер и цели ребёнка.', 'musicartplus' )
+		map_field( 'teachers_cta_title', get_the_ID(), __( 'Хотите заниматься у наших педагогов?', 'musicartplus' ) ),
+		map_field( 'teachers_cta_text', get_the_ID(), __( 'Оставьте заявку — подберём педагога под возраст, характер и цели ребёнка.', 'musicartplus' ) )
 	);
 
 endwhile;

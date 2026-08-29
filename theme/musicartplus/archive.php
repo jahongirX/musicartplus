@@ -39,7 +39,7 @@ get_template_part( 'template-parts/page/hero', null, array(
 			) );
 			?>
 		<?php else : ?>
-			<p class="lead"><?php esc_html_e( 'Здесь пока пусто.', 'musicartplus' ); ?></p>
+			<p class="lead"><?php echo esc_html( map_opt( 'archive_empty', __( 'Здесь пока пусто.', 'musicartplus' ) ) ); ?></p>
 		<?php endif; ?>
 	</div>
 </section>

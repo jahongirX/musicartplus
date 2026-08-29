@@ -31,8 +31,8 @@ while ( have_posts() ) :
 	get_template_part( 'template-parts/home/map' );
 
 	map_cta_band(
-		__( 'Приходите знакомиться', 'musicartplus' ),
-		__( 'Покажем центр, познакомим с педагогом и подберём программу под ребёнка.', 'musicartplus' )
+		map_field( 'about_cta_title', get_the_ID(), __( 'Приходите знакомиться', 'musicartplus' ) ),
+		map_field( 'about_cta_text', get_the_ID(), __( 'Покажем центр, познакомим с педагогом и подберём программу под ребёнка.', 'musicartplus' ) )
 	);
 
 endwhile;

@@ -19,9 +19,9 @@ $map_teach_page = map_page_by_template( 'page-teachers.php' );
 	<div class="container">
 		<div class="sec-head">
 			<div class="sec-head__text">
-				<span class="eyebrow"><?php esc_html_e( 'Педагоги', 'musicartplus' ); ?></span>
-				<h2 class="h2"><?php esc_html_e( 'Люди, к которым хочется возвращаться', 'musicartplus' ); ?></h2>
-				<p class="sec-head__desc"><?php esc_html_e( 'Нажмите на фотографию, чтобы открыть биографию, расписание и записаться на урок.', 'musicartplus' ); ?></p>
+				<span class="eyebrow"><?php echo esc_html( map_home_field( 'teachers_eyebrow', 'Педагоги' ) ); ?></span>
+				<h2 class="h2"><?php echo esc_html( map_home_field( 'teachers_title', 'Люди, к которым хочется возвращаться' ) ); ?></h2>
+				<p class="sec-head__desc"><?php echo esc_html( map_home_field( 'teachers_text', 'Нажмите на фотографию, чтобы открыть биографию, расписание и записаться на урок.' ) ); ?></p>
 			</div>
 			<?php map_slider_nav( 'teachers-home' ); ?>
 		</div>
@@ -34,7 +34,7 @@ $map_teach_page = map_page_by_template( 'page-teachers.php' );
 
 		<?php if ( $map_teach_page ) : ?>
 			<div class="flex-center mt-l">
-				<a class="btn btn--ghost" href="<?php echo esc_url( get_permalink( $map_teach_page ) ); ?>"><?php esc_html_e( 'Все педагоги', 'musicartplus' ); ?><?php map_the_icon( 'ar', 'btn__ico' ); ?></a>
+				<a class="btn btn--ghost" href="<?php echo esc_url( get_permalink( $map_teach_page ) ); ?>"><?php echo esc_html( map_home_field( 'teachers_btn_text', 'Все педагоги' ) ); ?><?php map_the_icon( 'ar', 'btn__ico' ); ?></a>
 			</div>
 		<?php endif; ?>
 	</div>

@@ -64,6 +64,7 @@ function map_seed_content() {
 	map_seed_options( $data['options'] );
 	map_seed_front( $data['front'] );
 	map_seed_menu();
+	map_seed_field_defaults();
 
 	return sprintf(
 		/* translators: список количеств созданных записей. */
@@ -556,4 +557,68 @@ function map_seed_set( $post_id, $key, $value ) {
 	}
 
 	update_post_meta( $post_id, $key, $value );
+}
+
+/**
+ * Проставляет полям значения по умолчанию из описания группы.
+ *
+ * Заголовки секций и подписи кнопок заданы прямо в определениях полей
+ * (default_value). Шаблоны и так подставят их, если поле пустое, но в админке
+ * пустые поля выглядят как «ничего не настроено» — заполняем, чтобы редактору
+ * было что править, а не угадывать.
+ *
+ * Уже заполненное не трогает, поэтому повторный запуск безвреден.
+ *
+ * @return int Сколько полей заполнено.
+ */
+function map_seed_field_defaults() {
+	if ( ! function_exists( 'acf_get_field_group' ) ) {
+		return 0;
+	}
+
+	$targets = array(
+		'group_map_settings'   => 'option',
+		'group_map_front'      => (int) get_option( 'page_on_front' ),
+		'group_map_page_news'  => (int) get_option( 'page_for_posts' ),
+		'group_map_page_about' => map_page_by_template( 'page-about.php' ),
+		'group_map_page_dirs'  => map_page_by_template( 'page-directions.php' ),
+		'group_map_page_teach' => map_page_by_template( 'page-teachers.php' ),
+	);
+
+	$filled = 0;
+
+	foreach ( $targets as $group_key => $where ) {
+		if ( ! $where ) {
+			continue;
+		}
+
+		$group = acf_get_field_group( $group_key );
+
+		if ( ! $group ) {
+			continue;
+		}
+
+		foreach ( acf_get_fields( $group ) as $field ) {
+			if ( 'tab' === $field['type'] || '' === (string) $field['name'] ) {
+				continue;
+			}
+
+			$default = isset( $field['default_value'] ) ? $field['default_value'] : '';
+
+			if ( '' === $default || array() === $default ) {
+				continue;
+			}
+
+			$current = get_field( $field['name'], $where );
+
+			if ( null !== $current && '' !== $current && array() !== $current ) {
+				continue;
+			}
+
+			update_field( $field['name'], $default, $where );
+			$filled++;
+		}
+	}
+
+	return $filled;
 }

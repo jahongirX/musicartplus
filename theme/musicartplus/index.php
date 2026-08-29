@@ -11,8 +11,14 @@ get_header();
 
 get_template_part( 'template-parts/page/hero', null, array(
 	'crumb' => __( 'Новости', 'musicartplus' ),
-	'title' => is_home() && get_option( 'page_for_posts' ) ? get_the_title( get_option( 'page_for_posts' ) ) : __( 'Чем живёт центр искусств', 'musicartplus' ),
-	'text'  => __( 'Концерты, мастер-классы, выставки и достижения наших учеников.', 'musicartplus' ),
+	'title' => map_blog_field(
+		'news_hero_title',
+		is_home() && get_option( 'page_for_posts' )
+			? get_the_title( get_option( 'page_for_posts' ) )
+			: __( 'Чем живёт центр искусств', 'musicartplus' )
+	),
+	'text'  => map_blog_field( 'news_hero_text', __( 'Концерты, мастер-классы, выставки и достижения наших учеников.', 'musicartplus' ) ),
+	'image' => map_image_url( map_blog_field( 'news_hero_image' ), 'map-hero' ),
 ) );
 ?>
 
@@ -39,15 +45,15 @@ get_template_part( 'template-parts/page/hero', null, array(
 			) );
 			?>
 		<?php else : ?>
-			<p class="lead"><?php esc_html_e( 'Новостей пока нет.', 'musicartplus' ); ?></p>
+			<p class="lead"><?php echo esc_html( map_opt( 'archive_empty', __( 'Новостей пока нет.', 'musicartplus' ) ) ); ?></p>
 		<?php endif; ?>
 	</div>
 </section>
 
 <?php
 map_cta_band(
-	__( 'Хотите так же?', 'musicartplus' ),
-	__( 'Приходите на пробный урок — познакомимся и подберём педагога.', 'musicartplus' )
+	map_blog_field( 'news_cta_title', __( 'Хотите так же?', 'musicartplus' ) ),
+	map_blog_field( 'news_cta_text', __( 'Приходите на пробный урок — познакомимся и подберём педагога.', 'musicartplus' ) )
 );
 
 get_footer();

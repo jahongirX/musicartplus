@@ -99,7 +99,7 @@ function map_footer_menu( $location ) {
  * @return void
  */
 function map_footer_directions() {
-	$items = map_get_items( 'map_direction', 5 );
+	$items = map_get_items( 'map_direction', (int) map_opt( 'footer_directions_count', 5 ) );
 
 	if ( ! $items ) {
 		map_footer_menu( 'dirs' );
