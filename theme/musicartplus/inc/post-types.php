@@ -27,14 +27,20 @@ function map_register_post_types() {
 			'not_found'          => __( 'Педагоги не найдены', 'musicartplus' ),
 			'menu_name'          => __( 'Педагоги', 'musicartplus' ),
 		),
-		'public'              => true,
+		// Отдельных страниц у педагогов нет: карточка открывается модальным
+		// окном на странице «Педагоги». Оставить тип публичным — значит отдать
+		// 9 адресов вида /pedagogi/имя/, которые WordPress отрисует шаблоном
+		// новости с пустым телом и заодно положит в карту сайта.
+		'public'              => false,
+		'show_ui'             => true,
+		'publicly_queryable'  => false,
+		'exclude_from_search' => true,
 		'has_archive'         => false,
+		'rewrite'             => false,
 		'show_in_rest'        => true,
 		'menu_icon'           => 'dashicons-groups',
 		'menu_position'       => 21,
 		'supports'            => array( 'title', 'thumbnail', 'page-attributes', 'revisions' ),
-		'rewrite'             => array( 'slug' => 'pedagogi', 'with_front' => false ),
-		'exclude_from_search' => false,
 	) );
 
 	register_post_type( 'map_direction', array(
@@ -45,13 +51,18 @@ function map_register_post_types() {
 			'edit_item'     => __( 'Редактировать направление', 'musicartplus' ),
 			'menu_name'     => __( 'Направления', 'musicartplus' ),
 		),
-		'public'        => true,
-		'has_archive'   => false,
-		'show_in_rest'  => true,
-		'menu_icon'     => 'dashicons-art',
-		'menu_position' => 22,
-		'supports'      => array( 'title', 'editor', 'thumbnail', 'page-attributes', 'revisions' ),
-		'rewrite'       => array( 'slug' => 'napravleniya', 'with_front' => false ),
+		// Как и у педагогов: направления показываются плитками на странице
+		// «Наши направления», отдельных адресов у них быть не должно.
+		'public'              => false,
+		'show_ui'             => true,
+		'publicly_queryable'  => false,
+		'exclude_from_search' => true,
+		'has_archive'         => false,
+		'rewrite'             => false,
+		'show_in_rest'        => true,
+		'menu_icon'           => 'dashicons-art',
+		'menu_position'       => 22,
+		'supports'            => array( 'title', 'editor', 'thumbnail', 'page-attributes', 'revisions' ),
 	) );
 
 	register_post_type( 'map_review', array(
@@ -160,4 +171,68 @@ function map_get_items( $type, $limit = -1 ) {
 	) );
 
 	return $posts ? $posts : array();
+}
+
+/**
+ * Переадресует старые адреса педагогов и направлений.
+ *
+ * До версии 1.0.1 эти типы были публичными, и адреса вида /pedagogi/имя/
+ * могли попасть в закладки и в поисковую выдачу. Отдавать по ним 404 незачем —
+ * ведём на страницу со списком.
+ *
+ * @return void
+ */
+function map_redirect_legacy_cpt_urls() {
+	if ( ! is_404() ) {
+		return;
+	}
+
+	$path = isset( $_SERVER['REQUEST_URI'] ) ? wp_parse_url( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), PHP_URL_PATH ) : '';
+
+	if ( ! $path ) {
+		return;
+	}
+
+	if ( preg_match( '#^/pedagogi/#', $path ) ) {
+		$page = map_page_by_template( 'page-teachers.php' );
+		wp_safe_redirect( $page ? get_permalink( $page ) : home_url( '/' ), 301 );
+		exit;
+	}
+
+	if ( preg_match( '#^/napravleniya/([^/]+)/?#', $path, $m ) ) {
+		$page = map_page_by_template( 'page-directions.php' );
+		$url  = $page ? get_permalink( $page ) . '#dir-' . sanitize_title( $m[1] ) : home_url( '/' );
+		wp_safe_redirect( $url, 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'map_redirect_legacy_cpt_urls' );
+
+/**
+ * Направления, отмеченные для показа на главной.
+ *
+ * @param int $limit Сколько вернуть.
+ * @return WP_Post[]
+ */
+function map_get_featured_directions( $limit = 8 ) {
+	$featured = get_posts( array(
+		'post_type'      => 'map_direction',
+		'posts_per_page' => $limit,
+		'orderby'        => array( 'menu_order' => 'ASC', 'date' => 'ASC' ),
+		'no_found_rows'  => true,
+		'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+			array(
+				'key'     => 'dir_featured',
+				'value'   => '1',
+				'compare' => '=',
+			),
+		),
+	) );
+
+	if ( $featured ) {
+		return $featured;
+	}
+
+	// Ни одно направление не отмечено — показываем начало списка.
+	return map_get_items( 'map_direction', $limit );
 }

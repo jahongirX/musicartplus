@@ -380,13 +380,23 @@ class MAP_Moyklass {
 			$payload['utms'] = $lead['utms'];
 		}
 
-		$result = self::request( 'POST', 'company/users', array(
-			'body'    => $payload,
-			'timeout' => self::TIMEOUT_WRITE,
-		) );
+		// Повторная отправка не должна плодить карточки. Типичный случай:
+		// «Мой класс» принял запрос и создал ученика, но ответ не успел дойти
+		// за отведённые 15 секунд — сайт считает заявку неотправленной и через
+		// четверть часа пробует снова.
+		$existing = self::find_by_phone( isset( $payload['phone'] ) ? $payload['phone'] : '' );
 
-		if ( is_wp_error( $result ) ) {
-			return $result;
+		if ( $existing ) {
+			$result = $existing;
+		} else {
+			$result = self::request( 'POST', 'company/users', array(
+				'body'    => $payload,
+				'timeout' => self::TIMEOUT_WRITE,
+			) );
+
+			if ( is_wp_error( $result ) ) {
+				return $result;
+			}
 		}
 
 		// Направление и комментарий кладём отдельной заметкой в карточку.
@@ -405,6 +415,34 @@ class MAP_Moyklass {
 		}
 
 		return $result;
+	}
+
+	/**
+	 * Ищет ученика по номеру телефона.
+	 *
+	 * Возвращает первую найденную карточку. Ошибки поиска намеренно
+	 * проглатываются: не нашли — значит создадим новую, это безопаснее,
+	 * чем потерять заявку.
+	 *
+	 * @param string $phone Телефон цифрами.
+	 * @return array|null
+	 */
+	protected static function find_by_phone( $phone ) {
+		$digits = preg_replace( '/\D+/', '', (string) $phone );
+
+		if ( strlen( $digits ) < 10 ) {
+			return null;
+		}
+
+		$found = self::request( 'GET', 'company/users', array(
+			'query' => array( 'phone' => $digits, 'limit' => 1 ),
+		) );
+
+		if ( is_wp_error( $found ) || empty( $found['users'][0]['id'] ) ) {
+			return null;
+		}
+
+		return $found['users'][0];
 	}
 
 	/**

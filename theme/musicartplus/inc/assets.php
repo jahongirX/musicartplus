@@ -46,7 +46,8 @@ function map_asset( $rel ) {
 function map_page_needs_swiper() {
 	return (bool) apply_filters(
 		'map_page_needs_swiper',
-		is_front_page() || is_page_template( array( 'page-teachers.php', 'page-about.php', 'page-directions.php' ) )
+		// На странице направлений слайдеров нет — 173 КБ библиотеки там лишние.
+		is_front_page() || is_page_template( array( 'page-teachers.php', 'page-about.php' ) )
 	);
 }
 

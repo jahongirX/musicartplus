@@ -37,6 +37,16 @@ function map_handle_booking( $input ) {
 
 	$lead_id = map_store_lead( $lead );
 
+	// Заявка не записалась в базу — значит её не подхватит и повторная
+	// отправка. Отвечать «принято» в таком случае нельзя.
+	if ( ! $lead_id ) {
+		return new WP_Error(
+			'map_store_failed',
+			__( 'Не удалось принять заявку. Позвоните нам, пожалуйста.', 'musicartplus' ),
+			array( 'status' => 503 )
+		);
+	}
+
 	map_bump_rate_limit();
 
 	$crm = MAP_Moyklass::is_configured() ? MAP_Moyklass::create_lead( $lead ) : new WP_Error( 'map_mk_off', 'CRM не подключена' );
@@ -88,6 +98,16 @@ function map_booking_guard( $input ) {
 
 	if ( $rendered && ( time() - $rendered ) < 2 ) {
 		return new WP_Error( 'map_spam_fast', __( 'Заявка не принята.', 'musicartplus' ), array( 'status' => 400 ) );
+	}
+
+	// Галочка согласия проверяется в браузере, но запрос можно отправить и
+	// напрямую. Без согласия персональные данные обрабатывать нельзя.
+	if ( empty( $input['consent'] ) ) {
+		return new WP_Error(
+			'map_consent',
+			__( 'Нужно согласие на обработку персональных данных.', 'musicartplus' ),
+			array( 'status' => 422, 'field' => 'consent' )
+		);
 	}
 
 	if ( map_rate_limit_hit() ) {
@@ -257,6 +277,15 @@ function map_store_lead( $lead ) {
 		update_post_meta( $lead_id, '_map_utms', $lead['utms'] );
 	}
 
+	// Отметка о согласии: когда и с какого адреса. Пригодится, если однажды
+	// спросят, на каком основании обрабатывались данные.
+	update_post_meta( $lead_id, '_map_consent', array(
+		'time' => gmdate( 'c' ),
+		'ip'   => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
+		'page' => $lead['page'],
+		'doc'  => get_privacy_policy_url(),
+	) );
+
 	return $lead_id;
 }
 
@@ -338,6 +367,12 @@ function map_schedule_retry() {
  */
 function map_retry_leads() {
 	if ( ! MAP_Moyklass::is_configured() ) {
+		// Ключ ещё не прописан. Заявки ждут, но проверить надо будет снова —
+		// иначе очередь останется в базе навсегда.
+		if ( map_pending_leads_count() > 0 ) {
+			wp_schedule_single_event( time() + HOUR_IN_SECONDS, 'map_retry_leads' );
+		}
+
 		return;
 	}
 
@@ -354,7 +389,6 @@ function map_retry_leads() {
 		return;
 	}
 
-	$still_pending = false;
 
 	foreach ( $pending as $post ) {
 		$lead = array(
@@ -371,8 +405,7 @@ function map_retry_leads() {
 		$result = MAP_Moyklass::create_lead( $lead );
 
 		if ( is_wp_error( $result ) ) {
-			$still_pending = true;
-			$attempts      = (int) get_post_meta( $post->ID, '_map_crm_attempts', true ) + 1;
+			$attempts = (int) get_post_meta( $post->ID, '_map_crm_attempts', true ) + 1;
 
 			update_post_meta( $post->ID, '_map_crm_attempts', $attempts );
 			update_post_meta( $post->ID, '_map_crm_error', $result->get_error_message() );
@@ -389,8 +422,29 @@ function map_retry_leads() {
 		update_post_meta( $post->ID, '_map_crm_user_id', isset( $result['id'] ) ? (int) $result['id'] : 0 );
 	}
 
-	if ( $still_pending ) {
+	// Перепланируем по факту остатка, а не по флагу ошибки: за один проход
+	// берётся максимум двадцать заявок, и если очередь длиннее, остальные
+	// иначе зависли бы навсегда.
+	if ( map_pending_leads_count() > 0 ) {
 		wp_schedule_single_event( time() + HOUR_IN_SECONDS, 'map_retry_leads' );
 	}
 }
 add_action( 'map_retry_leads', 'map_retry_leads' );
+
+/**
+ * Сколько заявок ждёт отправки в CRM.
+ *
+ * @return int
+ */
+function map_pending_leads_count() {
+	$query = new WP_Query( array(
+		'post_type'      => 'map_lead',
+		'post_status'    => 'private',
+		'posts_per_page' => 1,
+		'fields'         => 'ids',
+		'meta_key'       => '_map_crm_status', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+		'meta_value'     => 'pending',         // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+	) );
+
+	return (int) $query->found_posts;
+}

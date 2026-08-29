@@ -237,8 +237,7 @@ function map_seed_teacher_fields( $post_id, $item ) {
  */
 function map_seed_guest_fields( $post_id, $item ) {
 	map_seed_set( $post_id, 'guest_role', $item['role'] );
-	map_seed_set( $post_id, 'guest_note', implode( ' · ', array_slice( $item['facts'], 0, 2 ) ) );
-	map_seed_set( $post_id, 'video_url', isset( $item['video'] ) ? $item['video'] : '' );
+	map_seed_set( $post_id, 'guest_note', implode( "\n", $item['facts'] ) );
 }
 
 /**

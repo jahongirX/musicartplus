@@ -129,7 +129,9 @@ function map_direction_link( $item ) {
 		return get_permalink( $page ) . '#dir-' . $item->post_name;
 	}
 
-	return get_permalink( $item );
+	// Страницы «Наши направления» ещё нет. Свой адрес у направления не
+	// работает — тип записи закрыт от фронтенда, поэтому ведём на главную.
+	return home_url( '/#directions' );
 }
 
 /**

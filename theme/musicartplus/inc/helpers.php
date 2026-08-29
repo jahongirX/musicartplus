@@ -206,3 +206,23 @@ function map_allowed_html() {
 
 	return $allowed;
 }
+
+/**
+ * Подзаголовок внутренней страницы.
+ *
+ * Берём только отрывок, введённый руками. get_the_excerpt() при пустом
+ * отрывке возвращает машинную обрезку контента с многоточием — в шапке
+ * страницы это выглядит как дубль первого абзаца.
+ *
+ * @param int $post_id ID страницы.
+ * @return string
+ */
+function map_page_subtitle( $post_id = 0 ) {
+	$post = get_post( $post_id ? $post_id : get_the_ID() );
+
+	if ( ! $post ) {
+		return '';
+	}
+
+	return trim( (string) $post->post_excerpt );
+}

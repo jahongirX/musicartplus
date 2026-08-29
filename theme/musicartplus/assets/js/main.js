@@ -528,7 +528,10 @@
 
     fetch(CFG.restUrl + 'booking', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'X-WP-Nonce': CFG.nonce || '' },
+      // Nonce намеренно не шлём: маршрут публичный, проверки от него не
+      // зависят, а протухший (страница провисела в фоне, отдана из кэша)
+      // получил бы от WordPress 403 — и заявка потерялась бы.
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     }).then(function (r) {
       return r.json().then(function (body) { return { ok: r.ok, body: body }; });

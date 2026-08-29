@@ -7,7 +7,10 @@
 
 defined( 'ABSPATH' ) || exit;
 
-$map_dirs = map_get_items( 'map_direction', 8 );
+// Переключатель «Показывать на главной» в карточке направления.
+// Если его никто не включил (свежая установка), показываем первые восемь —
+// иначе блок на главной оказался бы пустым.
+$map_dirs = map_get_featured_directions( 8 );
 
 if ( ! $map_dirs ) {
 	return;

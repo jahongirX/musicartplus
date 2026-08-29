@@ -114,6 +114,36 @@ function map_restrict_users_endpoint( $result ) {
 add_filter( 'rest_authentication_errors', 'map_restrict_users_endpoint' );
 
 /**
+ * Отключает архивы авторов.
+ *
+ * У сайта один автор — администратор, и страница /author/логин/ существует
+ * только чтобы показать поисковикам его имя учётной записи.
+ *
+ * @return void
+ */
+function map_disable_author_archives() {
+	if ( ! is_author() ) {
+		return;
+	}
+
+	wp_safe_redirect( home_url( '/' ), 301 );
+	exit;
+}
+add_action( 'template_redirect', 'map_disable_author_archives', 0 );
+
+/**
+ * Убирает авторов из карты сайта.
+ *
+ * @param object $provider Поставщик раздела карты сайта.
+ * @param string $name     Имя раздела.
+ * @return object|false
+ */
+function map_trim_sitemap( $provider, $name ) {
+	return 'users' === $name ? false : $provider;
+}
+add_filter( 'wp_sitemaps_add_provider', 'map_trim_sitemap', 10, 2 );
+
+/**
  * Убирает версию WordPress из адресов стилей и скриптов.
  *
  * По номеру версии подбирают известные уязвимости. Свои файлы темы это

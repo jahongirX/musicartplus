@@ -16,6 +16,10 @@ function map_setup() {
 	load_theme_textdomain( 'musicartplus', MAP_DIR . '/languages' );
 
 	add_theme_support( 'title-tag' );
+
+	// Отрывок у страниц — это подзаголовок в шапке. Без этой строки поле
+	// в редакторе не показывается и задать его нечем.
+	add_post_type_support( 'page', 'excerpt' );
 	add_theme_support( 'post-thumbnails' );
 	add_theme_support( 'automatic-feed-links' );
 	add_theme_support( 'responsive-embeds' );

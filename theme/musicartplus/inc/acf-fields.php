@@ -78,6 +78,14 @@ function map_fields_settings() {
 			map_acf_field( 'address_note', __( 'Уточнение к адресу', 'musicartplus' ), 'text', array(
 				'placeholder' => 'вход со стороны запасного входа',
 			) ),
+			map_acf_field( 'work_hours', __( 'Часы работы', 'musicartplus' ), 'text', array(
+				'placeholder'  => 'Пн–Вс, 10:00–20:00',
+				'instructions' => __( 'Показывается в блоке «Как нас найти».', 'musicartplus' ),
+			) ),
+			map_acf_field( 'footer_about', __( 'Текст в подвале', 'musicartplus' ), 'textarea', array(
+				'rows'         => 3,
+				'instructions' => __( 'Абзац под логотипом в подвале.', 'musicartplus' ),
+			) ),
 			map_acf_field( 'map_embed', __( 'Код карты', 'musicartplus' ), 'textarea', array(
 				'instructions' => __( 'Ссылка на карту из Яндекс.Конструктора. Подставится в блок «Как нас найти».', 'musicartplus' ),
 				'rows'         => 3,
@@ -181,12 +189,6 @@ function map_fields_teacher() {
 						'placeholder' => '15:00 – 20:00',
 					),
 				),
-			) ),
-			map_acf_field( 'crm_manager_id', __( 'ID в «Моём классе»', 'musicartplus' ), 'number', array(
-				'instructions' => __( 'Необязательно. Связывает карточку с сотрудником в CRM.', 'musicartplus' ),
-			) ),
-			map_acf_field( 'video_url', __( 'Ссылка на видео', 'musicartplus' ), 'url', array(
-				'instructions' => __( 'Rutube или YouTube. Появится в блоке видео на главной.', 'musicartplus' ),
 			) ),
 		),
 	) );
@@ -346,6 +348,7 @@ function map_fields_front() {
 				'sub_fields'   => array(
 					array( 'key' => 'field_map_sub_video_title', 'name' => 'title', 'label' => __( 'Подпись', 'musicartplus' ), 'type' => 'text' ),
 					array( 'key' => 'field_map_sub_video_url', 'name' => 'url', 'label' => __( 'Ссылка', 'musicartplus' ), 'type' => 'url' ),
+					array( 'key' => 'field_map_sub_video_subtitle', 'name' => 'subtitle', 'label' => __( 'Вторая строка', 'musicartplus' ), 'type' => 'text' ),
 					array( 'key' => 'field_map_sub_video_cover', 'name' => 'cover', 'label' => __( 'Обложка', 'musicartplus' ), 'type' => 'image', 'return_format' => 'id' ),
 				),
 			) ),

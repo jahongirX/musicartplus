@@ -15,7 +15,7 @@ while ( have_posts() ) :
 	get_template_part( 'template-parts/page/hero', null, array(
 		'crumb' => get_the_title(),
 		'title' => get_the_title(),
-		'text'  => get_the_excerpt() ? get_the_excerpt() : __( 'Нажмите на фотографию — откроется биография, расписание и запись на урок.', 'musicartplus' ),
+		'text'  => map_page_subtitle() ? map_page_subtitle() : __( 'Нажмите на фотографию — откроется биография, расписание и запись на урок.', 'musicartplus' ),
 	) );
 
 	$map_teachers = map_get_items( 'map_teacher' );

@@ -137,6 +137,9 @@ function map_guest_card( $post, $delay = 0, $reveal = true ) {
 		</div>
 		<h3 class="teacher__name"><?php echo esc_html( get_the_title( $post ) ); ?></h3>
 		<div class="teacher__role"><?php echo esc_html( map_field( 'guest_role', $post->ID ) ); ?></div>
+		<?php if ( map_field( 'guest_org', $post->ID ) ) : ?>
+			<p class="teacher__desc"><?php echo esc_html( map_field( 'guest_org', $post->ID ) ); ?></p>
+		<?php endif; ?>
 		<?php if ( $facts ) : ?>
 			<ul class="tm__list" style="text-align:left;margin-top:14px">
 				<?php foreach ( $facts as $fact ) : ?>
