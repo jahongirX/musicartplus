@@ -1172,9 +1172,17 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
   margin:clamp(28px,3.4vw,48px) 0 0;border-radius:var(--r-lg);overflow:hidden;background:var(--cream);
   box-shadow:var(--sh-2);
 }
-/* на широких экранах обложка чуть выходит за колонку текста — симметрично */
+/* Обложку, медиаблоки и шапку статьи раздвигаем до обычной ширины сайта,
+   а колонку текста оставляем узкой. Отбивку считаем от окна, а не задаём
+   числом: на промежуточных ширинах жёсткий отступ вылезал бы за экран. */
 @media (min-width:1000px){
-  .article__cover{margin-inline:-70px}
+  .article__head,
+  .article__cover,
+  .article__video,
+  .article__gallery{
+    --pull:max(0px, calc((min(var(--container), 100vw - 2 * var(--gutter)) - 880px) / 2));
+    margin-inline:calc(-1 * var(--pull))
+  }
 }
 .article__cover img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
 .article__body{margin-top:clamp(28px,3.4vw,46px);font-size:clamp(16.6px,1.2vw,18.4px);line-height:1.75}
@@ -1426,9 +1434,6 @@ html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}
 
 /* ---------------------------------------------------------------- 36. Видео и фотографии внутри новости */
 .article__video{margin:clamp(28px,3.4vw,44px) 0 0}
-@media (min-width:1000px){
-  .article__video{margin-inline:-70px}
-}
 .video-card--wide{aspect-ratio:16/9;width:100%}
 /* Вертикальный ролик снят на телефон: во всю ширину он превратился бы в две
    чёрные полосы по краям, поэтому карточку держим узкой и по центру. */
@@ -1440,7 +1445,7 @@ html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}
   display:grid;grid-template-columns:repeat(2,1fr);gap:clamp(10px,1.2vw,16px);
 }
 @media (min-width:1000px){
-  .article__gallery{margin-inline:-70px;grid-template-columns:repeat(4,1fr)}
+  .article__gallery{grid-template-columns:repeat(4,1fr)}
 }
 .article__shot{margin:0;border-radius:var(--r-md);overflow:hidden;background:var(--cream)}
 /* Снимки приходят и вертикальные, и горизонтальные — квадрат щадит и те и
@@ -1470,9 +1475,3 @@ html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}
 .about-split__text{margin-top:22px}
 .about-split__text > p:first-child{font-size:clamp(17px,1.35vw,20px);line-height:1.6;color:var(--ink-80)}
 
-/* Шапка статьи — крошки, метка, заголовок и дата — выровнена по краю обложки,
-   а не по колонке текста: иначе заголовок выглядит вдвинутым внутрь кадра.
-   Сам текст остаётся узким, читать длинные строки неудобно. */
-@media (min-width:1000px){
-  .article__head{margin-inline:-70px}
-}
