@@ -481,12 +481,26 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 }
 .slider .swiper-pagination-bullet-active{background:var(--gold);width:26px;border-radius:6px}
 .slider .swiper-pagination-lock{display:none}
+/* Точки прячем, пока Swiper их не создал: иначе пустой блок оставляет отбивку
+   под сеткой, которая на десктопе слайдером не становится. */
+.slider .swiper-pagination:empty{display:none}
 
 /* сетка на десктопе → слайдер на мобильном (Swiper здесь включается по ширине) */
 .slider--grid .swiper-wrapper{display:grid;gap:clamp(18px,2.2vw,30px)}
 .slider--grid-4 .swiper-wrapper{grid-template-columns:repeat(4,1fr)}
 .slider--grid-3 .swiper-wrapper{grid-template-columns:repeat(3,1fr)}
 .slider--grid .swiper.swiper-initialized .swiper-wrapper{display:flex;gap:0}
+
+/* Кладка на десктопе → лента на телефоне. Пока Swiper не включился, обёртка
+   должна быть обычным блоком: в flex-контейнере многоколоночная вёрстка не
+   работает и все снимки встали бы в один столбец. */
+.slider--gallery .swiper-wrapper{display:block}
+.slider--gallery .swiper-slide{display:block}
+.slider--gallery .swiper.swiper-initialized .swiper-wrapper{display:flex;columns:auto;column-gap:0}
+.slider--gallery .swiper.swiper-initialized figure{margin-bottom:0}
+/* В ленте снимки идут в ряд, поэтому подрезаем их к общей высоте — иначе
+   Swiper растянул бы полосу по самому вытянутому кадру. */
+.slider--gallery .swiper.swiper-initialized img{aspect-ratio:4/3;object-fit:cover}
 
 /* стрелки */
 .slider__nav{display:flex;gap:10px}

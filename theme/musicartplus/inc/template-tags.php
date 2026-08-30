@@ -321,14 +321,16 @@ function map_direction_tile( $post, $delay = 0 ) {
  * @param string $name   Имя слайдера.
  * @param string $preset Пресет настроек.
  * @param string $grid   Дополнительный класс.
+ * @param string $wrap   Дополнительный класс ленты слайдов.
  * @return void
  */
-function map_slider_open( $name, $preset = 'cards', $grid = '' ) {
+function map_slider_open( $name, $preset = 'cards', $grid = '', $wrap = '' ) {
 	printf(
-		'<div class="slider%1$s" data-swiper="%2$s" data-swiper-preset="%3$s"><div class="swiper"><div class="swiper-wrapper">',
+		'<div class="slider%1$s" data-swiper="%2$s" data-swiper-preset="%3$s"><div class="swiper"><div class="swiper-wrapper%4$s">',
 		$grid ? ' ' . esc_attr( $grid ) : '',
 		esc_attr( $name ),
-		esc_attr( $preset )
+		esc_attr( $preset ),
+		$wrap ? ' ' . esc_attr( $wrap ) : ''
 	);
 }
 

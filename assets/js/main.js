@@ -189,8 +189,8 @@
         return new Swiper(el, opts);
       };
 
-      // «сетка на десктопе → слайдер на мобильном»
-      if (root.classList.contains('slider--grid')) {
+      // «сетка на десктопе → слайдер на мобильном»: обычная сетка и кладка галереи
+      if (root.classList.contains('slider--grid') || root.classList.contains('slider--gallery')) {
         var mq = window.matchMedia('(max-width: 760px)');
         var inst = null;
         var sync = function () {
@@ -200,6 +200,10 @@
         sync();
         if (mq.addEventListener) mq.addEventListener('change', sync);
         else if (mq.addListener) mq.addListener(sync);
+        // Событие change у медиазапроса приходит не всегда — например, когда
+        // ширину меняет не пользователь. Обычный resize надёжнее, а sync
+        // ничего не делает, если состояние уже совпадает.
+        window.addEventListener('resize', sync);
       } else {
         build();
       }

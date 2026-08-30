@@ -29,12 +29,13 @@ if ( ! $map_gallery ) {
 		</div>
 
 		<div class="reveal">
-			<div class="gallery">
+			<?php // На широком экране это кладка, на телефоне — лента: снимков много, и столбиком страница уходила бы вниз без конца. ?>
+			<?php map_slider_open( 'about-mood', 'gridMobile', 'slider--gallery', 'gallery' ); ?>
 				<?php foreach ( (array) $map_gallery as $map_item ) : ?>
 					<?php $map_gid = is_array( $map_item ) ? $map_item['ID'] : $map_item; ?>
-					<figure><?php echo wp_get_attachment_image( $map_gid, 'map-tile', false, array( 'loading' => 'lazy' ) ); ?></figure>
+					<figure class="swiper-slide"><?php echo wp_get_attachment_image( $map_gid, 'map-tile', false, array( 'loading' => 'lazy' ) ); ?></figure>
 				<?php endforeach; ?>
-			</div>
+			<?php map_slider_close(); ?>
 		</div>
 	</div>
 </section>

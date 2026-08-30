@@ -653,6 +653,16 @@ def gallery_block(imgs, cls='gallery'):
     figs = ''.join('<figure><img src="assets/img/gallery/' + g + '" alt="Занятия в MusicArtPlus" loading="lazy"></figure>' for g in imgs)
     return '<div class="' + cls + '">' + figs + '</div>'
 
+def gallery_slider(imgs, name):
+    # На широком экране это кладка, на телефоне — лента: снимков много,
+    # и столбиком страница уходила бы вниз без конца.
+    figs = ''.join('<figure class="swiper-slide"><img src="assets/img/gallery/' + g +
+                   '" alt="Занятия в MusicArtPlus" loading="lazy"></figure>' for g in imgs)
+    return ('<div class="slider slider--gallery" data-swiper="' + name + '" data-swiper-preset="gridMobile">'
+      '<div class="swiper"><div class="swiper-wrapper gallery">' + figs + '</div></div>'
+      '<div class="swiper-pagination"></div>'
+      '</div>')
+
 # ================================================================ ГЛАВНАЯ
 DECO_NOTE = ('<span class="deco deco--bl draw" aria-hidden="true">'
   '<svg viewBox="0 0 200 200"><circle cx="42" cy="150" r="15"/><circle cx="120" cy="132" r="15"/>'
@@ -982,7 +992,7 @@ ABOUT = page_hero('О нас', 'Центр искусств, где ребёнк
         <p class="sec-head__desc">Светлые классы, два рояля, мольберты и много воздуха. И дети, которым здесь интересно.</p>
       </div>
     </div>
-    <div class="reveal">''' + gallery_block(['g07.jpg','g11.jpg','g02.jpg','g15.jpg','g04.jpg','g03.jpg','g09.jpg','g01.jpg','g12.jpg','g14.jpg','g17.jpg','g19.jpg']) + '''</div>
+    <div class="reveal">''' + gallery_slider(['g07.jpg','g11.jpg','g02.jpg','g15.jpg','g04.jpg','g03.jpg','g09.jpg','g01.jpg','g12.jpg','g14.jpg','g17.jpg','g19.jpg'], 'about-mood') + '''</div>
   </div>
 </section>
 
@@ -1024,7 +1034,7 @@ ABOUT = page_hero('О нас', 'Центр искусств, где ребёнк
 
 page('about.html', 'О нас — центр искусств MusicArtPlus в Москве',
      'О центре искусств MusicArtPlus: авторская методика, педагоги ведущих вузов, обучение музыке, живописи и актёрскому мастерству с 3 лет.',
-     'about', ABOUT, hero='dark')
+     'about', ABOUT, hero='dark', swiper=True)
 print('about.html готов')
 
 # ================================================================ НАПРАВЛЕНИЯ
@@ -1213,7 +1223,7 @@ TEACHPAGE = page_hero('Педагоги', 'Педагоги, которым до
         <h2 class="h2">Фотографии с уроков</h2>
       </div>
     </div>
-    <div class="reveal">''' + gallery_block(['g11.jpg','g07.jpg','g02.jpg','g15.jpg','g03.jpg','g04.jpg','g09.jpg','g12.jpg','g01.jpg','g14.jpg','g17.jpg','g19.jpg','g05.jpg','g08.jpg','g13.jpg','g18.jpg']) + '''</div>
+    <div class="reveal">''' + gallery_slider(['g11.jpg','g07.jpg','g02.jpg','g15.jpg','g03.jpg','g04.jpg','g09.jpg','g12.jpg','g01.jpg','g14.jpg','g17.jpg','g19.jpg','g05.jpg','g08.jpg','g13.jpg','g18.jpg'], 'teachers-shots') + '''</div>
   </div>
 </section>
 
