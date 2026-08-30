@@ -23,6 +23,7 @@ while ( have_posts() ) :
 
 	<article class="section article">
 		<div class="container container--narrow">
+			<div class="article__head">
 			<nav class="crumbs" aria-label="<?php esc_attr_e( 'Хлебные крошки', 'musicartplus' ); ?>">
 				<a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'Главная', 'musicartplus' ); ?></a>
 				<?php map_the_icon( 'ar' ); ?>
@@ -50,6 +51,7 @@ while ( have_posts() ) :
 					);
 					?>
 				</time>
+			</div>
 			</div>
 
 			<?php if ( $map_cover ) : ?>

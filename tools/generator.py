@@ -1415,6 +1415,7 @@ def news_page(n, prev_n, next_n):
     body = (
       '<article class="section article">'
         '<div class="container container--narrow">'
+          '<div class="article__head">'
           '<nav class="crumbs" aria-label="Хлебные крошки">'
             '<a href="index.html">Главная</a>' + ico('ar') +
             '<a href="news.html">Новости</a>' + ico('ar') +
@@ -1424,6 +1425,7 @@ def news_page(n, prev_n, next_n):
           '<h1>' + n['title'] + '</h1>'
           '<div class="article__meta">'
             '<time datetime="' + n['y'] + '">' + n['d'] + ' ' + n['m'] + ' ' + n['y'] + ' г.</time>'
+          '</div>'
           '</div>'
           '<figure class="article__cover reveal">'
             '<img src="assets/img/gallery/' + n['img'] + '" alt="' + esc(n['title']) + '" fetchpriority="high">'

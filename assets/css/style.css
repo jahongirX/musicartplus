@@ -1469,3 +1469,10 @@ html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}
    первый абзац — как в остальных вводных блоках сайта. */
 .about-split__text{margin-top:22px}
 .about-split__text > p:first-child{font-size:clamp(17px,1.35vw,20px);line-height:1.6;color:var(--ink-80)}
+
+/* Шапка статьи — крошки, метка, заголовок и дата — выровнена по краю обложки,
+   а не по колонке текста: иначе заголовок выглядит вдвинутым внутрь кадра.
+   Сам текст остаётся узким, читать длинные строки неудобно. */
+@media (min-width:1000px){
+  .article__head{margin-inline:-70px}
+}
