@@ -64,6 +64,11 @@ function map_seed_content() {
 	map_seed_options( $data['options'] );
 	map_seed_front( $data['front'] );
 	map_seed_menu();
+
+	if ( isset( $data['about'] ) ) {
+		map_seed_about( $data['about'] );
+	}
+
 	map_seed_field_defaults();
 
 	return sprintf(
@@ -621,4 +626,59 @@ function map_seed_field_defaults() {
 	}
 
 	return $filled;
+}
+
+/**
+ * Наполняет страницу «О нас».
+ *
+ * Значения-пути к картинкам загружаются в медиатеку, остальное кладётся как
+ * есть. Заполняются только пустые поля — введённое заказчиком не трогаем.
+ *
+ * @param array $about Значения полей.
+ * @return void
+ */
+function map_seed_about( $about ) {
+	$page = map_page_by_template( 'page-about.php' );
+
+	if ( ! $page || ! function_exists( 'update_field' ) ) {
+		return;
+	}
+
+	// Поля, в которых лежат пути к картинкам — их надо превратить во вложения.
+	$images     = array( 'about_hero_image', 'steps_card_image' );
+	$galleries  = array( 'intro_gallery', 'mood_gallery' );
+
+	foreach ( $about as $key => $value ) {
+		$current = get_field( $key, $page );
+
+		if ( null !== $current && '' !== $current && array() !== $current ) {
+			continue;
+		}
+
+		if ( in_array( $key, $images, true ) ) {
+			$value = map_seed_image( $value, $page );
+
+			if ( ! $value ) {
+				continue;
+			}
+		} elseif ( in_array( $key, $galleries, true ) ) {
+			$ids = array();
+
+			foreach ( (array) $value as $rel ) {
+				$id = map_seed_image( $rel, $page );
+
+				if ( $id ) {
+					$ids[] = $id;
+				}
+			}
+
+			if ( ! $ids ) {
+				continue;
+			}
+
+			$value = $ids;
+		}
+
+		update_field( $key, $value, $page );
+	}
 }

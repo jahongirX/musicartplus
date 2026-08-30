@@ -25,6 +25,21 @@ def f(name, label, ftype='text', **extra):
     return d
 
 
+
+def sub(prefix, name, label, ftype='text', **extra):
+    """Подполе повторителя. Ключ обязан быть уникален на весь сайт, поэтому
+    в нём и префикс группы, и метка sub — иначе поле с тем же именем в другой
+    группе перетрёт это (ACF ищет определение по ключу)."""
+    d = {
+        'key': 'field_map_%s_sub_%s' % (prefix, name),
+        'label': label, 'name': name, 'aria-label': '', 'type': ftype,
+        'instructions': '', 'required': 0, 'conditional_logic': 0,
+        'wrapper': {'width': '', 'class': '', 'id': ''},
+    }
+    d.update(extra)
+    return d
+
+
 # ------------------------------------------------------------------ настройки
 SETTINGS = [
     ('Логотип', [
@@ -171,6 +186,66 @@ HOME = [
 
 # ------------------------------------------------------------------ страницы
 PAGE_ABOUT = [
+    ('Первый экран', [
+        f('about_hero_title', 'Заголовок', 'text',
+          instructions='Показывается вместо названия страницы. В меню и в хлебных крошках останется «О нас».',
+          default_value='Центр искусств, где ребёнку хочется остаться'),
+        f('about_hero_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Музыка, живопись и сцена для детей от трёх лет. Мы соединяем академическую базу с живым, радостным обучением.'),
+        f('about_hero_image', 'Фотография первого экрана', 'image', return_format='id'),
+    ]),
+    ('Кто мы', [
+        f('intro_eyebrow', 'Надглавие', 'text', default_value='Кто мы'),
+        f('intro_title', 'Заголовок', 'text', default_value='Центр, построенный вокруг'),
+        f('intro_accent', 'Выделенное слово в заголовке', 'text',
+          instructions='Дописывается к заголовку и подсвечивается золотым.',
+          default_value='ученика'),
+        f('intro_text', 'Текст', 'wysiwyg', media_upload=0, toolbar='basic'),
+        f('intro_btn_text', 'Кнопка записи: текст', 'text', default_value='Записаться на пробный урок'),
+        f('intro_link_text', 'Вторая кнопка: текст', 'text', default_value='Познакомиться с педагогами'),
+        f('intro_gallery', 'Фотографии рядом с текстом', 'gallery', return_format='id',
+          instructions='Четыре снимка смотрятся лучше всего.'),
+    ]),
+    ('Цифры', [
+        f('about_facts', 'Цифры', 'repeater', layout='table', button_label='Добавить цифру',
+          sub_fields=[
+              sub('pgabout', 'num', 'Число'),
+              sub('pgabout', 'label', 'Подпись'),
+          ]),
+    ]),
+    ('Как всё устроено', [
+        f('steps_eyebrow', 'Надглавие', 'text', default_value='Как всё устроено'),
+        f('steps_title', 'Заголовок', 'text', default_value='Путь ученика — от первой заявки до сцены'),
+        f('steps', 'Шаги', 'repeater', button_label='Добавить шаг',
+          sub_fields=[
+              sub('pgabout', 'step_label', 'Подпись слева', 'text'),
+              sub('pgabout', 'step_title', 'Заголовок шага', 'text'),
+              sub('pgabout', 'step_text', 'Описание', 'textarea', rows=3),
+          ]),
+        f('steps_quote', 'Цитата', 'textarea', rows=2),
+        f('steps_quote_author', 'Кто сказал', 'text'),
+        f('steps_card_image', 'Карточка: фотография', 'image', return_format='id'),
+        f('steps_card_title', 'Карточка: заголовок', 'text',
+          default_value='Пробный урок ни к чему не обязывает'),
+        f('steps_card_text', 'Карточка: текст', 'textarea', rows=3),
+        f('steps_card_btn', 'Карточка: кнопка', 'text', default_value='Записаться'),
+    ]),
+    ('Атмосфера', [
+        f('mood_eyebrow', 'Надглавие', 'text', default_value='Атмосфера'),
+        f('mood_title', 'Заголовок', 'text', default_value='Как проходят наши занятия'),
+        f('mood_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Светлые классы, два рояля, мольберты и много воздуха. И дети, которым здесь интересно.'),
+        f('mood_gallery', 'Фотографии', 'gallery', return_format='id'),
+    ]),
+    ('Партнёр', [
+        f('partner_eyebrow', 'Надглавие', 'text', default_value='Партнёр центра'),
+        f('partner_title', 'Заголовок', 'text', default_value='При поддержке фонда ФОРТЕФОРМА'),
+        f('partner_text', 'Текст', 'textarea', rows=4,
+          default_value='Фонд поддерживает музыкальное образование и культурные проекты. Благодаря этому партнёрству в центре проходят мастер-классы приглашённых профессоров, концерты и творческие программы для детей.'),
+        f('partner_btn_text', 'Кнопка: текст', 'text', default_value='Сайт фонда'),
+        f('partner_note', 'Подпись под знаком фонда', 'text',
+          default_value='Фонд поддержки и развития культурных и социальных проектов'),
+    ]),
     ('Призыв к записи', [
         f('about_cta_title', 'Заголовок', 'text'),
         f('about_cta_text', 'Текст', 'textarea', rows=2),
@@ -406,6 +481,10 @@ TAB_ORDER = {
     'group_map_settings': [
         'Логотип', 'Контакты', 'Соцсети', 'Подвал', 'Кнопки',
         'CRM «Мой класс»', 'Форма записи', 'Служебные страницы',
+    ],
+    'group_map_page_about': [
+        'Первый экран', 'Кто мы', 'Цифры', 'Как всё устроено', 'Атмосфера',
+        'Партнёр', 'Призыв к записи',
     ],
     'group_map_front': [
         'Первый экран', 'О центре', 'Новости', 'Направления', 'Педагоги',

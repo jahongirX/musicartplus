@@ -387,20 +387,26 @@ function map_widget_section() {
  * Полоса с призывом записаться.
  *
  * @param string $title Заголовок.
- * @param string $text  Текст.
+ * @param string $text          Текст.
+ * @param string $section_class Дополнительный класс секции — например
+ *                              section--cream, чтобы фон чередовался с
+ *                              предыдущим блоком.
  * @return void
  */
-function map_cta_band( $title, $text ) {
+function map_cta_band( $title, $text, $section_class = '' ) {
 	?>
-	<section class="cta-band">
-		<div class="container cta-band__inner">
-			<div>
-				<h2 class="h2" style="color:#fff"><?php echo esc_html( $title ); ?></h2>
-				<p class="lead" style="color:rgba(255,255,255,.72)"><?php echo esc_html( $text ); ?></p>
-			</div>
-			<div class="cta-band__actions">
-				<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( map_cta_label() ); ?></a>
-				<a class="btn btn--light btn--lg" href="tel:<?php echo esc_attr( map_phone_href() ); ?>"><?php echo esc_html( map_opt( 'phone' ) ); ?></a>
+	<section class="section section--tight<?php echo $section_class ? ' ' . esc_attr( $section_class ) : ''; ?>">
+		<div class="container">
+			<div class="cta-band reveal reveal--scale">
+				<span class="cta-band__glow" aria-hidden="true"></span>
+				<div>
+					<h2 class="h2"><?php echo esc_html( $title ); ?></h2>
+					<p><?php echo esc_html( $text ); ?></p>
+				</div>
+				<div class="cta-band__actions">
+					<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( map_cta_label() ); ?></a>
+					<a class="btn btn--light btn--lg" href="tel:<?php echo esc_attr( map_phone_href() ); ?>"><?php echo esc_html( map_opt( 'phone' ) ); ?></a>
+				</div>
 			</div>
 		</div>
 	</section>

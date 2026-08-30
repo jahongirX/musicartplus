@@ -53,7 +53,8 @@ get_template_part( 'template-parts/page/hero', null, array(
 <?php
 map_cta_band(
 	map_blog_field( 'news_cta_title', __( 'Хотите так же?', 'musicartplus' ) ),
-	map_blog_field( 'news_cta_text', __( 'Приходите на пробный урок — познакомимся и подберём педагога.', 'musicartplus' ) )
+	map_blog_field( 'news_cta_text', __( 'Приходите на пробный урок — познакомимся и подберём педагога.', 'musicartplus' ) ),
+	'section--cream'
 );
 
 get_footer();

@@ -3,6 +3,662 @@
     "title": "Страница «О нас»",
     "fields": [
         {
+            "key": "field_map_pgabout_tab_55203",
+            "label": "Первый экран",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgabout_about_hero_title",
+            "label": "Заголовок",
+            "name": "about_hero_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Показывается вместо названия страницы. В меню и в хлебных крошках останется «О нас».",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Центр искусств, где ребёнку хочется остаться"
+        },
+        {
+            "key": "field_map_pgabout_about_hero_text",
+            "label": "Текст под заголовком",
+            "name": "about_hero_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Музыка, живопись и сцена для детей от трёх лет. Мы соединяем академическую базу с живым, радостным обучением."
+        },
+        {
+            "key": "field_map_pgabout_about_hero_image",
+            "label": "Фотография первого экрана",
+            "name": "about_hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_pgabout_tab_8d8f5",
+            "label": "Кто мы",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgabout_intro_eyebrow",
+            "label": "Надглавие",
+            "name": "intro_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Кто мы"
+        },
+        {
+            "key": "field_map_pgabout_intro_title",
+            "label": "Заголовок",
+            "name": "intro_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Центр, построенный вокруг"
+        },
+        {
+            "key": "field_map_pgabout_intro_accent",
+            "label": "Выделенное слово в заголовке",
+            "name": "intro_accent",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Дописывается к заголовку и подсвечивается золотым.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ученика"
+        },
+        {
+            "key": "field_map_pgabout_intro_text",
+            "label": "Текст",
+            "name": "intro_text",
+            "aria-label": "",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "media_upload": 0,
+            "toolbar": "basic"
+        },
+        {
+            "key": "field_map_pgabout_intro_btn_text",
+            "label": "Кнопка записи: текст",
+            "name": "intro_btn_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Записаться на пробный урок"
+        },
+        {
+            "key": "field_map_pgabout_intro_link_text",
+            "label": "Вторая кнопка: текст",
+            "name": "intro_link_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Познакомиться с педагогами"
+        },
+        {
+            "key": "field_map_pgabout_intro_gallery",
+            "label": "Фотографии рядом с текстом",
+            "name": "intro_gallery",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "Четыре снимка смотрятся лучше всего.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_pgabout_tab_2d9d0",
+            "label": "Цифры",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgabout_about_facts",
+            "label": "Цифры",
+            "name": "about_facts",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "layout": "table",
+            "button_label": "Добавить цифру",
+            "sub_fields": [
+                {
+                    "key": "field_map_pgabout_sub_num",
+                    "label": "Число",
+                    "name": "num",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_map_pgabout_sub_label",
+                    "label": "Подпись",
+                    "name": "label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                }
+            ]
+        },
+        {
+            "key": "field_map_pgabout_tab_2eb0e",
+            "label": "Как всё устроено",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgabout_steps_eyebrow",
+            "label": "Надглавие",
+            "name": "steps_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Как всё устроено"
+        },
+        {
+            "key": "field_map_pgabout_steps_title",
+            "label": "Заголовок",
+            "name": "steps_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Путь ученика — от первой заявки до сцены"
+        },
+        {
+            "key": "field_map_pgabout_steps",
+            "label": "Шаги",
+            "name": "steps",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "button_label": "Добавить шаг",
+            "sub_fields": [
+                {
+                    "key": "field_map_pgabout_sub_step_label",
+                    "label": "Подпись слева",
+                    "name": "step_label",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_map_pgabout_sub_step_title",
+                    "label": "Заголовок шага",
+                    "name": "step_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_map_pgabout_sub_step_text",
+                    "label": "Описание",
+                    "name": "step_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3
+                }
+            ]
+        },
+        {
+            "key": "field_map_pgabout_steps_quote",
+            "label": "Цитата",
+            "name": "steps_quote",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
+            "key": "field_map_pgabout_steps_quote_author",
+            "label": "Кто сказал",
+            "name": "steps_quote_author",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_map_pgabout_steps_card_image",
+            "label": "Карточка: фотография",
+            "name": "steps_card_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_pgabout_steps_card_title",
+            "label": "Карточка: заголовок",
+            "name": "steps_card_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Пробный урок ни к чему не обязывает"
+        },
+        {
+            "key": "field_map_pgabout_steps_card_text",
+            "label": "Карточка: текст",
+            "name": "steps_card_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3
+        },
+        {
+            "key": "field_map_pgabout_steps_card_btn",
+            "label": "Карточка: кнопка",
+            "name": "steps_card_btn",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Записаться"
+        },
+        {
+            "key": "field_map_pgabout_tab_f763",
+            "label": "Атмосфера",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgabout_mood_eyebrow",
+            "label": "Надглавие",
+            "name": "mood_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Атмосфера"
+        },
+        {
+            "key": "field_map_pgabout_mood_title",
+            "label": "Заголовок",
+            "name": "mood_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Как проходят наши занятия"
+        },
+        {
+            "key": "field_map_pgabout_mood_text",
+            "label": "Текст под заголовком",
+            "name": "mood_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Светлые классы, два рояля, мольберты и много воздуха. И дети, которым здесь интересно."
+        },
+        {
+            "key": "field_map_pgabout_mood_gallery",
+            "label": "Фотографии",
+            "name": "mood_gallery",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_pgabout_tab_a8281",
+            "label": "Партнёр",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgabout_partner_eyebrow",
+            "label": "Надглавие",
+            "name": "partner_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Партнёр центра"
+        },
+        {
+            "key": "field_map_pgabout_partner_title",
+            "label": "Заголовок",
+            "name": "partner_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "При поддержке фонда ФОРТЕФОРМА"
+        },
+        {
+            "key": "field_map_pgabout_partner_text",
+            "label": "Текст",
+            "name": "partner_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "Фонд поддерживает музыкальное образование и культурные проекты. Благодаря этому партнёрству в центре проходят мастер-классы приглашённых профессоров, концерты и творческие программы для детей."
+        },
+        {
+            "key": "field_map_pgabout_partner_btn_text",
+            "label": "Кнопка: текст",
+            "name": "partner_btn_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Сайт фонда"
+        },
+        {
+            "key": "field_map_pgabout_partner_note",
+            "label": "Подпись под знаком фонда",
+            "name": "partner_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Фонд поддержки и развития культурных и социальных проектов"
+        },
+        {
             "key": "field_map_pgabout_tab_e280",
             "label": "Призыв к записи",
             "name": "",

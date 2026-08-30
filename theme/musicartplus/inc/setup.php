@@ -48,6 +48,9 @@ function map_setup() {
 	add_image_size( 'map-teacher', 800, 800, true );
 	add_image_size( 'map-card', 760, 520, true );
 	add_image_size( 'map-hero', 1920, 1200, true );
+	// Кладка галереи держится на разной высоте снимков, поэтому этот размер
+	// только ужимает по ширине и не кадрирует.
+	add_image_size( 'map-tile', 640, 9999, false );
 }
 add_action( 'after_setup_theme', 'map_setup' );
 
