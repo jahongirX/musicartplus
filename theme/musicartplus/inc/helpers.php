@@ -380,3 +380,34 @@ function map_short_name( $name ) {
 
 	return $short;
 }
+
+/**
+ * Подставляет в текст ссылку на фонд со знаком.
+ *
+ * В списке преимуществ название фонда — единственное место, где внутри
+ * обычной строки нужна ссылка с картинкой. Заводить ради неё поле с
+ * редактором значит дать редактору возможность сломать вёрстку строки,
+ * поэтому имя фонда подсвечивается по совпадению.
+ *
+ * @param string $text Строка списка.
+ * @return string
+ */
+function map_fund_link( $text ) {
+	$name = (string) map_opt( 'fund_name' );
+	$url  = (string) map_opt( 'fund_url' );
+
+	if ( ! $name || ! $url || false === strpos( $text, $name ) ) {
+		return $text;
+	}
+
+	$logo = map_image_url( map_opt( 'fund_logo' ), 'full', map_asset( 'assets/img/ui/forteforma.svg' ) );
+
+	$link = sprintf(
+		'<a class="ff-inline" href="%s" target="_blank" rel="noopener"><img src="%s" alt="" width="45" height="34">%s</a>',
+		esc_url( $url ),
+		esc_url( $logo ),
+		esc_html( $name )
+	);
+
+	return str_replace( $name, $link, $text );
+}

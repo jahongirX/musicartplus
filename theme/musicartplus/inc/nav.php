@@ -86,6 +86,15 @@ function map_footer_menu( $location ) {
 		return;
 	}
 
+	// Отдельного меню для подвала нет — берём основное: порядок разделов
+	// в шапке и в подвале должен совпадать. Список страниц по алфавиту
+	// давал другой порядок.
+	if ( 'primary' !== $location && has_nav_menu( 'primary' ) ) {
+		map_footer_menu( 'primary' );
+
+		return;
+	}
+
 	$pages = get_pages( array( 'parent' => 0, 'sort_column' => 'menu_order,post_title', 'number' => 6 ) );
 
 	foreach ( $pages as $page ) {
@@ -99,6 +108,14 @@ function map_footer_menu( $location ) {
  * @return void
  */
 function map_footer_directions() {
+	// Своё меню важнее списка направлений: в подвале названия обычно короче,
+	// чем в каталоге, и порядок там выбирают руками.
+	if ( has_nav_menu( 'dirs' ) ) {
+		map_footer_menu( 'dirs' );
+
+		return;
+	}
+
 	$items = map_get_items( 'map_direction', (int) map_opt( 'footer_directions_count', 5 ) );
 
 	if ( ! $items ) {
@@ -169,22 +186,33 @@ function map_page_by_template( $template ) {
  *
  * @return void
  */
-function map_privacy_links() {
+function map_privacy_url() {
 	$privacy = get_privacy_policy_url();
 
-	if ( ! $privacy && map_opt( 'privacy_url' ) ) {
-		$privacy = map_opt( 'privacy_url' );
-	}
+	return $privacy ? $privacy : (string) map_opt( 'privacy_url' );
+}
 
-	if ( ! $privacy ) {
-		return;
-	}
-
-	printf(
-		'<a href="%s">%s</a>',
-		esc_url( $privacy ),
-		esc_html__( 'Политика конфиденциальности', 'musicartplus' )
+/**
+ * Правовые ссылки в подвале.
+ *
+ * @return void
+ */
+function map_privacy_links() {
+	$links = array(
+		array( map_privacy_url(), map_opt( 'privacy_label', __( 'Политика конфиденциальности', 'musicartplus' ) ) ),
+		array( (string) map_opt( 'consent_url' ), map_opt( 'consent_label', __( 'Согласие на обработку данных', 'musicartplus' ) ) ),
 	);
+
+	$out = array();
+
+	foreach ( $links as $link ) {
+		if ( $link[0] ) {
+			$out[] = sprintf( '<a href="%s">%s</a>', esc_url( $link[0] ), esc_html( $link[1] ) );
+		}
+	}
+
+	// Разделитель ставим только между ссылками — одинокая точка выглядит сбоем.
+	echo implode( ' &middot; ', $out ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- собрано из экранированных частей.
 }
 
 /**

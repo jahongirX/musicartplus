@@ -90,6 +90,40 @@
             "step": "",
             "prepend": "",
             "append": ""
+        },
+        {
+            "key": "field_map_rev_tab_fa271",
+            "label": "Основное",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_rev_review_long",
+            "label": "Длинный отзыв",
+            "name": "review_long",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Текст сворачивается, под ним появляется кнопка «Читать полностью».",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1
         }
     ],
     "location": [

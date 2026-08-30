@@ -34,7 +34,7 @@ $map_dir_page = map_page_by_template( 'page-directions.php' );
 				<a class="dir-mini reveal" data-delay="<?php echo (int) ( $map_i % 4 ); ?>" href="<?php echo esc_url( map_direction_link( $map_dir ) ); ?>">
 					<span class="dir-mini__ico"><?php map_the_icon( map_field( 'dir_icon', $map_dir->ID, 'note' ) ); ?></span>
 					<span class="dir-mini__body">
-						<b><?php echo esc_html( get_the_title( $map_dir ) ); ?></b>
+						<b><?php echo esc_html( map_field( 'dir_title_short', $map_dir->ID, get_the_title( $map_dir ) ) ); ?></b>
 						<span><?php echo esc_html( map_field( 'dir_age', $map_dir->ID ) ); ?></span>
 					</span>
 				</a>

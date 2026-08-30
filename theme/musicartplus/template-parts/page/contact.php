@@ -5,7 +5,7 @@
  * @package MusicArtPlus
  *
  * @var array $args eyebrow, title, text, points, phone_label, form_title,
- *                  form_text, form_id, class.
+ *                  form_text, form_id, form_btn, class.
  */
 
 defined( 'ABSPATH' ) || exit;
@@ -19,6 +19,7 @@ $map_a = wp_parse_args( $args, array(
 	'form_title'  => '',
 	'form_text'   => '',
 	'form_id'     => 'form-page',
+	'form_btn'    => '',
 	'class'       => '',
 ) );
 ?>
@@ -56,7 +57,7 @@ $map_a = wp_parse_args( $args, array(
 				<?php endif; ?>
 			</div>
 
-			<?php map_form_card( $map_a['form_title'], $map_a['form_text'], $map_a['form_id'] ); ?>
+			<?php map_form_card( $map_a['form_title'], $map_a['form_text'], $map_a['form_id'], $map_a['form_btn'] ); ?>
 		</div>
 	</div>
 </section>

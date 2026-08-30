@@ -16,8 +16,10 @@ while ( have_posts() ) :
 	$map_cover  = get_the_post_thumbnail_url( get_the_ID(), 'map-hero' );
 	$map_news   = (int) get_option( 'page_for_posts' );
 	$map_link   = $map_news ? get_permalink( $map_news ) : home_url( '/' );
-	$map_prev   = get_previous_post();
-	$map_next   = get_next_post();
+	// В ленте новости идут от свежих к старым, поэтому «предыдущая» — это
+	// соседняя сверху, то есть более новая запись. У WordPress наоборот.
+	$map_prev   = get_next_post();
+	$map_next   = get_previous_post();
 	$map_gallery = map_field( 'news_gallery', get_the_ID(), array() );
 	?>
 
@@ -45,7 +47,7 @@ while ( have_posts() ) :
 					<?php
 					printf(
 						'%1$s %2$s %3$s г.',
-						esc_html( get_the_date( 'j' ) ),
+						esc_html( get_the_date( 'd' ) ),
 						esc_html( map_month_genitive( (int) get_the_date( 'n' ) ) ),
 						esc_html( get_the_date( 'Y' ) )
 					);

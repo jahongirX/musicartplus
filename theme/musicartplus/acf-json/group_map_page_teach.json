@@ -545,6 +545,22 @@
                 "id": ""
             },
             "default_value": "Позвонить сейчас"
+        },
+        {
+            "key": "field_map_pgteach_teachers_form_btn",
+            "label": "Форма: надпись на кнопке",
+            "name": "teachers_form_btn",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Отправить заявку"
         }
     ],
     "location": [

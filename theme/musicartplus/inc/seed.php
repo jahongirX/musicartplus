@@ -270,7 +270,12 @@ function map_seed_direction_fields( $post_id, $item ) {
 	map_seed_set( $post_id, 'dir_icon', $item['icon'] );
 	map_seed_set( $post_id, 'dir_short', $item['text'] );
 	map_seed_set( $post_id, 'dir_age', $item['age'] );
-	map_seed_set( $post_id, 'dir_format', $item['format'] . ' · ' . $item['duration'] );
+	map_seed_set( $post_id, 'dir_format', $item['format'] );
+	map_seed_set( $post_id, 'dir_duration', $item['duration'] );
+
+	if ( ! empty( $item['short_title'] ) && $item['short_title'] !== $item['title'] ) {
+		map_seed_set( $post_id, 'dir_title_short', $item['short_title'] );
+	}
 	map_seed_set( $post_id, 'dir_featured', 1 );
 
 	// Текст перезаписываем только у пустой записи: у существующей его мог
@@ -293,9 +298,19 @@ function map_seed_reviews( $items ) {
 	$made = 0;
 
 	foreach ( (array) $items as $order => $item ) {
-		$slug = sanitize_title( $item['name'] . '-' . $order );
+		$slug     = sanitize_title( $item['name'] . '-' . $order );
+		$existing = map_seed_find( 'map_review', $slug );
 
-		if ( map_seed_find( 'map_review', $slug ) ) {
+		if ( $existing ) {
+			// Запись уже есть — досыпаем поля, которых в теме раньше не было.
+			map_seed_set( $existing, 'review_author', $item['name'] );
+			map_seed_set( $existing, 'review_role', $item['role'] );
+			map_seed_set( $existing, 'review_rating', 5 );
+
+			if ( ! empty( $item['long'] ) ) {
+				map_seed_set( $existing, 'review_long', 1 );
+			}
+
 			continue;
 		}
 
@@ -315,6 +330,10 @@ function map_seed_reviews( $items ) {
 		map_seed_set( $post_id, 'review_author', $item['name'] );
 		map_seed_set( $post_id, 'review_role', $item['role'] );
 		map_seed_set( $post_id, 'review_rating', 5 );
+
+		if ( ! empty( $item['long'] ) ) {
+			map_seed_set( $post_id, 'review_long', 1 );
+		}
 
 		$made++;
 	}
@@ -431,10 +450,68 @@ function map_seed_pages() {
 		$made++;
 	}
 
+	$made += map_seed_legal_pages();
+
 	if ( ! empty( $ids['home'] ) && ! empty( $ids['news'] ) ) {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $ids['home'] );
 		update_option( 'page_for_posts', $ids['news'] );
+	}
+
+	return $made;
+}
+
+/**
+ * Правовые страницы и ссылки на них в подвале.
+ *
+ * Текст здесь — только заглушка: политику и согласие юрист центра пишет сам.
+ * Страницы всё равно нужны сразу, иначе в подвале и в форме записи не на что
+ * ссылаться, а согласие на обработку данных собирать без документа нельзя.
+ *
+ * @return int Сколько страниц создано.
+ */
+function map_seed_legal_pages() {
+	$pages = array(
+		'privacy' => array( __( 'Политика конфиденциальности', 'musicartplus' ), 'politika-konfidencialnosti' ),
+		'consent' => array( __( 'Согласие на обработку персональных данных', 'musicartplus' ), 'soglasie-na-obrabotku-dannyh' ),
+	);
+
+	$stub = __( 'Текст готовится. Замените его перед запуском сайта.', 'musicartplus' );
+	$made = 0;
+	$ids  = array();
+
+	foreach ( $pages as $slug => $meta ) {
+		$existing = map_seed_find( 'page', $slug );
+
+		if ( $existing ) {
+			$ids[ $slug ] = $existing;
+			continue;
+		}
+
+		$post_id = wp_insert_post( array(
+			'post_type'    => 'page',
+			'post_status'  => 'publish',
+			'post_title'   => $meta[0],
+			'post_name'    => $meta[1],
+			'post_content' => $stub,
+		), true );
+
+		if ( is_wp_error( $post_id ) ) {
+			continue;
+		}
+
+		update_post_meta( $post_id, MAP_SEED_KEY, $slug );
+		$ids[ $slug ] = $post_id;
+		$made++;
+	}
+
+	if ( ! empty( $ids['privacy'] ) && ! get_option( 'wp_page_for_privacy_policy' ) ) {
+		update_option( 'wp_page_for_privacy_policy', $ids['privacy'] );
+	}
+
+	if ( ! empty( $ids['consent'] ) && function_exists( 'update_field' ) && ! get_field( 'consent_url', 'option' ) ) {
+		// page_link отдаёт адрес по ID — при смене домена ссылка не протухнет.
+		update_field( 'consent_url', $ids['consent'], 'option' );
 	}
 
 	return $made;
@@ -556,6 +633,62 @@ function map_seed_menu() {
 
 	$locations = get_theme_mod( 'nav_menu_locations', array() );
 	$locations['primary'] = $menu_id;
+	$locations['footer']  = $menu_id;
+	set_theme_mod( 'nav_menu_locations', $locations );
+
+	map_seed_dirs_menu();
+}
+
+/**
+ * Меню направлений в подвале.
+ *
+ * В подвале названия короче, чем в каталоге, и берётся не весь список —
+ * поэтому это отдельное меню, а не выборка из направлений.
+ *
+ * @return void
+ */
+function map_seed_dirs_menu() {
+	$name = __( 'Направления в подвале', 'musicartplus' );
+
+	if ( wp_get_nav_menu_object( $name ) ) {
+		return;
+	}
+
+	$page = map_page_by_template( 'page-directions.php' );
+
+	if ( ! $page ) {
+		return;
+	}
+
+	$menu_id = wp_create_nav_menu( $name );
+
+	if ( is_wp_error( $menu_id ) ) {
+		return;
+	}
+
+	$items = array(
+		'piano'  => __( 'Фортепиано', 'musicartplus' ),
+		'violin' => __( 'Скрипка', 'musicartplus' ),
+		'vocal'  => __( 'Вокал и сцена', 'musicartplus' ),
+		'art'    => __( 'Изобразительное искусство', 'musicartplus' ),
+		'early'  => __( 'Раннее развитие 3–7 лет', 'musicartplus' ),
+	);
+
+	// Адрес храним относительным: у произвольной ссылки WordPress запоминает
+	// его как есть, и при переезде на домен заказчика ссылки бы протухли.
+	$base = wp_make_link_relative( get_permalink( $page ) );
+
+	foreach ( $items as $slug => $title ) {
+		wp_update_nav_menu_item( $menu_id, 0, array(
+			'menu-item-type'   => 'custom',
+			'menu-item-url'    => $base . '#dir-' . $slug,
+			'menu-item-title'  => $title,
+			'menu-item-status' => 'publish',
+		) );
+	}
+
+	$locations = get_theme_mod( 'nav_menu_locations', array() );
+	$locations['dirs'] = $menu_id;
 	set_theme_mod( 'nav_menu_locations', $locations );
 }
 
@@ -669,14 +802,17 @@ function map_seed_about( $about ) {
  * @return void
  */
 function map_seed_page_fields( $template, $values ) {
-	$page = map_page_by_template( $template );
+	// Лента новостей выбирается настройкой чтения, шаблона у неё нет.
+	$page = 'posts_page' === $template
+		? (int) get_option( 'page_for_posts' )
+		: map_page_by_template( $template );
 
 	if ( ! $page || ! function_exists( 'update_field' ) ) {
 		return;
 	}
 
 	// Поля, в которых лежат пути к картинкам — их надо превратить во вложения.
-	$images    = array( 'about_hero_image', 'steps_card_image', 'dirs_hero_image', 'teachers_hero_image' );
+	$images    = array( 'about_hero_image', 'steps_card_image', 'dirs_hero_image', 'teachers_hero_image', 'news_hero_image' );
 	$galleries = array( 'intro_gallery', 'mood_gallery', 'shots_gallery' );
 
 	foreach ( (array) $values as $key => $value ) {

@@ -84,6 +84,7 @@ while ( have_posts() ) :
 		'phone_label' => map_field( 'teachers_phone_label', $map_id, __( 'Позвонить сейчас', 'musicartplus' ) ),
 		'form_title'  => map_field( 'teachers_form_title', $map_id, __( 'Подобрать педагога', 'musicartplus' ) ),
 		'form_text'   => map_field( 'teachers_form_text', $map_id, __( 'Два поля — и мы свяжемся с вами в ближайшее рабочее время.', 'musicartplus' ) ),
+		'form_btn'    => map_field( 'teachers_form_btn', $map_id, __( 'Отправить заявку', 'musicartplus' ) ),
 		'form_id'     => 'form-teach',
 		'class'       => 'section--cream',
 	) );

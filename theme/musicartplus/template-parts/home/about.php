@@ -25,13 +25,13 @@ $map_teach  = map_page_by_template( 'page-teachers.php' );
 				</div>
 				<div class="about-visual__badge">
 					<img src="<?php echo esc_url( map_asset( 'assets/img/ui/logo-color.png' ) ); ?>" alt="" width="176" height="103" loading="lazy">
-					<div><b><?php echo esc_html( get_bloginfo( 'name' ) ); ?></b><span><?php echo esc_html( get_bloginfo( 'description' ) ? get_bloginfo( 'description' ) : __( 'центр искусств', 'musicartplus' ) ); ?></span></div>
+					<div><b><?php echo esc_html( get_bloginfo( 'name' ) ); ?></b><span><?php echo esc_html( map_home_field( 'about_badge_note', __( 'центр искусств', 'musicartplus' ) ) ); ?></span></div>
 				</div>
 			</div>
 
 			<div class="reveal reveal--right">
 				<span class="eyebrow"><?php echo esc_html( map_home_field( 'about_eyebrow', 'О центре искусств' ) ); ?></span>
-				<h2 class="h2"><?php echo wp_kses_post( map_field( 'about_title', get_the_ID() ) ); ?></h2>
+				<h2 class="h2"><?php echo wp_kses_post( map_field( 'about_title', get_the_ID() ) ); ?><?php if ( map_home_field( 'about_accent' ) ) : ?> <span class="accent"><?php echo esc_html( map_home_field( 'about_accent' ) ); ?></span><?php endif; ?></h2>
 
 				<?php if ( map_field( 'about_text', get_the_ID() ) ) : ?>
 					<div class="lead rich" style="margin-top:20px"><?php echo wp_kses_post( map_field( 'about_text', get_the_ID() ) ); ?></div>
@@ -40,7 +40,7 @@ $map_teach  = map_page_by_template( 'page-teachers.php' );
 				<?php if ( $map_points ) : ?>
 					<ul class="about-list">
 						<?php foreach ( $map_points as $map_point ) : ?>
-							<li><span class="tick"><?php map_the_icon( map_home_field( 'about_point_icon', 'check' ) ); ?></span><span><?php echo wp_kses_post( $map_point ); ?></span></li>
+							<li><span class="tick"><?php map_the_icon( map_home_field( 'about_point_icon', 'check' ) ); ?></span><span><?php echo wp_kses_post( map_fund_link( $map_point ) ); ?></span></li>
 						<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>

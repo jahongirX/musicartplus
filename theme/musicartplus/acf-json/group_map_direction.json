@@ -127,6 +127,36 @@
             "append": ""
         },
         {
+            "key": "field_map_dir_dir_title_short",
+            "label": "Короткое название",
+            "name": "dir_title_short",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Для плиток на главной, где длинное имя не помещается. Пусто — берётся обычное название.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
+            "key": "field_map_dir_dir_duration",
+            "label": "Длительность урока",
+            "name": "dir_duration",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Например «45–60 мин». Показывается рядом с форматом.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
+        },
+        {
             "key": "field_map_dir_tab_64d5a",
             "label": "На главной",
             "name": "",

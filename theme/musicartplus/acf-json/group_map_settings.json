@@ -1033,6 +1033,78 @@
             "default_value": "Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время."
         },
         {
+            "key": "field_map_set_tab_4bb26",
+            "label": "Правовые страницы",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_set_privacy_label",
+            "label": "Надпись ссылки на политику",
+            "name": "privacy_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Политика конфиденциальности"
+        },
+        {
+            "key": "field_map_set_consent_url",
+            "label": "Ссылка на согласие на обработку данных",
+            "name": "consent_url",
+            "aria-label": "",
+            "type": "page_link",
+            "instructions": "Адрес страницы. Ссылка в подвале появится, только когда поле заполнено.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "post_type": [
+                "page"
+            ],
+            "taxonomy": [],
+            "allow_null": 1,
+            "allow_archives": 0,
+            "multiple": 0
+        },
+        {
+            "key": "field_map_set_consent_label",
+            "label": "Надпись ссылки на согласие",
+            "name": "consent_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Согласие на обработку данных"
+        },
+        {
             "key": "field_map_set_tab_7884d",
             "label": "Иконки",
             "name": "",

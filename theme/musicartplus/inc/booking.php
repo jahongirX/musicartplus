@@ -283,7 +283,7 @@ function map_store_lead( $lead ) {
 		'time' => gmdate( 'c' ),
 		'ip'   => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '',
 		'page' => $lead['page'],
-		'doc'  => get_privacy_policy_url(),
+		'doc'  => map_privacy_url(),
 	) );
 
 	return $lead_id;

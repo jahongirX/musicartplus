@@ -42,7 +42,7 @@ $map_title  = map_field( 'hero_title', get_the_ID(), get_bloginfo( 'name' ) );
 	<div class="container hero__inner">
 		<div class="hero__content">
 			<?php if ( map_field( 'hero_eyebrow', get_the_ID() ) ) : ?>
-				<span class="hero__eyebrow"><?php map_the_icon( map_field( 'hero_eyebrow_icon', get_the_ID(), 'pin2' ) ); ?><?php echo esc_html( map_field( 'hero_eyebrow', get_the_ID() ) ); ?></span>
+				<span class="hero__eyebrow"><?php map_the_icon( map_field( 'hero_eyebrow_icon', get_the_ID(), 'pin2' ) ); ?><?php if ( map_field( 'hero_eyebrow_prefix', get_the_ID() ) ) : ?><?php // На телефоне остаётся только город: строка целиком туда не помещается. ?><span class="he-wide"><?php echo esc_html( map_field( 'hero_eyebrow_prefix', get_the_ID() ) ); ?> &middot; </span><?php endif; ?><?php echo esc_html( map_field( 'hero_eyebrow', get_the_ID() ) ); ?></span>
 			<?php endif; ?>
 
 			<h1 class="hero__title" data-reveal-title><?php echo esc_html( $map_title ); ?></h1>

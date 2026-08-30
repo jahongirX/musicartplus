@@ -69,7 +69,11 @@ for r in ns['REVIEWS']:
         'name': r['name'],
         'role': r['role'],
         'text': r['text'],
+        'long': bool(r.get('long')),
     })
+
+# На плитках главной у направлений названия короче, чем в каталоге.
+SHORT_BY_ICON = {icon: short for icon, short, _age in ns['DIRS_HOME']}
 
 directions = []
 for aid, icon, title, age, text, fmt, dur in ns['DIRECTIONS']:
@@ -77,6 +81,7 @@ for aid, icon, title, age, text, fmt, dur in ns['DIRECTIONS']:
         'slug': aid.replace('dir-', ''),
         'icon': icon,
         'title': title,
+        'short_title': SHORT_BY_ICON.get(icon, ''),
         'age': age,
         'text': text,
         'format': fmt,
@@ -165,19 +170,27 @@ about = {
     'partner_note': 'Фонд поддержки и развития культурных и социальных проектов',
 
     'about_cta_title': 'Приходите знакомиться',
-    'about_cta_text': 'Покажем центр, познакомим с педагогом и подберём программу под ребёнка.',
+    'about_cta_text': ('Мы подберём педагога, расскажем о программе и покажем центр. '
+                       'Пробное занятие — лучший способ понять, подходим ли мы друг другу.'),
 }
 
 front = {
-    'hero_eyebrow': 'Москва · м. Минская',
+    'hero_eyebrow': 'Москва, м. Минская',
+    'hero_eyebrow_prefix': 'Центр искусств',
     'hero_title': 'Место, где искра творчества зажигает звёзды',
-    'hero_text': ('Фортепиано, скрипка, труба, вокал, сцена и живопись — для детей с 3 лет '
-                  'и для взрослых. Педагоги Московской консерватории, РАМ им. Гнесиных, ГИТИСа и ВГИКа.'),
+    'about_badge_note': 'центр искусств',
+    'about_accent': 'слышать и чувствовать Музыку',
+    'contacts_address_note': 'Вход не через главный, а через запасной вход',
+    'cta_eyebrow': 'Связаться с нами',
+    'cta_quote': 'Мой сын бежит на занятия с горящими глазами, а возвращается — с новой искрой во взгляде.',
+    'cta_quote_author': 'Валентина, мама ученика',
+    'hero_text': ('Музыка, живопись и сцена для детей от 3 лет и взрослых. '
+                  'Сильная академическая база — в тёплой, живой атмосфере.'),
     'hero_slides': ['assets/img/gallery/' + img for img, _ in ns['HERO_SLIDES']],
     'hero_facts': [{'num': n, 'label': l} for n, l in ns['FACTS']],
     'videos': [{'title': t, 'url': src_, 'cover': poster, 'subtitle': sub}
                for src_, _typ, poster, t, sub in ns['VIDEOS_HOME']],
-    'about_title': 'Мы учим не играть «правильно», а учим слышать и чувствовать Музыку',
+    'about_title': 'Мы учим не играть «правильно», а учим',
     'about_text': (
         'MusicArtPlus — центр искусств в Москве, где дети от трёх лет и взрослые '
         'знакомятся с музыкой, живописью и сценой. Мы соединяем крепкую академическую '
@@ -204,6 +217,8 @@ options = {
     'email': ns['MAIL'],
     'address': ns['ADDR'],
     'address_note': 'вход со стороны запасного входа',
+    'booking_crm_note': 'Или запишитесь сами в системе «Мой класс» —',
+    'booking_submit_label': 'Записаться на пробный урок',
     'telegram': ns['TG'],
     'instagram': ns['IG'],
     'rutube': ns['RT'],
@@ -275,6 +290,13 @@ pages = {
         'teachers_form_title': 'Подобрать педагога',
         'teachers_form_text': 'Два поля — и мы свяжемся с вами в ближайшее рабочее время.',
     },
+}
+
+pages['posts_page'] = {
+    'news_hero_title': 'Чем живёт центр искусств',
+    'news_hero_text': ('Концерты, мастер-классы, выставки и маленькие победы наших учеников. '
+                       'Здесь мы рассказываем о том, что происходит в MusicArtPlus.'),
+    'news_hero_image': 'assets/img/gallery/g01.jpg',
 }
 
 data = {

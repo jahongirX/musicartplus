@@ -31,8 +31,9 @@ if ( ! $map_embed ) {
 				<div>
 					<b><?php esc_html_e( 'Адрес', 'musicartplus' ); ?></b>
 					<span><?php echo esc_html( map_opt( 'address' ) ); ?></span>
-					<?php if ( map_opt( 'address_note' ) ) : ?>
-						<small><?php echo esc_html( map_opt( 'address_note' ) ); ?></small>
+					<?php $map_note = map_home_field( 'contacts_address_note', map_opt( 'address_note' ) ); ?>
+					<?php if ( $map_note ) : ?>
+						<small><?php echo esc_html( $map_note ); ?></small>
 					<?php endif; ?>
 				</div>
 			</div>

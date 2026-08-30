@@ -167,7 +167,10 @@ function map_review_card( $post, $delay = 0, $reveal = true ) {
 	$text   = trim( (string) $post->post_content );
 
 	// Длинные отзывы сворачиваем — иначе карточки в слайдере разной высоты.
-	$long = mb_strlen( wp_strip_all_tags( $text ) ) > 420;
+	// Галочка в карточке решает; без неё смотрим на длину.
+	$long = map_field( 'review_long', $post->ID )
+		? true
+		: mb_strlen( wp_strip_all_tags( $text ) ) > 420;
 
 	$classes = 'review' . ( $reveal ? ' reveal' : '' ) . ( $long ? ' review--clamped' : '' );
 	?>
@@ -244,7 +247,7 @@ function map_news_mini( $post, $delay = 0 ) {
 			<?php endif; ?>
 		</div>
 		<div class="news-mini__body">
-			<time datetime="<?php echo esc_attr( get_the_date( 'c', $post ) ); ?>"><?php echo esc_html( sprintf( '%s %s %s', get_the_date( 'j', $post ), map_month_genitive( (int) get_the_date( 'n', $post ) ), get_the_date( 'Y', $post ) ) ); ?></time>
+			<time datetime="<?php echo esc_attr( get_the_date( 'c', $post ) ); ?>"><?php echo esc_html( sprintf( '%s %s %s', get_the_date( 'd', $post ), map_month_genitive( (int) get_the_date( 'n', $post ) ), get_the_date( 'Y', $post ) ) ); ?></time>
 			<b><?php echo esc_html( get_the_title( $post ) ); ?></b>
 			<span class="link-arrow" style="font-size:14.5px;margin-top:4px"><?php esc_html_e( 'Читать', 'musicartplus' ); ?><?php map_the_icon( 'ar' ); ?></span>
 		</div>
@@ -365,8 +368,15 @@ function map_direction_tile( $post, $delay = 0 ) {
 		<?php endif; ?>
 		<h3><?php echo esc_html( get_the_title( $post ) ); ?></h3>
 		<p><?php echo esc_html( map_field( 'dir_short', $post->ID ) ); ?></p>
-		<?php if ( map_field( 'dir_format', $post->ID ) ) : ?>
-			<div class="dir-tile__meta"><span><?php esc_html_e( 'Формат:', 'musicartplus' ); ?> <b><?php echo esc_html( map_field( 'dir_format', $post->ID ) ); ?></b></span></div>
+		<?php if ( map_field( 'dir_format', $post->ID ) || map_field( 'dir_duration', $post->ID ) ) : ?>
+			<div class="dir-tile__meta">
+				<?php if ( map_field( 'dir_format', $post->ID ) ) : ?>
+					<span><?php esc_html_e( 'Формат:', 'musicartplus' ); ?> <b><?php echo esc_html( map_field( 'dir_format', $post->ID ) ); ?></b></span>
+				<?php endif; ?>
+				<?php if ( map_field( 'dir_duration', $post->ID ) ) : ?>
+					<span><?php esc_html_e( 'Урок:', 'musicartplus' ); ?> <b><?php echo esc_html( map_field( 'dir_duration', $post->ID ) ); ?></b></span>
+				<?php endif; ?>
+			</div>
 		<?php endif; ?>
 		<div style="margin-top:16px">
 			<a class="btn btn--gold btn--sm" data-crm="true" data-crm-subject="<?php echo esc_attr( get_the_title( $post ) ); ?>" href="<?php echo esc_url( map_crm_url() ); ?>"><?php esc_html_e( 'Записаться', 'musicartplus' ); ?></a>
@@ -518,8 +528,9 @@ function map_deco( $kind ) {
  * @param string $ident    Идентификатор формы (должен быть уникальным на странице).
  * @return void
  */
-function map_form_card( $title, $subtitle, $ident = 'form-main' ) {
-	$privacy = get_privacy_policy_url();
+function map_form_card( $title, $subtitle, $ident = 'form-main', $submit = '' ) {
+	$privacy = map_privacy_url();
+	$submit  = $submit ? $submit : map_opt( 'booking_submit_label', map_cta_label() );
 	?>
 	<div class="form-card reveal reveal--right">
 		<h3 class="h3"><?php echo esc_html( $title ); ?></h3>
@@ -555,7 +566,7 @@ function map_form_card( $title, $subtitle, $ident = 'form-main' ) {
 				</span>
 			</label>
 
-			<button class="btn btn--gold btn--block btn--lg" type="submit" data-label="<?php echo esc_attr( map_opt( 'booking_submit_label', map_cta_label() ) ); ?>"><?php echo esc_html( map_opt( 'booking_submit_label', map_cta_label() ) ); ?></button>
+			<button class="btn btn--gold btn--block btn--lg" type="submit" data-label="<?php echo esc_attr( $submit ); ?>"><?php echo esc_html( $submit ); ?></button>
 
 			<div class="form__ok"><?php echo esc_html( map_opt( 'booking_success_text', __( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ) ) ); ?></div>
 

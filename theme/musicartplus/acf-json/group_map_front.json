@@ -239,6 +239,22 @@
             "default_value": "#directions"
         },
         {
+            "key": "field_map_home_hero_eyebrow_prefix",
+            "label": "Надглавие: часть для широкого экрана",
+            "name": "hero_eyebrow_prefix",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Показывается перед основным надглавием и прячется на телефоне.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Центр искусств"
+        },
+        {
             "key": "field_map_tab_about",
             "label": "О центре",
             "name": "",
@@ -405,6 +421,38 @@
                 "id": ""
             },
             "default_value": "Наши педагоги"
+        },
+        {
+            "key": "field_map_home_about_badge_note",
+            "label": "Подпись под названием на кружке",
+            "name": "about_badge_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "центр искусств"
+        },
+        {
+            "key": "field_map_home_about_accent",
+            "label": "Выделенная часть заголовка",
+            "name": "about_accent",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Дописывается к заголовку и подсвечивается золотым.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "слышать и чувствовать Музыку"
         },
         {
             "key": "field_map_home_tab_842ca",
@@ -1110,6 +1158,22 @@
             "rows": 2
         },
         {
+            "key": "field_map_home_contacts_address_note",
+            "label": "Подпись под адресом",
+            "name": "contacts_address_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Вход не через главный, а через запасной вход"
+        },
+        {
             "key": "field_map_tab_cta",
             "label": "Призыв к записи",
             "name": "",
@@ -1213,6 +1277,39 @@
                 "id": ""
             },
             "rows": 2
+        },
+        {
+            "key": "field_map_home_cta_quote",
+            "label": "Цитата",
+            "name": "cta_quote",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Пусто — возьмётся первая строка свежего отзыва.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Мой сын бежит на занятия с горящими глазами, а возвращается — с новой искрой во взгляде."
+        },
+        {
+            "key": "field_map_home_cta_quote_author",
+            "label": "Кто сказал",
+            "name": "cta_quote_author",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Валентина, мама ученика"
         }
     ],
     "location": [

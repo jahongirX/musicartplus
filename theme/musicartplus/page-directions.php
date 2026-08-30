@@ -72,6 +72,7 @@ while ( have_posts() ) :
 		'points'     => map_lines( map_field( 'dirs_cta_points', $map_id ) ),
 		'form_title' => map_field( 'dirs_form_title', $map_id, __( 'Подобрать направление', 'musicartplus' ) ),
 		'form_text'  => map_field( 'dirs_form_text', $map_id, __( 'Оставьте контакты — перезвоним и всё обсудим.', 'musicartplus' ) ),
+		'form_btn'   => map_field( 'dirs_form_btn', $map_id, __( 'Отправить заявку', 'musicartplus' ) ),
 		'form_id'    => 'form-dir',
 	) );
 

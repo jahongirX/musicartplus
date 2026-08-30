@@ -633,6 +633,22 @@
                 "id": ""
             },
             "default_value": "Оставьте контакты — перезвоним и всё обсудим."
+        },
+        {
+            "key": "field_map_pgdirs_dirs_form_btn",
+            "label": "Форма: надпись на кнопке",
+            "name": "dirs_form_btn",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Отправить заявку"
         }
     ],
     "location": [

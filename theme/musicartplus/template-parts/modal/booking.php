@@ -13,7 +13,7 @@ if ( ! $map_directions ) {
 	$map_directions = map_default_directions();
 }
 
-$map_privacy = get_privacy_policy_url();
+$map_privacy = map_privacy_url();
 ?>
 <div class="modal" id="booking-modal" role="dialog" aria-modal="true" aria-labelledby="bk-title">
 	<div class="modal__backdrop"></div>

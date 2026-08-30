@@ -99,6 +99,15 @@ SETTINGS = [
         f('booking_success_text', 'Сообщение после отправки', 'textarea', rows=2,
           default_value='Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.'),
     ]),
+    ('Правовые страницы', [
+        f('privacy_label', 'Надпись ссылки на политику', 'text',
+          default_value='Политика конфиденциальности'),
+        f('consent_url', 'Страница согласия на обработку данных', 'page_link',
+          post_type=['page'], allow_null=1, allow_archives=0, multiple=0,
+          instructions='Ссылка в подвале и в форме появится, только когда страница выбрана.'),
+        f('consent_label', 'Надпись ссылки на согласие', 'text',
+          default_value='Согласие на обработку данных'),
+    ]),
     ('Иконки', [
         f('icon_set', 'Свои иконки', 'repeater', button_label='Добавить иконку',
           instructions='Загруженные сюда SVG появятся во всех списках выбора иконки — '
@@ -130,6 +139,9 @@ SETTINGS = [
 # ------------------------------------------------------------------ главная
 HOME = [
     ('Первый экран', [
+        f('hero_eyebrow_prefix', 'Надглавие: часть для широкого экрана', 'text',
+          instructions='Показывается перед основным надглавием и прячется на телефоне.',
+          default_value='Центр искусств'),
         f('hero_eyebrow_icon', 'Иконка надглавия', 'select', choices={}, allow_null=1,
           instructions='Список берётся из набора иконок темы.'),
         f('hero_btn_primary', 'Первая кнопка: текст', 'text', default_value='Записаться на пробный урок'),
@@ -139,6 +151,11 @@ HOME = [
     ('О центре', [
         f('about_eyebrow', 'Надглавие', 'text', default_value='О центре'),
         f('about_point_icon', 'Иконка пунктов списка', 'select', choices={}, allow_null=1),
+        f('about_badge_note', 'Подпись под названием на кружке', 'text',
+          default_value='центр искусств'),
+        f('about_accent', 'Выделенная часть заголовка', 'text',
+          instructions='Дописывается к заголовку и подсвечивается золотым.',
+          default_value='слышать и чувствовать Музыку'),
         f('about_btn_text', 'Кнопка: текст', 'text', default_value='Подробнее о центре'),
         f('about_link_text', 'Ссылка рядом: текст', 'text', default_value='Наши педагоги'),
     ]),
@@ -188,9 +205,15 @@ HOME = [
         f('contacts_eyebrow', 'Надглавие', 'text', default_value='Как нас найти'),
         f('contacts_title', 'Заголовок', 'text', default_value='Мы рядом с метро Минская'),
         f('contacts_text', 'Текст под заголовком', 'textarea', rows=2),
+        f('contacts_address_note', 'Подпись под адресом', 'text',
+          default_value='Вход не через главный, а через запасной вход'),
     ]),
     ('Призыв к записи', [
-        f('cta_eyebrow', 'Надглавие', 'text', default_value='Запись'),
+        f('cta_eyebrow', 'Надглавие', 'text', default_value='Связаться с нами'),
+        f('cta_quote', 'Цитата', 'textarea', rows=2,
+          instructions='Пусто — возьмётся первая строка свежего отзыва.',
+          default_value='Мой сын бежит на занятия с горящими глазами, а возвращается — с новой искрой во взгляде.'),
+        f('cta_quote_author', 'Кто сказал', 'text', default_value='Валентина, мама ученика'),
         f('cta_form_title', 'Заголовок карточки формы', 'text'),
         f('cta_form_text', 'Текст карточки формы', 'textarea', rows=2),
     ]),
@@ -335,6 +358,7 @@ PAGE_DIRS = [
         f('dirs_form_title', 'Форма: заголовок', 'text', default_value='Подобрать направление'),
         f('dirs_form_text', 'Форма: подзаголовок', 'text',
           default_value='Оставьте контакты — перезвоним и всё обсудим.'),
+        f('dirs_form_btn', 'Форма: надпись на кнопке', 'text', default_value='Отправить заявку'),
     ]),
 ]
 
@@ -390,6 +414,24 @@ PAGE_TEACHERS = [
         f('teachers_form_title', 'Форма: заголовок', 'text', default_value='Подобрать педагога'),
         f('teachers_form_text', 'Форма: подзаголовок', 'text',
           default_value='Два поля — и мы свяжемся с вами в ближайшее рабочее время.'),
+        f('teachers_form_btn', 'Форма: надпись на кнопке', 'text', default_value='Отправить заявку'),
+    ]),
+]
+
+DIRECTION = [
+    ('Основное', [
+        f('dir_title_short', 'Короткое название', 'text',
+          instructions='Для плиток на главной, где длинное имя не помещается. '
+                       'Пусто — берётся обычное название.'),
+        f('dir_duration', 'Длительность урока', 'text',
+          instructions='Например «45–60 мин». Показывается рядом с форматом.'),
+    ]),
+]
+
+REVIEW = [
+    ('Основное', [
+        f('review_long', 'Длинный отзыв', 'true_false', ui=1,
+          instructions='Текст сворачивается, под ним появляется кнопка «Читать полностью».'),
     ]),
 ]
 
@@ -432,6 +474,8 @@ PLAN = [
     ('group_map_page_teach', 'pgteach', PAGE_TEACHERS),
     ('group_map_page_news',  'pgnews',  PAGE_NEWS),
     ('group_map_guest',      'guest',   PAGE_GUEST),
+    ('group_map_direction',  'dir',     DIRECTION),
+    ('group_map_review',     'rev',     REVIEW),
 ]
 
 # группы, которых ещё нет — их надо создать целиком
@@ -606,7 +650,8 @@ for key, prefix, tabs in TABS_BEFORE:
 TAB_ORDER = {
     'group_map_settings': [
         'Логотип', 'Контакты', 'Соцсети', 'Подвал', 'Кнопки',
-        'CRM «Мой класс»', 'Форма записи', 'Иконки', 'Служебные страницы',
+        'CRM «Мой класс»', 'Форма записи', 'Правовые страницы', 'Иконки',
+        'Служебные страницы',
     ],
     'group_map_page_about': [
         'Первый экран', 'Кто мы', 'Цифры', 'Как всё устроено', 'Атмосфера',
