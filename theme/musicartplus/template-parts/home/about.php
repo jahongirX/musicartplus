@@ -34,7 +34,7 @@ $map_teach  = map_page_by_template( 'page-teachers.php' );
 				<h2 class="h2"><?php echo wp_kses_post( map_field( 'about_title', get_the_ID() ) ); ?></h2>
 
 				<?php if ( map_field( 'about_text', get_the_ID() ) ) : ?>
-					<div class="lead" style="margin-top:20px"><?php echo wp_kses_post( map_field( 'about_text', get_the_ID() ) ); ?></div>
+					<div class="lead rich" style="margin-top:20px"><?php echo wp_kses_post( map_field( 'about_text', get_the_ID() ) ); ?></div>
 				<?php endif; ?>
 
 				<?php if ( $map_points ) : ?>

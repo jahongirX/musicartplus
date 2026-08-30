@@ -35,7 +35,7 @@ $map_teach   = map_page_by_template( 'page-teachers.php' );
 				</h2>
 
 				<?php if ( $map_text ) : ?>
-					<div class="about-split__text"><?php echo wp_kses_post( $map_text ); ?></div>
+					<div class="about-split__text rich"><?php echo wp_kses_post( $map_text ); ?></div>
 				<?php endif; ?>
 
 				<div class="flex-center mt-l" style="justify-content:flex-start">

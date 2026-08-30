@@ -1454,3 +1454,18 @@ html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}
 /* Вертикальное видео в окне просмотра */
 .modal__box--video.is-vertical{width:min(420px,100%)}
 .modal__box--video.is-vertical .modal__video{aspect-ratio:9/16}
+
+/* ---------------------------------------------------------------- 37. Текст из редактора */
+/* Редактор отдаёт несколько абзацев подряд. Без этого правила они слипаются
+   в сплошную стену — на узком экране это особенно заметно. */
+.rich > p + p{margin-top:16px}
+.rich > ul,.rich > ol{margin-top:14px;padding-left:22px}
+.rich > ul{list-style:disc}
+.rich > ol{list-style:decimal}
+.rich > ul li + li,.rich > ol li + li{margin-top:6px}
+.rich > h3,.rich > h4{margin-top:24px}
+
+/* Блок «Кто мы» на странице «О нас»: отбивка от заголовка и укрупнённый
+   первый абзац — как в остальных вводных блоках сайта. */
+.about-split__text{margin-top:22px}
+.about-split__text > p:first-child{font-size:clamp(17px,1.35vw,20px);line-height:1.6;color:var(--ink-80)}
