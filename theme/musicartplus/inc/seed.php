@@ -69,6 +69,10 @@ function map_seed_content() {
 		map_seed_about( $data['about'] );
 	}
 
+	foreach ( (array) ( isset( $data['pages'] ) ? $data['pages'] : array() ) as $template => $values ) {
+		map_seed_page_fields( $template, $values );
+	}
+
 	map_seed_field_defaults();
 
 	return sprintf(
@@ -178,7 +182,12 @@ function map_seed_posts( $items, $type, $fields_cb ) {
 	$made = 0;
 
 	foreach ( (array) $items as $order => $item ) {
-		if ( map_seed_find( $type, $item['slug'] ) ) {
+		$existing = map_seed_find( $type, $item['slug'] );
+
+		if ( $existing ) {
+			// Запись уже есть, но в теме могли появиться новые поля — заполняем
+			// пустые. Заполненное руками остаётся нетронутым: см. map_seed_set().
+			call_user_func( $fields_cb, $existing, $item );
 			continue;
 		}
 
@@ -244,6 +253,10 @@ function map_seed_teacher_fields( $post_id, $item ) {
 function map_seed_guest_fields( $post_id, $item ) {
 	map_seed_set( $post_id, 'guest_role', $item['role'] );
 	map_seed_set( $post_id, 'guest_note', implode( "\n", $item['facts'] ) );
+
+	if ( ! empty( $item['video'] ) ) {
+		map_seed_set( $post_id, 'guest_video', $item['video'] );
+	}
 }
 
 /**
@@ -260,10 +273,14 @@ function map_seed_direction_fields( $post_id, $item ) {
 	map_seed_set( $post_id, 'dir_format', $item['format'] . ' · ' . $item['duration'] );
 	map_seed_set( $post_id, 'dir_featured', 1 );
 
-	wp_update_post( array(
-		'ID'           => $post_id,
-		'post_content' => $item['text'],
-	) );
+	// Текст перезаписываем только у пустой записи: у существующей его мог
+	// поправить заказчик.
+	if ( ! trim( (string) get_post_field( 'post_content', $post_id ) ) ) {
+		wp_update_post( array(
+			'ID'           => $post_id,
+			'post_content' => $item['text'],
+		) );
+	}
 }
 
 /**
@@ -638,17 +655,31 @@ function map_seed_field_defaults() {
  * @return void
  */
 function map_seed_about( $about ) {
-	$page = map_page_by_template( 'page-about.php' );
+	map_seed_page_fields( 'page-about.php', $about );
+}
+
+/**
+ * Заполняет поля страницы по её шаблону.
+ *
+ * Заполняются только пустые поля: то, что заказчик уже правил в админке,
+ * повторный запуск не трогает.
+ *
+ * @param string $template Файл шаблона страницы.
+ * @param array  $values   Значения полей.
+ * @return void
+ */
+function map_seed_page_fields( $template, $values ) {
+	$page = map_page_by_template( $template );
 
 	if ( ! $page || ! function_exists( 'update_field' ) ) {
 		return;
 	}
 
 	// Поля, в которых лежат пути к картинкам — их надо превратить во вложения.
-	$images     = array( 'about_hero_image', 'steps_card_image' );
-	$galleries  = array( 'intro_gallery', 'mood_gallery' );
+	$images    = array( 'about_hero_image', 'steps_card_image', 'dirs_hero_image', 'teachers_hero_image' );
+	$galleries = array( 'intro_gallery', 'mood_gallery', 'shots_gallery' );
 
-	foreach ( $about as $key => $value ) {
+	foreach ( (array) $values as $key => $value ) {
 		$current = get_field( $key, $page );
 
 		if ( null !== $current && '' !== $current && array() !== $current ) {

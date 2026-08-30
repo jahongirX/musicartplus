@@ -25,10 +25,9 @@ get_template_part( 'template-parts/home/teachers' );
 get_template_part( 'template-parts/home/video' );
 get_template_part( 'template-parts/home/interlude-brush' );
 get_template_part( 'template-parts/home/reviews' );
-
-map_widget_section();
-
 get_template_part( 'template-parts/home/map' );
 get_template_part( 'template-parts/home/booking' );
+
+map_widget_section();
 
 get_footer();

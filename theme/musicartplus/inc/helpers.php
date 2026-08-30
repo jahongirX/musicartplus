@@ -355,3 +355,28 @@ function map_blog_field( $key, $default = '' ) {
 
 	return map_field( $key, $blog, $default );
 }
+
+/**
+ * Сокращает ФИО до «Фамилия И. О.».
+ *
+ * В подписи под видео полное имя не помещается в одну строку, а обрезка
+ * многоточием читается хуже инициалов.
+ *
+ * @param string $name Полное имя.
+ * @return string
+ */
+function map_short_name( $name ) {
+	$parts = preg_split( '/\s+/u', trim( (string) $name ), -1, PREG_SPLIT_NO_EMPTY );
+
+	if ( ! $parts ) {
+		return '';
+	}
+
+	$short = array_shift( $parts );
+
+	foreach ( $parts as $part ) {
+		$short .= ' ' . mb_substr( $part, 0, 1 ) . '.';
+	}
+
+	return $short;
+}

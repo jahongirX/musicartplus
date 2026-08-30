@@ -99,6 +99,18 @@ SETTINGS = [
         f('booking_success_text', 'Сообщение после отправки', 'textarea', rows=2,
           default_value='Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.'),
     ]),
+    ('Иконки', [
+        f('icon_set', 'Свои иконки', 'repeater', button_label='Добавить иконку',
+          instructions='Загруженные сюда SVG появятся во всех списках выбора иконки — '
+                       'в направлениях, особых программах и принципах методики. '
+                       'Файл вставляется в страницу как разметка, поэтому иконка '
+                       'подхватывает цвет темы.',
+          sub_fields=[
+              sub('set', 'icon_name', 'Название в списке'),
+              sub('set', 'icon_file', 'Файл SVG', 'file',
+                  return_format='id', mime_types='svg'),
+          ]),
+    ]),
     ('Служебные страницы', [
         f('hero_default_image', 'Фон первого экрана по умолчанию', 'image', return_format='id',
           instructions='Показывается на страницах без своей фотографии.'),
@@ -246,6 +258,11 @@ PAGE_ABOUT = [
         f('partner_note', 'Подпись под знаком фонда', 'text',
           default_value='Фонд поддержки и развития культурных и социальных проектов'),
     ]),
+    ('Отзывы', [
+        f('about_reviews_eyebrow', 'Надглавие', 'text', default_value='Отзывы'),
+        f('about_reviews_title', 'Заголовок', 'text', default_value='Родители — о центре'),
+        f('about_reviews_link', 'Надпись ссылки на все отзывы', 'text', default_value='Все отзывы'),
+    ]),
     ('Призыв к записи', [
         f('about_cta_title', 'Заголовок', 'text'),
         f('about_cta_text', 'Текст', 'textarea', rows=2),
@@ -253,19 +270,83 @@ PAGE_ABOUT = [
 ]
 
 PAGE_DIRS = [
+    ('Первый экран', [
+        f('dirs_hero_title', 'Заголовок', 'text', default_value='Восемь путей к искусству'),
+        f('dirs_hero_text', 'Текст под заголовком', 'textarea', rows=3,
+          default_value='Инструменты, вокал, сцена и живопись. Можно выбрать одно направление '
+                        'или собрать своё сочетание — программа подстроится под ребёнка.'),
+        f('dirs_hero_image', 'Фон первого экрана', 'image', return_format='id'),
+    ]),
     ('Секция направлений', [
-        f('dirs_eyebrow', 'Надглавие', 'text', default_value='Направления'),
-        f('dirs_title', 'Заголовок', 'text', default_value='Выберите, с чего начать'),
-        f('dirs_text', 'Текст под заголовком', 'textarea', rows=2,
-          default_value='Можно заниматься одним направлением или собрать своё сочетание.'),
+        # Без значений по умолчанию: в макете над плитками заголовка нет,
+        # первый экран уже назвал раздел. Заполните, если он всё-таки нужен.
+        f('dirs_eyebrow', 'Надглавие', 'text'),
+        f('dirs_title', 'Заголовок', 'text'),
+        f('dirs_text', 'Текст под заголовком', 'textarea', rows=2),
+    ]),
+    ('Особые программы', [
+        f('special_eyebrow', 'Надглавие', 'text', default_value='Особые программы'),
+        f('special_title', 'Заголовок', 'text', default_value='Не только уроки по расписанию'),
+        f('special_text', 'Текст под заголовком', 'textarea', rows=2),
+        f('special_items', 'Программы', 'repeater', button_label='Добавить программу',
+          instructions='Секция не выводится, пока список пуст.',
+          sub_fields=[
+              sub('pgdirs', 'special_icon', 'Иконка', 'select', choices={}, allow_null=1),
+              sub('pgdirs', 'special_title', 'Заголовок'),
+              sub('pgdirs', 'special_text', 'Описание', 'textarea', rows=3),
+          ]),
+    ]),
+    ('Преимущества', [
+        f('adv_eyebrow', 'Надглавие', 'text', default_value='Наши преимущества'),
+        f('adv_title', 'Заголовок', 'text', default_value='Авторская методика центра'),
+        f('adv_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Мы объединили лучшие традиции музыкального образования '
+                        'с современными подходами — и описали это восемью принципами.'),
+        f('adv_items', 'Принципы', 'repeater', button_label='Добавить принцип',
+          instructions='Нумерация проставляется сама. Секция не выводится, пока список пуст.',
+          sub_fields=[
+              sub('pgdirs', 'adv_icon', 'Иконка', 'select', choices={}, allow_null=1),
+              sub('pgdirs', 'adv_title', 'Заголовок'),
+              sub('pgdirs', 'adv_text', 'Описание', 'textarea', rows=2),
+          ]),
+    ]),
+    ('Вопросы и ответы', [
+        f('faq_eyebrow', 'Надглавие', 'text', default_value='Вопросы и ответы'),
+        f('faq_title', 'Заголовок', 'text', default_value='Часто задаваемые вопросы'),
+        f('faq_items', 'Вопросы', 'repeater', button_label='Добавить вопрос',
+          instructions='Секция не выводится, пока список пуст.',
+          sub_fields=[
+              sub('pgdirs', 'faq_q', 'Вопрос'),
+              sub('pgdirs', 'faq_a', 'Ответ', 'textarea', rows=4),
+          ]),
     ]),
     ('Призыв к записи', [
-        f('dirs_cta_title', 'Заголовок', 'text'),
-        f('dirs_cta_text', 'Текст', 'textarea', rows=2),
+        f('dirs_cta_eyebrow', 'Надглавие', 'text', default_value='Не знаете, что выбрать?'),
+        f('dirs_cta_title', 'Заголовок', 'text',
+          default_value='Поможем подобрать направление и педагога'),
+        f('dirs_cta_text', 'Текст', 'textarea', rows=3,
+          default_value='Расскажите о ребёнке: возраст, характер, что ему нравится. Мы предложим '
+                        'подходящее направление и педагога, а первый урок покажет, попали ли мы в точку.'),
+        f('dirs_cta_points', 'Короткие пункты', 'textarea', rows=4,
+          instructions='По одному пункту в строке. Выводятся галочками под текстом.',
+          default_value='Пробное занятие ни к чему не обязывает\n'
+                        'Можно начать без своего инструмента\n'
+                        'Есть очные и онлайн-форматы'),
+        f('dirs_form_title', 'Форма: заголовок', 'text', default_value='Подобрать направление'),
+        f('dirs_form_text', 'Форма: подзаголовок', 'text',
+          default_value='Оставьте контакты — перезвоним и всё обсудим.'),
     ]),
 ]
 
 PAGE_TEACHERS = [
+    ('Первый экран', [
+        f('teachers_hero_title', 'Заголовок', 'text',
+          default_value='Педагоги, которым доверяют детей'),
+        f('teachers_hero_text', 'Текст под заголовком', 'textarea', rows=3,
+          default_value='Преподаватели Московской консерватории, РАМ им. Гнесиных, ГИТИСа и ВГИКа. '
+                        'Нажмите на фотографию — откроется биография, расписание и запись на урок.'),
+        f('teachers_hero_image', 'Фон первого экрана', 'image', return_format='id'),
+    ]),
     ('Основной состав', [
         f('teachers_eyebrow', 'Надглавие', 'text', default_value='Основной состав'),
         f('teachers_title', 'Заголовок', 'text', default_value='Наши преподаватели'),
@@ -278,9 +359,45 @@ PAGE_TEACHERS = [
         f('guests_text', 'Текст под заголовком', 'textarea', rows=2,
           default_value='Профессора и заслуженные деятели искусств проводят у нас мастер-классы и творческие встречи.'),
     ]),
+    ('Фотогалерея', [
+        f('shots_eyebrow', 'Надглавие', 'text', default_value='Фотогалерея'),
+        f('shots_title', 'Заголовок', 'text', default_value='Фотографии с уроков'),
+        f('shots_text', 'Текст под заголовком', 'textarea', rows=2),
+        f('shots_gallery', 'Фотографии', 'gallery', return_format='id',
+          instructions='Секция не выводится, пока галерея пуста. '
+                       'На широком экране это кладка, на телефоне — лента.'),
+    ]),
+    ('Видео', [
+        f('teachers_video_eyebrow', 'Надглавие', 'text', default_value='Видео'),
+        f('teachers_video_title', 'Заголовок', 'text',
+          default_value='Приглашённые педагоги — в записи'),
+        f('teachers_video_text', 'Текст под заголовком', 'textarea', rows=2,
+          default_value='Видео открывается прямо на сайте, без перехода на Rutube.'),
+    ]),
+    ('Отзывы', [
+        f('teachers_reviews_eyebrow', 'Надглавие', 'text', default_value='Отзывы'),
+        f('teachers_reviews_title', 'Заголовок', 'text',
+          default_value='Что говорят о наших педагогах'),
+    ]),
     ('Призыв к записи', [
-        f('teachers_cta_title', 'Заголовок', 'text'),
-        f('teachers_cta_text', 'Текст', 'textarea', rows=2),
+        f('teachers_cta_eyebrow', 'Надглавие', 'text', default_value='Обратная связь'),
+        f('teachers_cta_title', 'Заголовок', 'text',
+          default_value='Не выбрали педагога? Поможем'),
+        f('teachers_cta_text', 'Текст', 'textarea', rows=3,
+          default_value='Оставьте имя и телефон — мы перезвоним, расспросим о ребёнке и предложим '
+                        'педагога, который подойдёт по возрасту, характеру и целям.'),
+        f('teachers_phone_label', 'Подпись над телефоном', 'text', default_value='Позвонить сейчас'),
+        f('teachers_form_title', 'Форма: заголовок', 'text', default_value='Подобрать педагога'),
+        f('teachers_form_text', 'Форма: подзаголовок', 'text',
+          default_value='Два поля — и мы свяжемся с вами в ближайшее рабочее время.'),
+    ]),
+]
+
+PAGE_GUEST = [
+    ('Видео', [
+        f('guest_video', 'Ссылка на ролик', 'url',
+          instructions='Ссылка вида https://rutube.ru/play/embed/… — ролик открывается '
+                       'прямо на сайте, в секции «Видео» на странице педагогов.'),
     ]),
 ]
 
@@ -294,6 +411,11 @@ PAGE_NEWS = [
         f('news_related_eyebrow', 'Надглавие', 'text', default_value='Читайте также'),
         f('news_related_title', 'Заголовок', 'text', default_value='Другие новости центра'),
         f('news_related_count', 'Сколько показывать', 'number', default_value=3, min=1, max=6),
+    ]),
+    ('Фильтр по рубрикам', [
+        f('news_filter_all', 'Надпись кнопки «все»', 'text', default_value='Все новости',
+          instructions='Кнопки рубрик появляются сами, если у новостей на странице '
+                       'больше одной рубрики.'),
     ]),
     ('Призыв к записи', [
         f('news_cta_title', 'Заголовок', 'text'),
@@ -309,6 +431,7 @@ PLAN = [
     ('group_map_page_dirs',  'pgdirs',  PAGE_DIRS),
     ('group_map_page_teach', 'pgteach', PAGE_TEACHERS),
     ('group_map_page_news',  'pgnews',  PAGE_NEWS),
+    ('group_map_guest',      'guest',   PAGE_GUEST),
 ]
 
 # группы, которых ещё нет — их надо создать целиком
@@ -433,6 +556,9 @@ TABS_BEFORE = [
         ('Основное', 'dir_icon'),
         ('На главной', 'dir_featured'),
     ]),
+    ('group_map_guest', 'guest', [
+        ('Основное', 'guest_role'),
+    ]),
     ('group_map_news', 'news', [
         ('Текст', 'news_badge'),
         ('Галерея', 'news_gallery'),
@@ -480,15 +606,26 @@ for key, prefix, tabs in TABS_BEFORE:
 TAB_ORDER = {
     'group_map_settings': [
         'Логотип', 'Контакты', 'Соцсети', 'Подвал', 'Кнопки',
-        'CRM «Мой класс»', 'Форма записи', 'Служебные страницы',
+        'CRM «Мой класс»', 'Форма записи', 'Иконки', 'Служебные страницы',
     ],
     'group_map_page_about': [
         'Первый экран', 'Кто мы', 'Цифры', 'Как всё устроено', 'Атмосфера',
-        'Партнёр', 'Призыв к записи',
+        'Партнёр', 'Отзывы', 'Призыв к записи',
     ],
     'group_map_front': [
         'Первый экран', 'О центре', 'Новости', 'Направления', 'Педагоги',
         'Видео', 'Разделители', 'Отзывы', 'Как нас найти', 'Призыв к записи',
+    ],
+    'group_map_page_dirs': [
+        'Первый экран', 'Секция направлений', 'Особые программы', 'Преимущества',
+        'Вопросы и ответы', 'Призыв к записи',
+    ],
+    'group_map_page_teach': [
+        'Первый экран', 'Основной состав', 'Приглашённые мастера', 'Фотогалерея',
+        'Видео', 'Отзывы', 'Призыв к записи',
+    ],
+    'group_map_guest': [
+        'Основное', 'Видео',
     ],
 }
 

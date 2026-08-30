@@ -3,6 +3,24 @@
     "title": "Приглашённый мастер",
     "fields": [
         {
+            "key": "field_map_guest_tab_fa271",
+            "label": "Основное",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_map_guest_role",
             "label": "Кто это",
             "name": "guest_role",
@@ -61,6 +79,39 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_map_guest_tab_69651",
+            "label": "Видео",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_guest_guest_video",
+            "label": "Ссылка на ролик",
+            "name": "guest_video",
+            "aria-label": "",
+            "type": "url",
+            "instructions": "Ссылка вида https://rutube.ru/play/embed/… — ролик открывается прямо на сайте, в секции «Видео» на странице педагогов.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
         }
     ],
     "location": [

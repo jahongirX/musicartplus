@@ -3,6 +3,73 @@
     "title": "Страница «Наши направления»",
     "fields": [
         {
+            "key": "field_map_pgdirs_tab_55203",
+            "label": "Первый экран",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgdirs_dirs_hero_title",
+            "label": "Заголовок",
+            "name": "dirs_hero_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Восемь путей к искусству"
+        },
+        {
+            "key": "field_map_pgdirs_dirs_hero_text",
+            "label": "Текст под заголовком",
+            "name": "dirs_hero_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "Инструменты, вокал, сцена и живопись. Можно выбрать одно направление или собрать своё сочетание — программа подстроится под ребёнка."
+        },
+        {
+            "key": "field_map_pgdirs_dirs_hero_image",
+            "label": "Фон первого экрана",
+            "name": "dirs_hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
             "key": "field_map_pgdirs_tab_91122",
             "label": "Секция направлений",
             "name": "",
@@ -34,7 +101,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Направления",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -54,7 +121,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Выберите, с чего начать",
+            "default_value": "",
             "maxlength": "",
             "placeholder": "",
             "prepend": "",
@@ -75,10 +142,374 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Можно заниматься одним направлением или собрать своё сочетание.",
+            "default_value": "",
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_map_pgdirs_tab_8e171",
+            "label": "Особые программы",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgdirs_special_eyebrow",
+            "label": "Надглавие",
+            "name": "special_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Особые программы"
+        },
+        {
+            "key": "field_map_pgdirs_special_title",
+            "label": "Заголовок",
+            "name": "special_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Не только уроки по расписанию"
+        },
+        {
+            "key": "field_map_pgdirs_special_text",
+            "label": "Текст под заголовком",
+            "name": "special_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
+            "key": "field_map_pgdirs_special_items",
+            "label": "Программы",
+            "name": "special_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Секция не выводится, пока список пуст.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "button_label": "Добавить программу",
+            "sub_fields": [
+                {
+                    "key": "field_map_pgdirs_sub_special_icon",
+                    "label": "Иконка",
+                    "name": "special_icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {},
+                    "allow_null": 1
+                },
+                {
+                    "key": "field_map_pgdirs_sub_special_title",
+                    "label": "Заголовок",
+                    "name": "special_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_map_pgdirs_sub_special_text",
+                    "label": "Описание",
+                    "name": "special_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 3
+                }
+            ]
+        },
+        {
+            "key": "field_map_pgdirs_tab_bc5ab",
+            "label": "Преимущества",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgdirs_adv_eyebrow",
+            "label": "Надглавие",
+            "name": "adv_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Наши преимущества"
+        },
+        {
+            "key": "field_map_pgdirs_adv_title",
+            "label": "Заголовок",
+            "name": "adv_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Авторская методика центра"
+        },
+        {
+            "key": "field_map_pgdirs_adv_text",
+            "label": "Текст под заголовком",
+            "name": "adv_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Мы объединили лучшие традиции музыкального образования с современными подходами — и описали это восемью принципами."
+        },
+        {
+            "key": "field_map_pgdirs_adv_items",
+            "label": "Принципы",
+            "name": "adv_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Нумерация проставляется сама. Секция не выводится, пока список пуст.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "button_label": "Добавить принцип",
+            "sub_fields": [
+                {
+                    "key": "field_map_pgdirs_sub_adv_icon",
+                    "label": "Иконка",
+                    "name": "adv_icon",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {},
+                    "allow_null": 1
+                },
+                {
+                    "key": "field_map_pgdirs_sub_adv_title",
+                    "label": "Заголовок",
+                    "name": "adv_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_map_pgdirs_sub_adv_text",
+                    "label": "Описание",
+                    "name": "adv_text",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 2
+                }
+            ]
+        },
+        {
+            "key": "field_map_pgdirs_tab_9b4f8",
+            "label": "Вопросы и ответы",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgdirs_faq_eyebrow",
+            "label": "Надглавие",
+            "name": "faq_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Вопросы и ответы"
+        },
+        {
+            "key": "field_map_pgdirs_faq_title",
+            "label": "Заголовок",
+            "name": "faq_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Часто задаваемые вопросы"
+        },
+        {
+            "key": "field_map_pgdirs_faq_items",
+            "label": "Вопросы",
+            "name": "faq_items",
+            "aria-label": "",
+            "type": "repeater",
+            "instructions": "Секция не выводится, пока список пуст.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "button_label": "Добавить вопрос",
+            "sub_fields": [
+                {
+                    "key": "field_map_pgdirs_sub_faq_q",
+                    "label": "Вопрос",
+                    "name": "faq_q",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    }
+                },
+                {
+                    "key": "field_map_pgdirs_sub_faq_a",
+                    "label": "Ответ",
+                    "name": "faq_a",
+                    "aria-label": "",
+                    "type": "textarea",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "rows": 4
+                }
+            ]
         },
         {
             "key": "field_map_pgdirs_tab_e280",
@@ -137,6 +568,71 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_map_pgdirs_dirs_cta_eyebrow",
+            "label": "Надглавие",
+            "name": "dirs_cta_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Не знаете, что выбрать?"
+        },
+        {
+            "key": "field_map_pgdirs_dirs_cta_points",
+            "label": "Короткие пункты",
+            "name": "dirs_cta_points",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "По одному пункту в строке. Выводятся галочками под текстом.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 4,
+            "default_value": "Пробное занятие ни к чему не обязывает\nМожно начать без своего инструмента\nЕсть очные и онлайн-форматы"
+        },
+        {
+            "key": "field_map_pgdirs_dirs_form_title",
+            "label": "Форма: заголовок",
+            "name": "dirs_form_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Подобрать направление"
+        },
+        {
+            "key": "field_map_pgdirs_dirs_form_text",
+            "label": "Форма: подзаголовок",
+            "name": "dirs_form_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Оставьте контакты — перезвоним и всё обсудим."
         }
     ],
     "location": [

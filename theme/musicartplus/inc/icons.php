@@ -61,11 +61,13 @@ function map_icon( $name, $class = '' ) {
 		);
 	}
 
-	if ( ! isset( $icons[ $name ] ) ) {
+	// Иконки, загруженные через настройки сайта, лежат отдельно:
+	// см. inc/icons-custom.php.
+	$svg = isset( $icons[ $name ] ) ? $icons[ $name ] : map_icon_custom( $name );
+
+	if ( ! $svg ) {
 		return '';
 	}
-
-	$svg = $icons[ $name ];
 
 	if ( '' !== $class ) {
 		$svg = preg_replace( '/<svg /', '<svg class="' . esc_attr( $class ) . '" ', $svg, 1 );

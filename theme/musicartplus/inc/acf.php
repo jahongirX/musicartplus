@@ -118,13 +118,28 @@ add_action( 'admin_init', 'map_acf_sync_json' );
  * @return array
  */
 function map_acf_icon_field( $field ) {
+	if ( 'select' !== $field['type'] || ! map_is_icon_field( $field['name'] ) ) {
+		return $field;
+	}
+
 	$field['choices'] = map_icon_choices();
 
 	return $field;
 }
-add_filter( 'acf/load_field/key=field_map_dir_icon', 'map_acf_icon_field' );
-add_filter( 'acf/load_field/key=field_map_home_hero_eyebrow_icon', 'map_acf_icon_field' );
-add_filter( 'acf/load_field/key=field_map_home_about_point_icon', 'map_acf_icon_field' );
+add_filter( 'acf/load_field/type=select', 'map_acf_icon_field' );
+
+/**
+ * Поле выбора иконки узнаём по имени.
+ *
+ * Список иконок один на весь сайт, поэтому проще договориться об имени, чем
+ * перечислять ключи: новое поле «…_icon» подхватится само.
+ *
+ * @param string $name Имя поля.
+ * @return bool
+ */
+function map_is_icon_field( $name ) {
+	return 'icon' === $name || ( strlen( $name ) > 5 && '_icon' === substr( $name, -5 ) );
+}
 
 /**
  * Страница настроек сайта.
@@ -176,7 +191,7 @@ add_action( 'admin_notices', 'map_acf_notice' );
  * @return array<string,string>
  */
 function map_icon_choices() {
-	return array(
+	$choices = array(
 		'piano'   => 'Фортепиано',
 		'violin'  => 'Скрипка',
 		'trumpet' => 'Труба',
@@ -197,7 +212,17 @@ function map_icon_choices() {
 		'heart'   => 'Сердце',
 		'star'    => 'Звезда',
 		'clock'   => 'Часы',
+		'link'    => 'Звенья цепи',
+		'check'   => 'Галочка',
+		'phone'   => 'Телефон',
+		'mail'    => 'Конверт',
+		'pin'     => 'Точка на карте',
+		'play'    => 'Кнопка «play»',
+		'plus'    => 'Плюс',
 	);
+
+	// Свои SVG из «Настройки сайта → Иконки» встают в конец списка.
+	return array_merge( $choices, map_icon_uploads() );
 }
 
 /**

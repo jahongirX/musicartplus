@@ -198,13 +198,13 @@ function map_review_card( $post, $delay = 0, $reveal = true ) {
  * @param bool        $reveal Анимировать появление.
  * @return void
  */
-function map_news_card( $post, $delay = 0, $reveal = true ) {
+function map_news_card( $post, $delay = 0, $reveal = true, $ratio = '16/11' ) {
 	$post  = get_post( $post );
 	$badge = map_news_badge( $post );
 	$image = get_the_post_thumbnail_url( $post, 'map-card' );
 	?>
 	<a class="card<?php echo $reveal ? ' reveal' : ''; ?>" data-delay="<?php echo (int) $delay; ?>" data-news-item data-tag="<?php echo esc_attr( $badge ); ?>" href="<?php echo esc_url( get_permalink( $post ) ); ?>">
-		<div class="card__media">
+		<div class="card__media" style="aspect-ratio:<?php echo esc_attr( $ratio ); ?>">
 			<div class="card__date">
 				<b><?php echo esc_html( get_the_date( 'd', $post ) ); ?></b>
 				<span><?php echo esc_html( mb_substr( map_month_genitive( (int) get_the_date( 'n', $post ) ), 0, 3 ) ); ?></span>
@@ -222,6 +222,66 @@ function map_news_card( $post, $delay = 0, $reveal = true ) {
 			<div class="card__foot"><span class="link-arrow"><?php esc_html_e( 'Читать', 'musicartplus' ); ?><?php map_the_icon( 'ar' ); ?></span></div>
 		</div>
 	</a>
+	<?php
+}
+
+/**
+ * Компактная строка новости для колонки рядом с главной.
+ *
+ * @param WP_Post|int $post  Запись.
+ * @param int         $delay Задержка появления.
+ * @return void
+ */
+function map_news_mini( $post, $delay = 0 ) {
+	$post  = get_post( $post );
+	$badge = map_news_badge( $post );
+	$image = get_the_post_thumbnail_url( $post, 'map-tile' );
+	?>
+	<a class="news-mini reveal" data-delay="<?php echo (int) $delay; ?>" data-news-item data-tag="<?php echo esc_attr( $badge ); ?>" href="<?php echo esc_url( get_permalink( $post ) ); ?>">
+		<div class="news-mini__img">
+			<?php if ( $image ) : ?>
+				<img src="<?php echo esc_url( $image ); ?>" alt="" loading="lazy" width="240" height="240">
+			<?php endif; ?>
+		</div>
+		<div class="news-mini__body">
+			<time datetime="<?php echo esc_attr( get_the_date( 'c', $post ) ); ?>"><?php echo esc_html( sprintf( '%s %s %s', get_the_date( 'j', $post ), map_month_genitive( (int) get_the_date( 'n', $post ) ), get_the_date( 'Y', $post ) ) ); ?></time>
+			<b><?php echo esc_html( get_the_title( $post ) ); ?></b>
+			<span class="link-arrow" style="font-size:14.5px;margin-top:4px"><?php esc_html_e( 'Читать', 'musicartplus' ); ?><?php map_the_icon( 'ar' ); ?></span>
+		</div>
+	</a>
+	<?php
+}
+
+/**
+ * Кнопки фильтра новостей по рубрикам.
+ *
+ * Фильтрация идёт на стороне браузера: новостей немного, и перезагрузка
+ * страницы ради переключения вкладки была бы заметнее самой выборки.
+ *
+ * @param WP_Post[] $posts Показанные записи.
+ * @return void
+ */
+function map_news_filter( $posts ) {
+	$tags = array();
+
+	foreach ( $posts as $post ) {
+		$badge = map_news_badge( $post );
+
+		if ( $badge && ! in_array( $badge, $tags, true ) ) {
+			$tags[] = $badge;
+		}
+	}
+
+	if ( count( $tags ) < 2 ) {
+		return;
+	}
+	?>
+	<div class="filter-bar">
+		<button class="is-active" data-filter="all"><?php echo esc_html( map_blog_field( 'news_filter_all', __( 'Все новости', 'musicartplus' ) ) ); ?></button>
+		<?php foreach ( $tags as $tag ) : ?>
+			<button data-filter="<?php echo esc_attr( $tag ); ?>"><?php echo esc_html( $tag ); ?></button>
+		<?php endforeach; ?>
+	</div>
 	<?php
 }
 
@@ -393,9 +453,10 @@ function map_widget_section() {
  * @param string $section_class Дополнительный класс секции — например
  *                              section--cream, чтобы фон чередовался с
  *                              предыдущим блоком.
+ * @param array  $buttons       Свои кнопки: label и url. Пусто — запись и телефон.
  * @return void
  */
-function map_cta_band( $title, $text, $section_class = '' ) {
+function map_cta_band( $title, $text, $section_class = '', $buttons = array() ) {
 	?>
 	<section class="section section--tight<?php echo $section_class ? ' ' . esc_attr( $section_class ) : ''; ?>">
 		<div class="container">
@@ -406,8 +467,14 @@ function map_cta_band( $title, $text, $section_class = '' ) {
 					<p><?php echo esc_html( $text ); ?></p>
 				</div>
 				<div class="cta-band__actions">
-					<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( map_cta_label() ); ?></a>
-					<a class="btn btn--light btn--lg" href="tel:<?php echo esc_attr( map_phone_href() ); ?>"><?php echo esc_html( map_opt( 'phone' ) ); ?></a>
+					<?php if ( $buttons ) : ?>
+						<?php foreach ( $buttons as $map_i => $map_btn ) : ?>
+							<a class="btn <?php echo $map_i ? 'btn--light' : 'btn--gold'; ?> btn--lg" href="<?php echo esc_url( $map_btn['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $map_btn['label'] ); ?></a>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<a class="btn btn--gold btn--lg"<?php echo map_cta_attrs(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>><?php echo esc_html( map_cta_label() ); ?></a>
+						<a class="btn btn--light btn--lg" href="tel:<?php echo esc_attr( map_phone_href() ); ?>"><?php echo esc_html( map_opt( 'phone' ) ); ?></a>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

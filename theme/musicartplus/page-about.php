@@ -37,14 +37,21 @@ while ( have_posts() ) :
 		<?php
 	endif;
 
-	get_template_part( 'template-parts/home/reviews' );
+	$map_teach_page = map_page_by_template( 'page-teachers.php' );
+
+	get_template_part( 'template-parts/home/reviews', null, array(
+		'eyebrow'    => map_field( 'about_reviews_eyebrow', get_the_ID(), __( 'Отзывы', 'musicartplus' ) ),
+		'title'      => map_field( 'about_reviews_title', get_the_ID(), __( 'Родители — о центре', 'musicartplus' ) ),
+		'mode'       => 'grid',
+		'limit'      => 3,
+		'link_url'   => $map_teach_page ? get_permalink( $map_teach_page ) : '',
+		'link_label' => map_field( 'about_reviews_link', get_the_ID(), __( 'Все отзывы', 'musicartplus' ) ),
+	) );
 	map_widget_section();
-	get_template_part( 'template-parts/home/map' );
 
 	map_cta_band(
 		map_field( 'about_cta_title', get_the_ID(), __( 'Приходите знакомиться', 'musicartplus' ) ),
-		map_field( 'about_cta_text', get_the_ID(), __( 'Покажем центр, познакомим с педагогом и подберём программу под ребёнка.', 'musicartplus' ) ),
-		'section--cream'
+		map_field( 'about_cta_text', get_the_ID(), __( 'Покажем центр, познакомим с педагогом и подберём программу под ребёнка.', 'musicartplus' ) )
 	);
 
 endwhile;

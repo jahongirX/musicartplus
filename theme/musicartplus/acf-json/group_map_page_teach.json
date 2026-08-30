@@ -3,6 +3,73 @@
     "title": "Страница «Педагоги»",
     "fields": [
         {
+            "key": "field_map_pgteach_tab_55203",
+            "label": "Первый экран",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgteach_teachers_hero_title",
+            "label": "Заголовок",
+            "name": "teachers_hero_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Педагоги, которым доверяют детей"
+        },
+        {
+            "key": "field_map_pgteach_teachers_hero_text",
+            "label": "Текст под заголовком",
+            "name": "teachers_hero_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "Преподаватели Московской консерватории, РАМ им. Гнесиных, ГИТИСа и ВГИКа. Нажмите на фотографию — откроется биография, расписание и запись на урок."
+        },
+        {
+            "key": "field_map_pgteach_teachers_hero_image",
+            "label": "Фон первого экрана",
+            "name": "teachers_hero_image",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
             "key": "field_map_pgteach_tab_5a2ef",
             "label": "Основной состав",
             "name": "",
@@ -159,6 +226,205 @@
             "placeholder": ""
         },
         {
+            "key": "field_map_pgteach_tab_d3a77",
+            "label": "Фотогалерея",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgteach_shots_eyebrow",
+            "label": "Надглавие",
+            "name": "shots_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Фотогалерея"
+        },
+        {
+            "key": "field_map_pgteach_shots_title",
+            "label": "Заголовок",
+            "name": "shots_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Фотографии с уроков"
+        },
+        {
+            "key": "field_map_pgteach_shots_text",
+            "label": "Текст под заголовком",
+            "name": "shots_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2
+        },
+        {
+            "key": "field_map_pgteach_shots_gallery",
+            "label": "Фотографии",
+            "name": "shots_gallery",
+            "aria-label": "",
+            "type": "gallery",
+            "instructions": "Секция не выводится, пока галерея пуста. На широком экране это кладка, на телефоне — лента.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "id"
+        },
+        {
+            "key": "field_map_pgteach_tab_69651",
+            "label": "Видео",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgteach_teachers_video_eyebrow",
+            "label": "Надглавие",
+            "name": "teachers_video_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Видео"
+        },
+        {
+            "key": "field_map_pgteach_teachers_video_title",
+            "label": "Заголовок",
+            "name": "teachers_video_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Приглашённые педагоги — в записи"
+        },
+        {
+            "key": "field_map_pgteach_teachers_video_text",
+            "label": "Текст под заголовком",
+            "name": "teachers_video_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Видео открывается прямо на сайте, без перехода на Rutube."
+        },
+        {
+            "key": "field_map_pgteach_tab_49145",
+            "label": "Отзывы",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgteach_teachers_reviews_eyebrow",
+            "label": "Надглавие",
+            "name": "teachers_reviews_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Отзывы"
+        },
+        {
+            "key": "field_map_pgteach_teachers_reviews_title",
+            "label": "Заголовок",
+            "name": "teachers_reviews_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Что говорят о наших педагогах"
+        },
+        {
             "key": "field_map_pgteach_tab_e280",
             "label": "Призыв к записи",
             "name": "",
@@ -215,6 +481,70 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_map_pgteach_teachers_cta_eyebrow",
+            "label": "Надглавие",
+            "name": "teachers_cta_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Обратная связь"
+        },
+        {
+            "key": "field_map_pgteach_teachers_form_title",
+            "label": "Форма: заголовок",
+            "name": "teachers_form_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Подобрать педагога"
+        },
+        {
+            "key": "field_map_pgteach_teachers_form_text",
+            "label": "Форма: подзаголовок",
+            "name": "teachers_form_text",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Два поля — и мы свяжемся с вами в ближайшее рабочее время."
+        },
+        {
+            "key": "field_map_pgteach_teachers_phone_label",
+            "label": "Подпись над телефоном",
+            "name": "teachers_phone_label",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Позвонить сейчас"
         }
     ],
     "location": [

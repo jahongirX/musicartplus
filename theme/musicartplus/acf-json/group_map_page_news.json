@@ -222,6 +222,40 @@
             "new_lines": "",
             "maxlength": "",
             "placeholder": ""
+        },
+        {
+            "key": "field_map_pgnews_tab_79abd",
+            "label": "Фильтр по рубрикам",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_pgnews_news_filter_all",
+            "label": "Надпись кнопки «все»",
+            "name": "news_filter_all",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Кнопки рубрик появляются сами, если у новостей на странице больше одной рубрики.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Все новости"
         }
     ],
     "location": [

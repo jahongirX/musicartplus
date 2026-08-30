@@ -25,6 +25,7 @@ if ( is_readable( MAP_DIR . '/inc/config.local.php' ) ) {
 $map_modules = array(
 	'config',         // Константы, реквизиты, значения по умолчанию.
 	'icons',          // SVG-иконки (сгенерирован из tools/generator.py).
+	'icons-custom',   // Свои иконки, загруженные через настройки сайта.
 	'helpers',        // Общие хелперы шаблонов.
 	'nav',            // Меню шапки и подвала.
 	'template-tags',  // Разметка карточек и повторяющихся секций.

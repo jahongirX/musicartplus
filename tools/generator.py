@@ -1183,6 +1183,9 @@ guest_videos = ''.join(
   '<span class="video-card__cap"><b>' + g['name'].split()[0] + ' ' + g['name'].split()[1][0] + '. ' + g['name'].split()[2][0] + '.</b>'
   '<span>' + g['role'] + '</span></span></button>' for i, g in enumerate(GUESTS))
 
+TEACH_SHOTS = ['g11.jpg','g07.jpg','g02.jpg','g15.jpg','g03.jpg','g04.jpg','g09.jpg','g12.jpg',
+               'g01.jpg','g14.jpg','g17.jpg','g19.jpg','g05.jpg','g08.jpg','g13.jpg','g18.jpg']
+
 TEACHPAGE = page_hero('Педагоги', 'Педагоги, которым доверяют детей',
   'Преподаватели Московской консерватории, РАМ им. Гнесиных, ГИТИСа и ВГИКа. Нажмите на фотографию — откроется биография, расписание и запись на урок.',
   'g11.jpg') + '''
@@ -1223,7 +1226,7 @@ TEACHPAGE = page_hero('Педагоги', 'Педагоги, которым до
         <h2 class="h2">Фотографии с уроков</h2>
       </div>
     </div>
-    <div class="reveal">''' + gallery_slider(['g11.jpg','g07.jpg','g02.jpg','g15.jpg','g03.jpg','g04.jpg','g09.jpg','g12.jpg','g01.jpg','g14.jpg','g17.jpg','g19.jpg','g05.jpg','g08.jpg','g13.jpg','g18.jpg'], 'teachers-shots') + '''</div>
+    <div class="reveal">''' + gallery_slider(TEACH_SHOTS, 'teachers-shots') + '''</div>
   </div>
 </section>
 
