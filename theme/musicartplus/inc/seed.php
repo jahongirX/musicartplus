@@ -52,8 +52,14 @@ function map_seed_content() {
 	require_once ABSPATH . 'wp-admin/includes/media.php';
 	require_once ABSPATH . 'wp-admin/includes/image.php';
 
+	// Настройки заполняем раньше страниц: в тексте правовых документов
+	// подставляются адрес, телефон и почта центра.
+	map_seed_options( $data['options'] );
+
+	$legal = isset( $data['legal'] ) ? $data['legal'] : array();
+
 	$counts = array(
-		'pages'      => map_seed_pages(),
+		'pages'      => map_seed_pages() + map_seed_legal_pages( $legal ),
 		'teachers'   => map_seed_posts( $data['teachers'], 'map_teacher', 'map_seed_teacher_fields' ),
 		'guests'     => map_seed_posts( $data['guests'], 'map_guest', 'map_seed_guest_fields' ),
 		'reviews'    => map_seed_reviews( $data['reviews'] ),
@@ -61,7 +67,6 @@ function map_seed_content() {
 		'news'       => map_seed_news( $data['news'] ),
 	);
 
-	map_seed_options( $data['options'] );
 	map_seed_front( $data['front'] );
 	map_seed_menu();
 
@@ -450,8 +455,6 @@ function map_seed_pages() {
 		$made++;
 	}
 
-	$made += map_seed_legal_pages();
-
 	if ( ! empty( $ids['home'] ) && ! empty( $ids['news'] ) ) {
 		update_option( 'show_on_front', 'page' );
 		update_option( 'page_on_front', $ids['home'] );
@@ -470,15 +473,34 @@ function map_seed_pages() {
  *
  * @return int Сколько страниц создано.
  */
-function map_seed_legal_pages() {
+function map_seed_legal_pages( $legal = array() ) {
 	$pages = array(
 		'privacy' => array( __( 'Политика конфиденциальности', 'musicartplus' ), 'politika-konfidencialnosti' ),
 		'consent' => array( __( 'Согласие на обработку персональных данных', 'musicartplus' ), 'soglasie-na-obrabotku-dannyh' ),
 	);
 
-	$stub = __( 'Текст готовится. Замените его перед запуском сайта.', 'musicartplus' );
 	$made = 0;
 	$ids  = array();
+
+	// WordPress при установке сам создаёт черновик политики. Забираем его
+	// себе, иначе на сайте окажутся две страницы с одним смыслом.
+	$wp_privacy = (int) get_option( 'wp_page_for_privacy_policy' );
+
+	if ( $wp_privacy && get_post( $wp_privacy ) && ! map_seed_find( 'page', 'privacy' ) ) {
+		update_post_meta( $wp_privacy, MAP_SEED_KEY, 'privacy' );
+
+		wp_update_post( array(
+			'ID'          => $wp_privacy,
+			'post_status' => 'publish',
+			'post_name'   => $pages['privacy'][1],
+		) );
+
+		// В черновике WordPress лежит рыба про комментарии и Gravatar —
+		// к этому сайту она отношения не имеет.
+		if ( false !== strpos( (string) get_post_field( 'post_content', $wp_privacy ), 'privacy-policy-tutorial' ) ) {
+			wp_update_post( array( 'ID' => $wp_privacy, 'post_content' => '' ) );
+		}
+	}
 
 	foreach ( $pages as $slug => $meta ) {
 		$existing = map_seed_find( 'page', $slug );
@@ -489,11 +511,10 @@ function map_seed_legal_pages() {
 		}
 
 		$post_id = wp_insert_post( array(
-			'post_type'    => 'page',
-			'post_status'  => 'publish',
-			'post_title'   => $meta[0],
-			'post_name'    => $meta[1],
-			'post_content' => $stub,
+			'post_type'   => 'page',
+			'post_status' => 'publish',
+			'post_title'  => $meta[0],
+			'post_name'   => $meta[1],
 		), true );
 
 		if ( is_wp_error( $post_id ) ) {
@@ -514,7 +535,49 @@ function map_seed_legal_pages() {
 		update_field( 'consent_url', $ids['consent'], 'option' );
 	}
 
+	map_seed_legal_text( $ids, $legal );
+
 	return $made;
+}
+
+/**
+ * Заполняет правовые страницы текстом.
+ *
+ * Контакты подставляются из настроек сайта: держать их и в настройках,
+ * и в тексте документа значит однажды поменять только в одном месте.
+ * Уже написанный текст не трогаем — заказчик мог править его сам.
+ *
+ * @param array<string,int>    $ids   ID страниц по ключу.
+ * @param array<string,string> $legal Заготовки текстов.
+ * @return void
+ */
+function map_seed_legal_text( $ids, $legal ) {
+	if ( ! $legal ) {
+		return;
+	}
+
+	$vars = array(
+		'{address}' => map_opt( 'address' ),
+		'{phone}'   => map_opt( 'phone' ),
+		'{email}'   => map_opt( 'email' ),
+		// Относительный адрес: абсолютный протух бы при переезде на домен центра.
+		'{privacy}' => ! empty( $ids['privacy'] ) ? wp_make_link_relative( get_permalink( $ids['privacy'] ) ) : '',
+	);
+
+	foreach ( $ids as $slug => $post_id ) {
+		if ( empty( $legal[ $slug ] ) ) {
+			continue;
+		}
+
+		if ( trim( wp_strip_all_tags( (string) get_post_field( 'post_content', $post_id ) ) ) ) {
+			continue;
+		}
+
+		wp_update_post( array(
+			'ID'           => $post_id,
+			'post_content' => strtr( $legal[ $slug ], $vars ),
+		) );
+	}
 }
 
 /**
