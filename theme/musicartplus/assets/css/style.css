@@ -1158,7 +1158,10 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
    29. Страница новости
    ============================================================ */
 .article{
-  padding-top:calc(var(--header-h) + clamp(26px,4vw,52px));
+  /* Шапка перекрывает содержимое, поэтому её высоту компенсируем. Сверху
+     остаётся только воздух: на странице новости нет обложки во всю ширину,
+     и пустое поле под шапкой сразу бросается в глаза. */
+  padding-top:calc(var(--header-h) + clamp(16px,2.2vw,30px));
   padding-bottom:clamp(54px,6.5vw,96px);
 }
 .article .crumbs{margin-bottom:20px}
@@ -1519,3 +1522,10 @@ html #SiteWidgetMoyklass139193 .wdgMoyklass-h1{display:none}
 .about-split__text{margin-top:22px}
 .about-split__text > p:first-child{font-size:clamp(17px,1.35vw,20px);line-height:1.6;color:var(--ink-80)}
 
+/* Панель WordPress перекрывала шапку сайта: шапка позиционирована fixed от
+   верха окна, а панель висит над ней — логотип оказывался срезан. Видно это
+   только вошедшим в админку, но правит сайт именно заказчик. */
+.admin-bar .header{top:32px}
+@media (max-width:782px){
+  .admin-bar .header{top:46px}
+}
