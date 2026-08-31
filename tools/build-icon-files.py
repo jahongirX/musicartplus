@@ -49,6 +49,13 @@ for key in sorted(I):
         out = re.sub(r'<svg ', '<svg ' + attrs + ' ', svg, count=1)
 
     out = out.replace(' aria-hidden="true"', '')
+
+    # Внутри страницы пространство имён подставляет сам разборщик HTML,
+    # а отдельный файл без него просто не откроется — ни в <img>, ни
+    # предпросмотром в медиатеке.
+    if 'xmlns=' not in out:
+        out = out.replace('<svg ', '<svg xmlns="http://www.w3.org/2000/svg" ', 1)
+
     out = '<?xml version="1.0" encoding="UTF-8"?>\n' + out + '\n'
 
     io.open(os.path.join(DEST, key + '.svg'), 'w', encoding='utf-8').write(out)

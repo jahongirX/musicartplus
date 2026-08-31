@@ -121,6 +121,12 @@ function map_svg_sanitize( $svg ) {
 	$root->removeAttribute( 'height' );
 	$root->setAttribute( 'aria-hidden', 'true' );
 
+	// Без пространства имён файл не откроется отдельным документом —
+	// например, предпросмотром в медиатеке.
+	if ( ! $root->hasAttribute( 'xmlns' ) ) {
+		$root->setAttribute( 'xmlns', 'http://www.w3.org/2000/svg' );
+	}
+
 	map_svg_recolor( $root );
 	map_svg_paint( $root );
 
@@ -331,21 +337,183 @@ function map_check_svg_filetype( $data, $file, $filename ) {
 add_filter( 'wp_check_filetype_and_ext', 'map_check_svg_filetype', 10, 3 );
 
 /**
- * Показывает загруженный SVG в медиатеке.
+ * Собственные размеры SVG: из width/height или из viewBox.
  *
- * Без размеров WordPress рисует вместо превью серый прямоугольник.
+ * WordPress не умеет читать размер векторного файла и записывает в
+ * метаданные пустоту. Из-за этого он же потом рисует превью размером
+ * в один пиксель — то есть серый прямоугольник.
  *
- * @param array<string,mixed>|false $image      Данные превью.
- * @param int                       $attachment ID вложения.
+ * @param string $path Путь к файлу.
+ * @return array{0:float,1:float} Ширина и высота; 0, если не разобрали.
+ */
+function map_svg_dimensions( $path ) {
+	if ( ! $path || ! is_readable( $path ) ) {
+		return array( 0, 0 );
+	}
+
+	// Заголовка хватает: нужные атрибуты стоят в первом теге.
+	$head = (string) file_get_contents( $path, false, null, 0, 4096 ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- локальный файл медиатеки.
+
+	if ( ! preg_match( '/<svg\b[^>]*>/i', $head, $tag ) ) {
+		return array( 0, 0 );
+	}
+
+	$tag = $tag[0];
+
+	$number = static function ( $value ) {
+		return preg_match( '/^([\d.]+)(px|pt)?$/i', trim( (string) $value ), $m ) ? (float) $m[1] : 0;
+	};
+
+	$width  = preg_match( '/\bwidth="([^"]+)"/i', $tag, $m ) ? $number( $m[1] ) : 0;
+	$height = preg_match( '/\bheight="([^"]+)"/i', $tag, $m ) ? $number( $m[1] ) : 0;
+
+	if ( $width > 0 && $height > 0 ) {
+		return array( $width, $height );
+	}
+
+	if ( preg_match( '/\bviewBox="([^"]+)"/i', $tag, $m ) ) {
+		$box = preg_split( '/[\s,]+/', trim( $m[1] ) );
+
+		if ( 4 === count( $box ) && (float) $box[2] > 0 && (float) $box[3] > 0 ) {
+			return array( (float) $box[2], (float) $box[3] );
+		}
+	}
+
+	return array( 0, 0 );
+}
+
+/**
+ * Дописывает размеры в метаданные загруженного SVG.
+ *
+ * @param array<string,mixed> $meta Метаданные.
+ * @param int                 $id   ID вложения.
+ * @return array<string,mixed>
+ */
+function map_svg_metadata( $meta, $id ) {
+	if ( 'image/svg+xml' !== get_post_mime_type( $id ) ) {
+		return $meta;
+	}
+
+	list( $width, $height ) = map_svg_dimensions( get_attached_file( $id ) );
+
+	if ( $width > 0 && $height > 0 ) {
+		$meta['width']  = (int) round( $width );
+		$meta['height'] = (int) round( $height );
+	}
+
+	$file = get_attached_file( $id );
+
+	if ( $file && empty( $meta['file'] ) ) {
+		$uploads      = wp_get_upload_dir();
+		$meta['file'] = ltrim( str_replace( $uploads['basedir'], '', $file ), '/' );
+	}
+
+	return $meta;
+}
+add_filter( 'wp_generate_attachment_metadata', 'map_svg_metadata', 10, 2 );
+
+/**
+ * Размер картинки для показа SVG.
+ *
+ * Вектор масштабируется без потерь, поэтому отдаём не собственный размер
+ * файла, а тот, который запросили, — сохраняя пропорции.
+ *
+ * @param int          $id   ID вложения.
+ * @param string|array $size Имя размера или пара чисел.
+ * @return array{0:int,1:int}
+ */
+function map_svg_size_box( $id, $size ) {
+	list( $width, $height ) = map_svg_dimensions( get_attached_file( $id ) );
+
+	if ( $width <= 0 || $height <= 0 ) {
+		$width  = 1;
+		$height = 1;
+	}
+
+	if ( is_array( $size ) ) {
+		$box = array( (int) $size[0], (int) $size[1] );
+	} elseif ( 'full' === $size ) {
+		$box = array( (int) round( $width ), (int) round( $height ) );
+	} else {
+		$box = array(
+			(int) get_option( $size . '_size_w', 150 ),
+			(int) get_option( $size . '_size_h', 150 ),
+		);
+	}
+
+	if ( $box[0] < 1 || $box[1] < 1 ) {
+		$box = array( 150, 150 );
+	}
+
+	$scale = min( $box[0] / $width, $box[1] / $height );
+
+	return array( max( 1, (int) round( $width * $scale ) ), max( 1, (int) round( $height * $scale ) ) );
+}
+
+/**
+ * Показывает загруженный SVG вместо серого прямоугольника.
+ *
+ * @param array<string,mixed>|false $image Данные превью.
+ * @param int                       $id    ID вложения.
+ * @param string|array              $size  Запрошенный размер.
  * @return array<string,mixed>|false
  */
-function map_svg_thumb( $image, $attachment ) {
-	if ( $image || 'image/svg+xml' !== get_post_mime_type( $attachment ) ) {
+function map_svg_thumb( $image, $id, $size ) {
+	if ( 'image/svg+xml' !== get_post_mime_type( $id ) ) {
 		return $image;
 	}
 
-	$url = wp_get_attachment_url( $attachment );
+	$url = wp_get_attachment_url( $id );
 
-	return $url ? array( $url, 60, 60, false ) : $image;
+	if ( ! $url ) {
+		return $image;
+	}
+
+	$box = map_svg_size_box( $id, $size );
+
+	return array( $url, $box[0], $box[1], false );
 }
-add_filter( 'wp_get_attachment_image_src', 'map_svg_thumb', 10, 2 );
+add_filter( 'wp_get_attachment_image_src', 'map_svg_thumb', 10, 3 );
+
+/**
+ * Отдаёт медиатеке набор размеров для SVG.
+ *
+ * Поле картинки в ACF строит превью на стороне браузера и берёт адрес из
+ * sizes[…].url. У векторного файла этого списка нет — отсюда пустая рамка
+ * вместо иконки.
+ *
+ * @param array<string,mixed> $response Данные вложения для JS.
+ * @param WP_Post             $post     Вложение.
+ * @return array<string,mixed>
+ */
+function map_svg_js( $response, $post ) {
+	if ( 'image/svg+xml' !== $post->post_mime_type ) {
+		return $response;
+	}
+
+	$url = wp_get_attachment_url( $post->ID );
+
+	if ( ! $url ) {
+		return $response;
+	}
+
+	$response['icon']  = $url;
+	$response['sizes'] = array();
+
+	foreach ( array( 'thumbnail', 'medium', 'large', 'full' ) as $size ) {
+		$box = map_svg_size_box( $post->ID, $size );
+
+		$response['sizes'][ $size ] = array(
+			'url'         => $url,
+			'width'       => $box[0],
+			'height'      => $box[1],
+			'orientation' => $box[0] >= $box[1] ? 'landscape' : 'portrait',
+		);
+	}
+
+	$response['width']  = $response['sizes']['full']['width'];
+	$response['height'] = $response['sizes']['full']['height'];
+
+	return $response;
+}
+add_filter( 'wp_prepare_attachment_for_js', 'map_svg_js', 10, 2 );
