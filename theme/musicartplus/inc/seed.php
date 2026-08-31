@@ -78,6 +78,7 @@ function map_seed_content() {
 		map_seed_page_fields( $template, $values );
 	}
 
+	map_seed_favicon();
 	map_seed_field_defaults();
 
 	return sprintf(
@@ -462,6 +463,26 @@ function map_seed_pages() {
 	}
 
 	return $made;
+}
+
+/**
+ * Значок вкладки: кладём файл темы в медиатеку и назначаем его.
+ *
+ * @return void
+ */
+function map_seed_favicon() {
+	if ( get_option( 'site_icon' ) || ! function_exists( 'update_field' ) ) {
+		return;
+	}
+
+	$id = map_seed_image( 'assets/img/ui/favicon.png' );
+
+	if ( ! $id ) {
+		return;
+	}
+
+	// Поле темы само проставит стандартный «Значок сайта» — см. inc/acf.php.
+	update_field( 'favicon', $id, 'option' );
 }
 
 /**

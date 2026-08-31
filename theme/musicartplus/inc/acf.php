@@ -142,6 +142,64 @@ function map_is_icon_field( $name ) {
 }
 
 /**
+ * Значок вкладки задаёт и стандартный «Значок сайта» WordPress.
+ *
+ * Иначе иконку пришлось бы менять в двух местах, а админка и экран входа
+ * остались бы со старой.
+ *
+ * @param mixed  $value   Значение поля.
+ * @param mixed  $post_id Куда сохраняется.
+ * @param array  $field   Описание поля.
+ * @return mixed
+ */
+function map_acf_sync_site_icon( $value, $post_id, $field ) {
+	// ACF отдаёт сюда 'options' — в множественном числе.
+	if ( 'option' !== $post_id && 'options' !== $post_id ) {
+		return $value;
+	}
+
+	$id = (int) ( is_array( $value ) && isset( $value['ID'] ) ? $value['ID'] : $value );
+
+	if ( $id !== (int) get_option( 'site_icon' ) ) {
+		update_option( 'site_icon', $id );
+		map_prepare_site_icon( $id );
+	}
+
+	return $value;
+}
+
+/**
+ * Готовит нарезку значка сайта.
+ *
+ * Свои размеры для значка WordPress подмешивает только на экране настроек
+ * внешнего вида. Если картинку назначили в обход него, обрезок не будет —
+ * и в плитку приложения уедет полноразмерный файл.
+ *
+ * @param int $id ID вложения.
+ * @return void
+ */
+function map_prepare_site_icon( $id ) {
+	if ( ! $id ) {
+		return;
+	}
+
+	require_once ABSPATH . 'wp-admin/includes/image.php';
+	require_once ABSPATH . 'wp-admin/includes/class-wp-site-icon.php';
+
+	$icon = new WP_Site_Icon();
+	add_filter( 'intermediate_image_sizes_advanced', array( $icon, 'additional_sizes' ) );
+
+	$file = get_attached_file( $id );
+
+	if ( $file ) {
+		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $file ) );
+	}
+
+	remove_filter( 'intermediate_image_sizes_advanced', array( $icon, 'additional_sizes' ) );
+}
+add_filter( 'acf/update_value/name=favicon', 'map_acf_sync_site_icon', 10, 3 );
+
+/**
  * Страница настроек сайта.
  *
  * @return void

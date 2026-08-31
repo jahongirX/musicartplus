@@ -215,6 +215,7 @@ def head(title, desc, page, hero='light', swiper=False):
 <meta name="description" content="''' + desc + '''">
 <meta name="theme-color" content="#F3B71E">
 <link rel="icon" href="assets/img/ui/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/img/ui/favicon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="''' + title + '''">
 <meta property="og:description" content="''' + desc + '''">

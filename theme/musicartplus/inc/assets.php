@@ -141,6 +141,41 @@ function map_preload_fonts() {
 add_action( 'wp_head', 'map_preload_fonts', 1 );
 
 /**
+ * Значок вкладки.
+ *
+ * Когда задан стандартный «Значок сайта», WordPress выводит весь набор
+ * иконок сам — тогда не мешаем. В остальных случаях берём картинку из
+ * настроек темы, а если и её нет — файл из папки темы: пустая вкладка
+ * с глобусом выглядит как чужой сайт.
+ *
+ * @return void
+ */
+function map_favicon() {
+	if ( get_option( 'site_icon' ) ) {
+		return;
+	}
+
+	$id   = (int) map_opt( 'favicon', 0 );
+	$url  = $id ? wp_get_attachment_image_url( $id, 'full' ) : '';
+	$type = $id ? get_post_mime_type( $id ) : '';
+
+	if ( ! $url ) {
+		$url  = map_asset( 'assets/img/ui/favicon.png' );
+		$type = 'image/png';
+	}
+
+	printf(
+		'<link rel="icon" href="%s"%s>' . "\n",
+		esc_url( $url ),
+		$type ? ' type="' . esc_attr( $type ) . '"' : ''
+	);
+	printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $url ) );
+}
+add_action( 'wp_head', 'map_favicon', 2 );
+add_action( 'admin_head', 'map_favicon', 2 );
+add_action( 'login_head', 'map_favicon', 2 );
+
+/**
  * Подключает скрипт виджета «Мой класс» перед закрытием body.
  *
  * @return void
