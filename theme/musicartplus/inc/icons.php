@@ -61,7 +61,7 @@ function map_icon( $name, $class = '' ) {
 		);
 	}
 
-	// Иконки, загруженные через настройки сайта, лежат отдельно:
+	// Иконка из медиатеки приходит сюда номером вложения:
 	// см. inc/icons-custom.php.
 	$svg = isset( $icons[ $name ] ) ? $icons[ $name ] : map_icon_custom( $name );
 

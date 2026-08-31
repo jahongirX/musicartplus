@@ -109,39 +109,6 @@ function map_acf_sync_json() {
 add_action( 'admin_init', 'map_acf_sync_json' );
 
 /**
- * Подставляет список иконок в поле выбора направления.
- *
- * Набор иконок задаётся кодом (map_icon_choices), а не файлом группы: иконку
- * мало добавить в список — под неё нужен ещё и SVG в inc/icons.php.
- *
- * @param array $field Поле.
- * @return array
- */
-function map_acf_icon_field( $field ) {
-	if ( 'select' !== $field['type'] || ! map_is_icon_field( $field['name'] ) ) {
-		return $field;
-	}
-
-	$field['choices'] = map_icon_choices();
-
-	return $field;
-}
-add_filter( 'acf/load_field/type=select', 'map_acf_icon_field' );
-
-/**
- * Поле выбора иконки узнаём по имени.
- *
- * Список иконок один на весь сайт, поэтому проще договориться об имени, чем
- * перечислять ключи: новое поле «…_icon» подхватится само.
- *
- * @param string $name Имя поля.
- * @return bool
- */
-function map_is_icon_field( $name ) {
-	return 'icon' === $name || ( strlen( $name ) > 5 && '_icon' === substr( $name, -5 ) );
-}
-
-/**
  * Значок вкладки задаёт и стандартный «Значок сайта» WordPress.
  *
  * Иначе иконку пришлось бы менять в двух местах, а админка и экран входа
@@ -242,46 +209,6 @@ function map_acf_notice() {
 	);
 }
 add_action( 'admin_notices', 'map_acf_notice' );
-
-/**
- * Список иконок для полей выбора.
- *
- * @return array<string,string>
- */
-function map_icon_choices() {
-	$choices = array(
-		'piano'   => 'Фортепиано',
-		'violin'  => 'Скрипка',
-		'trumpet' => 'Труба',
-		'mic'     => 'Микрофон',
-		'masks'   => 'Театральные маски',
-		'palette' => 'Палитра',
-		'note'    => 'Нота',
-		'child'   => 'Ребёнок',
-		'users'   => 'Группа',
-		'book'    => 'Книга',
-		'online'  => 'Онлайн',
-		'cap'     => 'Выпускная шапочка',
-		'person'  => 'Человек',
-		'chat'    => 'Диалог',
-		'spark'   => 'Искра',
-		'scale'   => 'Весы',
-		'cal'     => 'Календарь',
-		'heart'   => 'Сердце',
-		'star'    => 'Звезда',
-		'clock'   => 'Часы',
-		'link'    => 'Звенья цепи',
-		'check'   => 'Галочка',
-		'phone'   => 'Телефон',
-		'mail'    => 'Конверт',
-		'pin'     => 'Точка на карте',
-		'play'    => 'Кнопка «play»',
-		'plus'    => 'Плюс',
-	);
-
-	// Свои SVG из «Настройки сайта → Иконки» встают в конец списка.
-	return array_merge( $choices, map_icon_uploads() );
-}
 
 /**
  * Включает автозагрузку значений со страницы настроек.

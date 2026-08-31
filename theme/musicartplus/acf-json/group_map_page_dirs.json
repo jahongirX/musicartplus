@@ -234,8 +234,8 @@
                     "label": "Иконка",
                     "name": "special_icon",
                     "aria-label": "",
-                    "type": "select",
-                    "instructions": "",
+                    "type": "image",
+                    "instructions": "SVG подхватывает цвет темы, PNG выводится как есть. Готовый набор темы уже в медиатеке.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -243,8 +243,16 @@
                         "class": "",
                         "id": ""
                     },
-                    "choices": {},
-                    "allow_null": 1
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "mime_types": "svg,png",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": ""
                 },
                 {
                     "key": "field_map_pgdirs_sub_special_title",
@@ -367,8 +375,8 @@
                     "label": "Иконка",
                     "name": "adv_icon",
                     "aria-label": "",
-                    "type": "select",
-                    "instructions": "",
+                    "type": "image",
+                    "instructions": "SVG подхватывает цвет темы, PNG выводится как есть. Готовый набор темы уже в медиатеке.",
                     "required": 0,
                     "conditional_logic": 0,
                     "wrapper": {
@@ -376,8 +384,16 @@
                         "class": "",
                         "id": ""
                     },
-                    "choices": {},
-                    "allow_null": 1
+                    "return_format": "id",
+                    "preview_size": "thumbnail",
+                    "library": "all",
+                    "mime_types": "svg,png",
+                    "min_width": "",
+                    "min_height": "",
+                    "min_size": "",
+                    "max_width": "",
+                    "max_height": "",
+                    "max_size": ""
                 },
                 {
                     "key": "field_map_pgdirs_sub_adv_title",

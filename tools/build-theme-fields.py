@@ -108,18 +108,6 @@ SETTINGS = [
         f('consent_label', 'Надпись ссылки на согласие', 'text',
           default_value='Согласие на обработку данных'),
     ]),
-    ('Иконки', [
-        f('icon_set', 'Свои иконки', 'repeater', button_label='Добавить иконку',
-          instructions='Загруженные сюда SVG появятся во всех списках выбора иконки — '
-                       'в направлениях, особых программах и принципах методики. '
-                       'Файл вставляется в страницу как разметка, поэтому иконка '
-                       'подхватывает цвет темы.',
-          sub_fields=[
-              sub('set', 'icon_name', 'Название в списке'),
-              sub('set', 'icon_file', 'Файл SVG', 'file',
-                  return_format='id', mime_types='svg'),
-          ]),
-    ]),
     ('Служебные страницы', [
         f('hero_default_image', 'Фон первого экрана по умолчанию', 'image', return_format='id',
           instructions='Показывается на страницах без своей фотографии.'),
@@ -314,7 +302,8 @@ PAGE_DIRS = [
         f('special_items', 'Программы', 'repeater', button_label='Добавить программу',
           instructions='Секция не выводится, пока список пуст.',
           sub_fields=[
-              sub('pgdirs', 'special_icon', 'Иконка', 'select', choices={}, allow_null=1),
+              sub('pgdirs', 'special_icon', 'Иконка', 'image',
+                  return_format='id', mime_types='svg,png', preview_size='thumbnail'),
               sub('pgdirs', 'special_title', 'Заголовок'),
               sub('pgdirs', 'special_text', 'Описание', 'textarea', rows=3),
           ]),
@@ -328,7 +317,8 @@ PAGE_DIRS = [
         f('adv_items', 'Принципы', 'repeater', button_label='Добавить принцип',
           instructions='Нумерация проставляется сама. Секция не выводится, пока список пуст.',
           sub_fields=[
-              sub('pgdirs', 'adv_icon', 'Иконка', 'select', choices={}, allow_null=1),
+              sub('pgdirs', 'adv_icon', 'Иконка', 'image',
+                  return_format='id', mime_types='svg,png', preview_size='thumbnail'),
               sub('pgdirs', 'adv_title', 'Заголовок'),
               sub('pgdirs', 'adv_text', 'Описание', 'textarea', rows=2),
           ]),
@@ -650,7 +640,7 @@ for key, prefix, tabs in TABS_BEFORE:
 TAB_ORDER = {
     'group_map_settings': [
         'Логотип', 'Контакты', 'Соцсети', 'Подвал', 'Кнопки',
-        'CRM «Мой класс»', 'Форма записи', 'Правовые страницы', 'Иконки',
+        'CRM «Мой класс»', 'Форма записи', 'Правовые страницы',
         'Служебные страницы',
     ],
     'group_map_page_about': [

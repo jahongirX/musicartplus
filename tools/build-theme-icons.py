@@ -53,7 +53,7 @@ for k in sorted(I):
 out += ["\t\t);",
         "\t}",
         "",
-        "\t// Иконки, загруженные через настройки сайта, лежат отдельно:",
+        "\t// Иконка из медиатеки приходит сюда номером вложения:",
         "\t// см. inc/icons-custom.php.",
         "\t$svg = isset( $icons[ $name ] ) ? $icons[ $name ] : map_icon_custom( $name );",
         "",

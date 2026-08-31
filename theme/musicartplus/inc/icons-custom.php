@@ -1,24 +1,18 @@
 <?php
 /**
- * Свои иконки из админки.
+ * Иконки, загруженные файлом.
  *
- * Набор в inc/icons.php задан кодом, и добавить туда картинку из Flaticon
- * можно только правкой темы. Здесь то же самое делается через «Настройки
- * сайта → Иконки»: загруженный SVG появляется во всех списках выбора иконки
- * наравне со встроенными.
+ * Иконка в теме — обычная картинка из медиатеки: её выбирают в поле рядом
+ * с текстом, как фотографию. Готовый набор темы лежит файлами
+ * в assets/img/icons и попадает в медиатеку при наполнении.
  *
- * Файл вставляется в страницу как есть — иначе иконка не подхватит цвет
- * текста, — поэтому разметка проходит через белый список тегов и атрибутов.
+ * SVG вставляется в страницу разметкой, иначе иконка не подхватит цвет
+ * темы, — поэтому файл проходит через белый список тегов и атрибутов.
  *
  * @package MusicArtPlus
  */
 
 defined( 'ABSPATH' ) || exit;
-
-/**
- * Префикс ключа загруженной иконки.
- */
-const MAP_ICON_UPLOAD = 'upload:';
 
 /**
  * Разрешённые теги внутри SVG.
@@ -48,56 +42,13 @@ const MAP_SVG_ATTRS = array(
 );
 
 /**
- * Иконки, загруженные через настройки сайта.
+ * Разметка иконки из медиатеки.
  *
- * @return array<string,string> Ключ вида upload:12 => название.
+ * @param int $id ID вложения.
+ * @return string
  */
-function map_icon_uploads() {
-	static $list = null;
-
-	if ( null !== $list ) {
-		return $list;
-	}
-
-	$found = array();
-
-	if ( ! function_exists( 'get_field' ) ) {
-		return $found;
-	}
-
-	foreach ( (array) get_field( 'icon_set', 'option' ) as $item ) {
-		$id = isset( $item['icon_file'] ) ? (int) ( is_array( $item['icon_file'] ) ? $item['icon_file']['ID'] : $item['icon_file'] ) : 0;
-
-		if ( ! $id ) {
-			continue;
-		}
-
-		$label = isset( $item['icon_name'] ) && $item['icon_name'] ? $item['icon_name'] : get_the_title( $id );
-
-		$found[ MAP_ICON_UPLOAD . $id ] = $label;
-	}
-
-	// До acf/init поля ещё не зарегистрированы и список выйдет пустым —
-	// такой ответ запоминать нельзя.
-	if ( did_action( 'acf/init' ) ) {
-		$list = $found;
-	}
-
-	return $found;
-}
-
-/**
- * Разметка загруженной иконки.
- *
- * @param string $name Ключ вида upload:12.
- * @return string Пустая строка, если это не загруженная иконка.
- */
-function map_icon_custom( $name ) {
-	if ( 0 !== strpos( (string) $name, MAP_ICON_UPLOAD ) ) {
-		return '';
-	}
-
-	$id = (int) substr( $name, strlen( MAP_ICON_UPLOAD ) );
+function map_icon_custom( $id ) {
+	$id = (int) $id;
 
 	if ( ! $id ) {
 		return '';
@@ -107,6 +58,14 @@ function map_icon_custom( $name ) {
 
 	if ( ! $path || ! is_readable( $path ) ) {
 		return '';
+	}
+
+	if ( 'image/svg+xml' !== get_post_mime_type( $id ) ) {
+		// Растровую иконку вставить разметкой нельзя — она не примет цвет
+		// темы, но показать её всё равно лучше, чем пустое место.
+		$url = wp_get_attachment_image_url( $id, 'full' );
+
+		return $url ? sprintf( '<img src="%s" alt="" width="32" height="32" loading="lazy">', esc_url( $url ) ) : '';
 	}
 
 	// Чистка стоит дороже вывода, а файл меняется редко — держим результат
@@ -162,9 +121,97 @@ function map_svg_sanitize( $svg ) {
 	$root->removeAttribute( 'height' );
 	$root->setAttribute( 'aria-hidden', 'true' );
 
+	map_svg_recolor( $root );
+	map_svg_paint( $root );
+
 	$out = $doc->saveXML( $root );
 
 	return is_string( $out ) ? $out : '';
+}
+
+/**
+ * Одноцветную иконку перекрашивает в цвет темы.
+ *
+ * Наборы вроде Flaticon отдают файл с зашитым чёрным. На золотой плашке это
+ * выглядит чужим, поэтому единственный цвет в файле заменяем на currentColor.
+ * Если цветов несколько, это уже рисунок, а не значок — такой не трогаем.
+ *
+ * @param DOMElement $root Корневой узел SVG.
+ * @return void
+ */
+function map_svg_recolor( $root ) {
+	$nodes  = array();
+	$colors = array();
+
+	$walk = function ( $node ) use ( &$walk, &$nodes, &$colors ) {
+		foreach ( array( 'fill', 'stroke' ) as $name ) {
+			if ( ! $node->hasAttribute( $name ) ) {
+				continue;
+			}
+
+			$value = strtolower( trim( $node->getAttribute( $name ) ) );
+
+			if ( '' === $value || 'none' === $value || 'currentcolor' === $value
+				|| 0 === strpos( $value, 'url(' ) ) {
+				continue;
+			}
+
+			$nodes[]           = array( $node, $name );
+			$colors[ $value ] = true;
+		}
+
+		foreach ( $node->childNodes as $child ) {
+			if ( XML_ELEMENT_NODE === $child->nodeType ) {
+				$walk( $child );
+			}
+		}
+	};
+	$walk( $root );
+
+	if ( 1 !== count( $colors ) ) {
+		return;
+	}
+
+	foreach ( $nodes as $item ) {
+		$item[0]->setAttribute( $item[1], 'currentColor' );
+	}
+}
+
+/**
+ * Переносит заливку и обводку корня в inline-стиль.
+ *
+ * Гнёзда иконок в теме задают обводку правилом вида «.dir-tile__ico svg»,
+ * а правило CSS сильнее атрибута — чужая заливка от него превратилась бы
+ * в контур. Inline-стиль сильнее правила, поэтому файл решает сам.
+ *
+ * Если корень не сказал ничего, считаем иконку сплошной: так рисуют
+ * в большинстве наборов, и на светлой плашке контур вместо силуэта
+ * выглядел бы поломкой.
+ *
+ * @param DOMElement $root Корневой узел SVG.
+ * @return void
+ */
+function map_svg_paint( $root ) {
+	$paint = array(
+		'fill', 'fill-rule', 'fill-opacity', 'stroke', 'stroke-width',
+		'stroke-linecap', 'stroke-linejoin', 'stroke-miterlimit',
+		'stroke-dasharray', 'stroke-opacity', 'opacity',
+	);
+
+	$style = array();
+
+	foreach ( $paint as $name ) {
+		if ( $root->hasAttribute( $name ) ) {
+			$style[] = $name . ':' . $root->getAttribute( $name );
+			$root->removeAttribute( $name );
+		}
+	}
+
+	if ( ! $style ) {
+		$style = array( 'fill:currentColor', 'stroke:none' );
+	}
+
+	$root->setAttribute( 'style', implode( ';', $style ) );
 }
 
 /**
@@ -224,18 +271,33 @@ function map_svg_clean_node( $node ) {
 /**
  * Разрешает загрузку SVG.
  *
- * Только администратору: файл попадает на страницу как разметка, и доверять
- * его содержимому можно ровно настолько, насколько доверяем автору.
+ * Право проверяется в map_svg_upload_allowed(): файл попадает на страницу
+ * разметкой, и доверять его содержимому можно ровно настолько, насколько
+ * доверяем автору.
  *
  * @param array<string,string> $mimes Типы файлов.
  * @return array<string,string>
  */
 function map_allow_svg_upload( $mimes ) {
-	if ( current_user_can( 'manage_options' ) ) {
+	if ( map_svg_upload_allowed() ) {
 		$mimes['svg'] = 'image/svg+xml';
 	}
 
 	return $mimes;
+}
+
+/**
+ * Можно ли сейчас загружать SVG.
+ *
+ * Обычно — только администратору: файл попадает на страницу разметкой.
+ * Наполнение темы кладёт свой набор иконок и поднимает фильтр само,
+ * потому что запускается в том числе из WP-CLI, где текущего пользователя
+ * нет вовсе.
+ *
+ * @return bool
+ */
+function map_svg_upload_allowed() {
+	return current_user_can( 'manage_options' ) || (bool) apply_filters( 'map_allow_svg', false );
 }
 add_filter( 'upload_mimes', 'map_allow_svg_upload' );
 
@@ -248,7 +310,7 @@ add_filter( 'upload_mimes', 'map_allow_svg_upload' );
  * @return array<string,mixed>
  */
 function map_check_svg_filetype( $data, $file, $filename ) {
-	if ( ! empty( $data['ext'] ) || ! current_user_can( 'manage_options' ) ) {
+	if ( ! empty( $data['ext'] ) || ! map_svg_upload_allowed() ) {
 		return $data;
 	}
 

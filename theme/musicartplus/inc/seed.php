@@ -52,6 +52,9 @@ function map_seed_content() {
 	require_once ABSPATH . 'wp-admin/includes/media.php';
 	require_once ABSPATH . 'wp-admin/includes/image.php';
 
+	// Набор иконок темы — это SVG; загрузку разрешаем на время наполнения.
+	add_filter( 'map_allow_svg', '__return_true' );
+
 	// Настройки заполняем раньше страниц: в тексте правовых документов
 	// подставляются адрес, телефон и почта центра.
 	map_seed_options( $data['options'] );
@@ -80,6 +83,8 @@ function map_seed_content() {
 
 	map_seed_favicon();
 	map_seed_field_defaults();
+
+	remove_filter( 'map_allow_svg', '__return_true' );
 
 	return sprintf(
 		/* translators: список количеств созданных записей. */
@@ -273,7 +278,7 @@ function map_seed_guest_fields( $post_id, $item ) {
  * @return void
  */
 function map_seed_direction_fields( $post_id, $item ) {
-	map_seed_set( $post_id, 'dir_icon', $item['icon'] );
+	map_seed_set( $post_id, 'dir_icon', map_seed_icon_id( $item['icon'] ) );
 	map_seed_set( $post_id, 'dir_short', $item['text'] );
 	map_seed_set( $post_id, 'dir_age', $item['age'] );
 	map_seed_set( $post_id, 'dir_format', $item['format'] );
@@ -463,6 +468,71 @@ function map_seed_pages() {
 	}
 
 	return $made;
+}
+
+/**
+ * Иконка набора темы: кладёт файл в медиатеку и возвращает его номер.
+ *
+ * Иконка перестала быть ключом в коде — теперь это картинка из медиатеки.
+ * Файлы набора лежат в assets/img/icons и попадают туда при наполнении,
+ * по одному разу на ключ.
+ *
+ * @param string $key Имя файла без расширения: piano, violin, check…
+ * @return int ID вложения или 0.
+ */
+function map_seed_icon_id( $key ) {
+	static $cache = array();
+
+	$key = preg_replace( '/[^a-z0-9_-]/', '', (string) $key );
+
+	if ( ! $key ) {
+		return 0;
+	}
+
+	if ( isset( $cache[ $key ] ) ) {
+		return $cache[ $key ];
+	}
+
+	$id = map_seed_image( 'assets/img/icons/' . $key . '.svg' );
+
+	if ( $id ) {
+		update_post_meta( $id, '_map_icon_key', $key );
+	}
+
+	$cache[ $key ] = (int) $id;
+
+	return $cache[ $key ];
+}
+
+/**
+ * Переводит значения полей-иконок из ключей набора в номера вложений.
+ *
+ * @param mixed $value Значение поля или повторителя.
+ * @param string $name Имя поля.
+ * @return mixed
+ */
+function map_seed_icon_value( $value, $name ) {
+	if ( is_array( $value ) ) {
+		foreach ( $value as $i => $row ) {
+			if ( ! is_array( $row ) ) {
+				continue;
+			}
+
+			foreach ( $row as $sub => $sub_value ) {
+				$value[ $i ][ $sub ] = map_seed_icon_value( $sub_value, $sub );
+			}
+		}
+
+		return $value;
+	}
+
+	if ( ! is_string( $value ) || ! $value || ! preg_match( '/(^|_)icon$/', $name ) ) {
+		return $value;
+	}
+
+	$id = map_seed_icon_id( $value );
+
+	return $id ? $id : $value;
 }
 
 /**
@@ -676,6 +746,21 @@ function map_seed_front( $front ) {
 
 		if ( $about_image ) {
 			update_field( 'about_image', $about_image, $home );
+		}
+	}
+
+	// Иконки первого экрана и списка преимуществ. Пустое поле шаблон
+	// переживёт — подставит набор темы, — но в админке лучше видеть
+	// текущую картинку и менять её на свою.
+	foreach ( array( 'hero_eyebrow_icon' => 'pin2', 'about_point_icon' => 'check' ) as $field => $icon ) {
+		if ( get_field( $field, $home ) ) {
+			continue;
+		}
+
+		$id = map_seed_icon_id( $icon );
+
+		if ( $id ) {
+			update_field( $field, $id, $home );
 		}
 	}
 }
@@ -930,6 +1015,6 @@ function map_seed_page_fields( $template, $values ) {
 			$value = $ids;
 		}
 
-		update_field( $key, $value, $page );
+		update_field( $key, map_seed_icon_value( $value, $key ), $page );
 	}
 }
