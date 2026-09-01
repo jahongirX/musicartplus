@@ -168,51 +168,50 @@ function map_public_schedule() {
  * @return WP_REST_Response
  */
 function map_rest_slots( WP_REST_Request $request ) {
-	$id    = (int) $request->get_param( 'teacher' );
-	$title = map_opt( 'slots_title', __( 'Свободное время', 'musicartplus' ) );
-	$note  = map_opt( 'slots_note' );
+	$id = (int) $request->get_param( 'teacher' );
+
+	$texts = array(
+		'title' => map_opt( 'slots_title', __( 'Свободное время', 'musicartplus' ) ),
+		'note'  => map_opt( 'slots_note' ),
+		'busy'  => map_opt( 'slots_busy' ),
+		'none'  => map_opt( 'slots_none' ),
+	);
 
 	if ( $id ) {
 		$post = get_post( $id );
 
 		if ( ! $post || 'map_teacher' !== $post->post_type || 'publish' !== $post->post_status ) {
-			return new WP_REST_Response( array( 'ok' => false, 'days' => array() ), 404 );
+			return new WP_REST_Response( array( 'ok' => false ), 404 );
 		}
 
-		if ( ! map_slots_enabled() ) {
-			return new WP_REST_Response( array( 'ok' => false, 'days' => array() ), 200 );
-		}
+		$days = map_slots_enabled() ? map_teacher_slots( $post ) : array();
 
-		$days = map_teacher_slots( $post );
-
-		return new WP_REST_Response( array(
-			'ok'    => (bool) $days,
-			'title' => $title,
-			'note'  => $note,
+		// ok — ответила ли CRM. Если нет, в карточке останется расписание,
+		// заполненное руками: врать про свободное время нельзя.
+		return new WP_REST_Response( array_merge( $texts, array(
+			'ok'    => map_slots_answered(),
+			'state' => map_slots_answered() ? map_teacher_slot_state( $post ) : 'none',
 			'days'  => $days,
-		), 200 );
-	}
-
-	if ( ! map_slots_enabled() ) {
-		return new WP_REST_Response( array( 'ok' => false, 'teachers' => new stdClass() ), 200 );
+		) ), 200 );
 	}
 
 	$teachers = array();
 
-	foreach ( map_get_items( 'map_teacher' ) as $post ) {
-		$days = map_teacher_slots( $post );
+	if ( map_slots_enabled() ) {
+		foreach ( map_get_items( 'map_teacher' ) as $post ) {
+			$state = map_teacher_slot_state( $post );
 
-		if ( $days ) {
-			$teachers[ (string) $post->ID ] = $days;
+			$teachers[ (string) $post->ID ] = array(
+				'state' => $state,
+				'days'  => 'free' === $state ? map_teacher_slots( $post ) : array(),
+			);
 		}
 	}
 
-	return new WP_REST_Response( array(
-		'ok'       => (bool) $teachers,
-		'title'    => $title,
-		'note'     => $note,
+	return new WP_REST_Response( array_merge( $texts, array(
+		'ok' => map_slots_answered(),
 		// Пустой список должен уехать объектом, а не массивом: скрипт
 		// обращается к нему по ключу.
 		'teachers' => $teachers ? $teachers : new stdClass(),
-	), 200 );
+	) ), 200 );
 }

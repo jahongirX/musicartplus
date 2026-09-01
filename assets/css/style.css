@@ -682,6 +682,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
   font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s;
 }
 .tm__time:hover{border-color:var(--gold-deep);background:var(--gold-mist)}
+.tm__empty{font-size:14.5px;color:var(--ink-60);line-height:1.5}
 .tm__actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
 
 /* ---------- 15. Видео ---------- */

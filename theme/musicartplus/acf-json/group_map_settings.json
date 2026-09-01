@@ -1037,6 +1037,40 @@
             "max": 72
         },
         {
+            "key": "field_map_set_slots_busy",
+            "label": "Если свободного времени нет",
+            "name": "slots_busy",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Педагог есть в CRM, но окон на ближайшие дни не осталось.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "На ближайшие дни свободного времени нет. Оставьте заявку — подберём удобное."
+        },
+        {
+            "key": "field_map_set_slots_none",
+            "label": "Если педагога нет в CRM",
+            "name": "slots_none",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "Педагога не нашли в «Моём классе» — например, ему ещё не завели рабочее время.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 2,
+            "default_value": "Время для записи к этому педагогу пока не добавлено. Оставьте заявку — мы перезвоним и подберём время."
+        },
+        {
             "key": "field_map_set_tab_bf76a",
             "label": "Уведомления о заявках",
             "name": "",
@@ -1741,5 +1775,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788284163
+    "modified": 1788285954
 }

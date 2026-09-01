@@ -352,8 +352,6 @@
 
       var free = slotsCache[d.id];
 
-      if (free && (!free.days || !free.days.length)) free = null;
-
       var facts = items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
       var sched = days.map(function (x) {
         return '<div class="tm__day' + (x.time ? '' : ' tm__day--off') + '">' +
@@ -404,6 +402,15 @@
     var slotsMarkup = function (data) {
       var cal = '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/>' +
                 '<path d="M8 3v4M16 3v4M3 10h18"/></svg>';
+      var head = '<h4>' + cal + esc(data.title || 'Свободное время') + '</h4>';
+
+      // Окон нет — говорим об этом прямо. Пустой блок или чужое расписание
+      // на этом месте оставляют посетителя в догадках.
+      if (!data.days || !data.days.length) {
+        var why = 'none' === data.state ? data.none : data.busy;
+
+        return head + '<p class="tm__empty">' + esc(why || 'Свободного времени сейчас нет.') + '</p>';
+      }
 
       var dates = data.days.map(function (d, i) {
         return '<button type="button" class="tm__date' + (i ? '' : ' is-active') + '" data-slot-day="' + i + '">' +
@@ -419,7 +426,7 @@
           }).join('') + '</div>';
       }).join('');
 
-      return '<h4>' + cal + esc(data.title || 'Свободное время') + '</h4>' +
+      return head +
              '<div class="tm__dates">' + dates + '</div>' + times +
              (data.note ? '<p class="tm__note">' + esc(data.note) + '</p>' : '');
     };
@@ -427,7 +434,7 @@
     var showSlots = function (data) {
       var box = $('.tm__schedule', tModal);
 
-      if (!box || !data || !data.days || !data.days.length) return;
+      if (!box || !data) return;
 
       box.classList.add('tm__schedule--slots');
       box.hidden = false;
@@ -444,8 +451,18 @@
         .then(function (data) {
           if (!data || !data.teachers) return;
 
+          // Ответ без данных из CRM (её не настроили или она молчит) не
+          // раскладываем: пусть в карточке останется расписание из админки.
+          if (!data.ok) return;
+
           Object.keys(data.teachers).forEach(function (id) {
-            slotsCache[id] = { title: data.title, note: data.note, days: data.teachers[id] };
+            var t = data.teachers[id];
+
+            slotsCache[id] = {
+              title: data.title, note: data.note,
+              busy: data.busy, none: data.none,
+              state: t.state, days: t.days
+            };
           });
         })
         // Молча: не получилось — в карточке остаётся расписание из админки.

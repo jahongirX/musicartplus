@@ -108,6 +108,8 @@ function map_slots_all() {
 		return $cache;
 	}
 
+	map_slots_answered( null );
+
 	$cfg = map_slots_config();
 
 	try {
@@ -131,6 +133,8 @@ function map_slots_all() {
 	if ( is_wp_error( $busy ) || is_wp_error( $lessons ) ) {
 		return $cache;
 	}
+
+	map_slots_answered( true );
 
 	$taken = array();
 
@@ -268,6 +272,55 @@ function map_name_key( $name ) {
 	$name = str_replace( 'ё', 'е', function_exists( 'mb_strtolower' ) ? mb_strtolower( $name ) : strtolower( $name ) );
 
 	return $name;
+}
+
+/**
+ * Ответила ли CRM на запрос расписания.
+ *
+ * Без этого «окон нет» и «CRM молчит» выглядят одинаково, а сказать посетителю
+ * нужно разное: в первом случае — что времени пока не добавили, во втором —
+ * ничего, пусть остаётся расписание из карточки.
+ *
+ * @param bool|null $set true — ответила, null — сбросить отметку.
+ * @return bool
+ */
+function map_slots_answered( $set = false ) {
+	static $ok = false;
+
+	if ( null === $set ) {
+		$ok = false;
+	} elseif ( true === $set ) {
+		$ok = true;
+	}
+
+	return $ok;
+}
+
+/**
+ * Что показать в карточке педагога.
+ *
+ * free — есть свободные окна, busy — CRM знает педагога, но свободного
+ * времени нет, none — педагога в CRM не нашли.
+ *
+ * @param WP_Post|int $post Запись педагога.
+ * @return string
+ */
+function map_teacher_slot_state( $post ) {
+	$id = map_teacher_crm_id( $post );
+
+	if ( ! $id ) {
+		return 'none';
+	}
+
+	$all = map_slots_all();
+
+	if ( ! empty( $all[ $id ] ) ) {
+		return 'free';
+	}
+
+	// Педагог в CRM есть, а окон нет: либо всё занято, либо рабочее время
+	// на эти дни не задали. Посетителю это одно и то же — записаться не на что.
+	return 'busy';
 }
 
 /**
