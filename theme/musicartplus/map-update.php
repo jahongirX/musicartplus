@@ -153,7 +153,19 @@ if ( function_exists( 'acf_get_setting' ) ) {
 	map_update_row( 'Advanced Custom Fields', 'плагин не найден — поля в админке не появятся', 'bad' );
 }
 
-$map_files = array( 'inc/notify.php', 'inc/helpers.php', 'acf-json/group_map_settings.json' );
+// Первые три — из этого обновления, остальные из прошлых: если их нет,
+// значит на сайте лежит тема постарше и одними изменёнными файлами
+// не обойтись — нужна полная папка.
+$map_files = array(
+	'inc/notify.php',
+	'inc/helpers.php',
+	'acf-json/group_map_settings.json',
+	'inc/icons-custom.php',
+	'assets/img/icons/piano.svg',
+	'template-parts/directions/specials.php',
+	'template-parts/teachers/shots.php',
+	'template-parts/about/mood.php',
+);
 $map_miss  = array();
 
 foreach ( $map_files as $map_f ) {
@@ -164,7 +176,9 @@ foreach ( $map_files as $map_f ) {
 
 map_update_row(
 	'Файлы темы',
-	$map_miss ? 'не загружены: ' . esc_html( implode( ', ', $map_miss ) ) : 'на месте',
+	$map_miss
+		? 'не хватает: ' . esc_html( implode( ', ', $map_miss ) ) . '<br>Залейте папку темы целиком — обновления одних изменённых файлов мало.'
+		: 'все на месте',
 	$map_miss ? 'bad' : 'ok'
 );
 ?>
