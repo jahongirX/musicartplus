@@ -61,7 +61,7 @@ $map_title  = map_field( 'hero_title', get_the_ID(), get_bloginfo( 'name' ) );
 			<div class="hero__facts">
 				<?php foreach ( (array) $map_facts as $map_fact ) : ?>
 					<div class="hero-fact">
-						<div class="hero-fact__num"><?php echo esc_html( $map_fact['num'] ); ?></div>
+						<div class="hero-fact__num"><?php echo esc_html( map_fact_num( $map_fact ) ); ?></div>
 						<div class="hero-fact__label"><?php echo esc_html( $map_fact['label'] ); ?></div>
 					</div>
 				<?php endforeach; ?>

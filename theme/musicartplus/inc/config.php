@@ -20,6 +20,9 @@ function map_defaults() {
 		'phone'        => '+7 903 102-51-11',
 		'phone_href'   => '+79031025111',
 		'email'        => 'musicartplus@yandex.ru',
+		// Куда уходит письмо о новой заявке, пока в настройках не задан
+		// другой адрес.
+		'notify_email' => 'musicartplus@yandex.ru',
 		'address'      => 'Москва, ул. Улофа Пальме, д. 5 (м. Минская)',
 		'address_note' => 'вход со стороны запасного входа',
 		'telegram'     => 'https://t.me/MusicArtPlus',

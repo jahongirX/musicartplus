@@ -46,6 +46,7 @@ function map_admin_page() {
 	map_admin_key_status();
 	map_admin_connection();
 	map_admin_leads_summary();
+	map_admin_notify_status();
 	map_admin_actions_form();
 
 	echo '</div>';
@@ -77,8 +78,38 @@ function map_admin_handle_actions() {
 
 	if ( 'retry' === $action ) {
 		map_retry_leads();
+		map_retry_notify();
 
 		return array( 'success', __( 'Повторная отправка заявок выполнена.', 'musicartplus' ) );
+	}
+
+	if ( 'tgtest' === $action ) {
+		if ( ! map_tg_ready() ) {
+			return array( 'error', __( 'Telegram не настроен: включите отправку, впишите токен бота и хотя бы один чат.', 'musicartplus' ) );
+		}
+
+		$result = map_tg_test();
+
+		if ( $result['failed'] ) {
+			$lines = array();
+
+			foreach ( $result['failed'] as $chat => $error ) {
+				$lines[] = $chat . ' — ' . $error;
+			}
+
+			return array( 'error', sprintf(
+				/* translators: 1 — сколько чатов получили сообщение, 2 — список ошибок. */
+				__( 'Доставлено чатов: %1$d. Не получилось: %2$s', 'musicartplus' ),
+				count( $result['sent'] ),
+				implode( '; ', $lines )
+			) );
+		}
+
+		return array( 'success', sprintf(
+			/* translators: %d — количество чатов. */
+			__( 'Пробное сообщение ушло. Чатов: %d.', 'musicartplus' ),
+			count( $result['sent'] )
+		) );
 	}
 
 	if ( 'seed' === $action ) {
@@ -197,6 +228,63 @@ function map_count_leads( $status ) {
 }
 
 /**
+ * Куда уходят заявки помимо CRM.
+ *
+ * @return void
+ */
+function map_admin_notify_status() {
+	echo '<h2>' . esc_html__( 'Уведомления о заявках', 'musicartplus' ) . '</h2>';
+
+	$emails = map_notify_recipients();
+	$chats  = map_tg_chats();
+	$token  = map_tg_token();
+
+	if ( defined( 'MAP_TG_BOT_TOKEN' ) && MAP_TG_BOT_TOKEN ) {
+		$where = __( 'константа в wp-config.php', 'musicartplus' );
+	} elseif ( $token ) {
+		$where = __( 'настройки сайта (надёжнее перенести в wp-config.php)', 'musicartplus' );
+	} else {
+		$where = __( 'не задан', 'musicartplus' );
+	}
+
+	echo '<table class="widefat striped" style="max-width:640px"><tbody>';
+
+	printf(
+		'<tr><td style="width:220px">%s</td><td>%s</td></tr>',
+		esc_html__( 'Почта', 'musicartplus' ),
+		$emails ? esc_html( implode( ', ', $emails ) ) : esc_html__( 'ни одного адреса', 'musicartplus' )
+	);
+
+	printf(
+		'<tr><td>%s</td><td>%s</td></tr>',
+		esc_html__( 'Telegram', 'musicartplus' ),
+		map_opt( 'tg_enabled' ) ? esc_html__( 'включён', 'musicartplus' ) : esc_html__( 'выключен', 'musicartplus' )
+	);
+
+	printf( '<tr><td>%s</td><td>%s</td></tr>', esc_html__( 'Токен бота', 'musicartplus' ), esc_html( $where ) );
+
+	printf(
+		'<tr><td>%s</td><td>%s</td></tr>',
+		esc_html__( 'Чаты', 'musicartplus' ),
+		$chats ? esc_html( implode( ', ', $chats ) ) : esc_html__( 'не указаны', 'musicartplus' )
+	);
+
+	$waiting = map_pending_notify_count();
+
+	if ( $waiting ) {
+		printf( '<tr><td>%s</td><td>%d</td></tr>', esc_html__( 'Ждут отправки в Telegram', 'musicartplus' ), (int) $waiting );
+	}
+
+	echo '</tbody></table>';
+
+	printf(
+		'<p><a href="%s">%s</a></p>',
+		esc_url( admin_url( 'admin.php?page=map-settings' ) ),
+		esc_html__( 'Изменить адреса и чаты — «Настройки сайта» → «Уведомления о заявках»', 'musicartplus' )
+	);
+}
+
+/**
  * Кнопки действий.
  *
  * @return void
@@ -216,6 +304,12 @@ function map_admin_actions_form() {
 		'<p><button class="button" name="map_action" value="retry">%s</button> <span class="description">%s</span></p>',
 		esc_html__( 'Дослать заявки', 'musicartplus' ),
 		esc_html__( 'Отправит в CRM те заявки, которые не ушли с первого раза.', 'musicartplus' )
+	);
+
+	printf(
+		'<p><button class="button" name="map_action" value="tgtest">%s</button> <span class="description">%s</span></p>',
+		esc_html__( 'Проверить Telegram', 'musicartplus' ),
+		esc_html__( 'Отправит в указанные чаты пробное сообщение.', 'musicartplus' )
 	);
 
 	printf(
@@ -291,6 +385,40 @@ function map_render_lead_metabox( $post ) {
 
 	if ( $error && 'sent' !== $status ) {
 		printf( '<tr><td>%s</td><td><code>%s</code></td></tr>', esc_html__( 'Ошибка', 'musicartplus' ), esc_html( $error ) );
+	}
+
+	$mail = get_post_meta( $post->ID, '_map_mail_status', true );
+
+	if ( $mail ) {
+		printf(
+			'<tr><td>%s</td><td>%s</td></tr>',
+			esc_html__( 'Письмо', 'musicartplus' ),
+			'sent' === $mail
+				? esc_html__( 'отправлено', 'musicartplus' )
+				: esc_html__( 'сервер не принял письмо', 'musicartplus' )
+		);
+	}
+
+	$tg = get_post_meta( $post->ID, '_map_tg_status', true );
+
+	if ( $tg ) {
+		$tg_labels = array(
+			'sent'    => __( 'отправлено', 'musicartplus' ),
+			'pending' => __( 'ждёт повтора', 'musicartplus' ),
+			'failed'  => __( 'отправить не удалось', 'musicartplus' ),
+		);
+
+		printf(
+			'<tr><td>%s</td><td>%s</td></tr>',
+			esc_html__( 'Telegram', 'musicartplus' ),
+			esc_html( isset( $tg_labels[ $tg ] ) ? $tg_labels[ $tg ] : $tg )
+		);
+
+		$tg_error = get_post_meta( $post->ID, '_map_tg_error', true );
+
+		if ( $tg_error && 'sent' !== $tg ) {
+			printf( '<tr><td>%s</td><td><code>%s</code></td></tr>', esc_html__( 'Ошибка Telegram', 'musicartplus' ), esc_html( $tg_error ) );
+		}
 	}
 
 	echo '</tbody></table>';

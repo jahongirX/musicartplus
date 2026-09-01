@@ -411,3 +411,92 @@ function map_fund_link( $text ) {
 
 	return str_replace( $name, $link, $text );
 }
+
+/**
+ * Сколько записей опубликовано.
+ *
+ * @param string $type Тип записи.
+ * @return int
+ */
+function map_count_published( $type ) {
+	static $cache = array();
+
+	if ( ! isset( $cache[ $type ] ) ) {
+		$counts = wp_count_posts( $type );
+
+		$cache[ $type ] = ( $counts && isset( $counts->publish ) ) ? (int) $counts->publish : 0;
+	}
+
+	return $cache[ $type ];
+}
+
+/**
+ * Что сайт умеет считать сам в блоках с цифрами.
+ *
+ * Ключи совпадают со списком в acf-json — он собирается
+ * tools/build-theme-fields.py, и правки нужны в обоих местах.
+ *
+ * @return array<string,string>
+ */
+function map_fact_sources() {
+	return array(
+		'teachers_guests' => __( 'Педагоги и приглашённые мастера', 'musicartplus' ),
+		'teachers'        => __( 'Педагоги', 'musicartplus' ),
+		'guests'          => __( 'Приглашённые мастера', 'musicartplus' ),
+		'directions'      => __( 'Направления', 'musicartplus' ),
+		'reviews'         => __( 'Отзывы', 'musicartplus' ),
+		'news'            => __( 'Новости', 'musicartplus' ),
+	);
+}
+
+/**
+ * Считает карточки для цифры.
+ *
+ * @param string $source Что считать.
+ * @return int|null null — считать нечего, число задано руками.
+ */
+function map_fact_count( $source ) {
+	switch ( $source ) {
+		case 'teachers':
+			return map_count_published( 'map_teacher' );
+		case 'guests':
+			return map_count_published( 'map_guest' );
+		case 'teachers_guests':
+			return map_count_published( 'map_teacher' ) + map_count_published( 'map_guest' );
+		case 'directions':
+			return map_count_published( 'map_direction' );
+		case 'reviews':
+			return map_count_published( 'map_review' );
+		case 'news':
+			return map_count_published( 'post' );
+	}
+
+	return null;
+}
+
+/**
+ * Число для блока «Цифры».
+ *
+ * Педагогов добавляют и убирают, а цифра «12 педагогов» жила отдельной жизнью
+ * и расходилась с составом. Поэтому в строке можно выбрать, что считать, —
+ * тогда число берётся из количества карточек.
+ *
+ * @param array $fact Строка повторителя: num, label, source, suffix.
+ * @return string
+ */
+function map_fact_num( $fact ) {
+	$fact   = (array) $fact;
+	$manual = isset( $fact['num'] ) ? (string) $fact['num'] : '';
+	$source = isset( $fact['source'] ) ? (string) $fact['source'] : '';
+	$count  = $source ? map_fact_count( $source ) : null;
+
+	// Считать нечего — например, раздел ещё не наполнили. Ноль на первом
+	// экране выглядит как поломка, поэтому показываем то, что вписано руками.
+	if ( null === $count || 0 === $count ) {
+		return $manual;
+	}
+
+	$suffix = isset( $fact['suffix'] ) ? (string) $fact['suffix'] : '';
+
+	return number_format_i18n( $count ) . $suffix;
+}

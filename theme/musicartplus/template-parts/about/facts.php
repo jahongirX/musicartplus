@@ -18,7 +18,7 @@ if ( ! $map_facts ) {
 		<div class="stats">
 			<?php foreach ( (array) $map_facts as $map_i => $map_fact ) : ?>
 				<div class="stat reveal" data-delay="<?php echo (int) $map_i; ?>">
-					<b><?php echo esc_html( isset( $map_fact['num'] ) ? $map_fact['num'] : '' ); ?></b>
+					<b><?php echo esc_html( map_fact_num( $map_fact ) ); ?></b>
 					<span class="stat__l"><?php echo esc_html( isset( $map_fact['label'] ) ? $map_fact['label'] : '' ); ?></span>
 				</div>
 			<?php endforeach; ?>

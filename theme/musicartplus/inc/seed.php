@@ -1018,3 +1018,68 @@ function map_seed_page_fields( $template, $values ) {
 		update_field( $key, map_seed_icon_value( $value, $key ), $page );
 	}
 }
+
+/**
+ * Переводит цифры на страницах со «вписано руками» на подсчёт.
+ *
+ * Разовая правка для сайтов, наполненных до появления этой возможности: там в
+ * блоках стоят числа, набранные вручную, и после добавления педагога они
+ * начинают врать. Меняем только то, что сайт умеет считать сам, — остальные
+ * строки («возраст первых занятий») остаются как есть.
+ *
+ * @return void
+ */
+function map_upgrade_fact_sources() {
+	if ( get_option( 'map_facts_sourced' ) || ! function_exists( 'update_field' ) ) {
+		return;
+	}
+
+	// Отметку ставим сразу: даже если ничего не нашлось, второй раз искать
+	// незачем — заказчик мог осознанно вернуть ручное число.
+	update_option( 'map_facts_sourced', 1, false );
+
+	// Подпись — единственное, по чему можно понять, что за число стоит рядом.
+	$rules = array(
+		'педагог'   => 'teachers_guests',
+		'направлен' => 'directions',
+		'отзыв'     => 'reviews',
+	);
+
+	$targets = array(
+		array( (int) get_option( 'page_on_front' ), 'hero_facts' ),
+		array( (int) map_page_by_template( 'page-about.php' ), 'about_facts' ),
+	);
+
+	foreach ( $targets as $target ) {
+		list( $page, $field ) = $target;
+
+		if ( ! $page ) {
+			continue;
+		}
+
+		$rows    = (array) get_field( $field, $page );
+		$changed = false;
+
+		foreach ( $rows as $i => $row ) {
+			if ( ! is_array( $row ) || ! empty( $row['source'] ) || empty( $row['label'] ) ) {
+				continue;
+			}
+
+			$label = function_exists( 'mb_strtolower' ) ? mb_strtolower( $row['label'] ) : strtolower( $row['label'] );
+
+			foreach ( $rules as $needle => $source ) {
+				if ( false !== strpos( $label, $needle ) ) {
+					$rows[ $i ]['source'] = $source;
+					$changed              = true;
+
+					break;
+				}
+			}
+		}
+
+		if ( $changed ) {
+			update_field( $field, $rows, $page );
+		}
+	}
+}
+add_action( 'admin_init', 'map_upgrade_fact_sources' );

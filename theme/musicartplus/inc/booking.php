@@ -60,7 +60,7 @@ function map_handle_booking( $input ) {
 		update_post_meta( $lead_id, '_map_crm_user_id', isset( $crm['id'] ) ? (int) $crm['id'] : 0 );
 	}
 
-	map_notify_admin( $lead, $lead_id, ! is_wp_error( $crm ) );
+	map_notify_lead( $lead, $lead_id, ! is_wp_error( $crm ) );
 
 	/**
 	 * Срабатывает после приёма заявки.
@@ -290,63 +290,21 @@ function map_store_lead( $lead ) {
 }
 
 /**
- * Письмо администратору о новой заявке.
+ * Собирает заявку обратно из записи.
  *
- * @param array $lead    Данные заявки.
- * @param int   $lead_id ID записи.
- * @param bool  $synced  Ушла ли заявка в CRM.
- * @return void
+ * Нужна повторной отправке — и в CRM, и в Telegram: там на руках только ID.
+ *
+ * @param int $post_id ID записи заявки.
+ * @return array
  */
-function map_notify_admin( $lead, $lead_id, $synced ) {
-	$to = map_opt( 'notify_email' );
+function map_lead_from_post( $post_id ) {
+	$lead = array();
 
-	if ( ! $to ) {
-		$to = get_option( 'admin_email' );
+	foreach ( array( 'name', 'phone', 'email', 'direction', 'teacher', 'comment', 'page', 'utms' ) as $key ) {
+		$lead[ $key ] = get_post_meta( $post_id, '_map_' . $key, true );
 	}
 
-	if ( ! $to ) {
-		return;
-	}
-
-	$lines = array(
-		'Имя: ' . $lead['name'],
-		'Телефон: ' . $lead['phone'],
-	);
-
-	if ( $lead['email'] ) {
-		$lines[] = 'Почта: ' . $lead['email'];
-	}
-
-	if ( $lead['direction'] ) {
-		$lines[] = 'Направление: ' . $lead['direction'];
-	}
-
-	if ( $lead['teacher'] ) {
-		$lines[] = 'Педагог: ' . $lead['teacher'];
-	}
-
-	if ( $lead['comment'] ) {
-		$lines[] = 'Комментарий: ' . $lead['comment'];
-	}
-
-	if ( $lead['page'] ) {
-		$lines[] = 'Страница: ' . $lead['page'];
-	}
-
-	$lines[] = '';
-	$lines[] = $synced
-		? 'В «Мой класс» заявка передана.'
-		: 'В «Мой класс» пока не передана — сайт повторит попытку автоматически.';
-
-	if ( $lead_id ) {
-		$lines[] = 'Карточка заявки: ' . admin_url( 'post.php?post=' . $lead_id . '&action=edit' );
-	}
-
-	wp_mail(
-		$to,
-		sprintf( '[%s] Заявка с сайта: %s', get_bloginfo( 'name' ), $lead['name'] ),
-		implode( "\n", $lines )
-	);
+	return $lead;
 }
 
 /**
@@ -391,18 +349,7 @@ function map_retry_leads() {
 
 
 	foreach ( $pending as $post ) {
-		$lead = array(
-			'name'      => get_post_meta( $post->ID, '_map_name', true ),
-			'phone'     => get_post_meta( $post->ID, '_map_phone', true ),
-			'email'     => get_post_meta( $post->ID, '_map_email', true ),
-			'direction' => get_post_meta( $post->ID, '_map_direction', true ),
-			'teacher'   => get_post_meta( $post->ID, '_map_teacher', true ),
-			'comment'   => get_post_meta( $post->ID, '_map_comment', true ),
-			'page'      => get_post_meta( $post->ID, '_map_page', true ),
-			'utms'      => get_post_meta( $post->ID, '_map_utms', true ),
-		);
-
-		$result = MAP_Moyklass::create_lead( $lead );
+		$result = MAP_Moyklass::create_lead( map_lead_from_post( $post->ID ) );
 
 		if ( is_wp_error( $result ) ) {
 			$attempts = (int) get_post_meta( $post->ID, '_map_crm_attempts', true ) + 1;

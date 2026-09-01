@@ -34,7 +34,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_set_logo_white",
@@ -50,7 +59,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_set_favicon",
@@ -66,7 +84,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_tab_contacts",
@@ -259,7 +286,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Очно в центре и онлайн"
+            "default_value": "Очно в центре и онлайн",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_lessons_format_note",
@@ -275,7 +306,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Некоторые педагоги проводят занятия на дому"
+            "default_value": "Некоторые педагоги проводят занятия на дому",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_tab_social",
@@ -397,7 +432,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Канал на Rutube"
+            "default_value": "Канал на Rutube",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_fund_logo",
@@ -413,7 +452,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_set_fund_prefix",
@@ -429,7 +477,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "При поддержке фонда"
+            "default_value": "При поддержке фонда",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_tab_ed031",
@@ -463,7 +515,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Разделы"
+            "default_value": "Разделы",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_footer_directions_title",
@@ -479,7 +535,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Направления"
+            "default_value": "Направления",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_footer_directions_count",
@@ -497,7 +557,11 @@
             },
             "default_value": 5,
             "min": 1,
-            "max": 12
+            "max": 12,
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_footer_contacts_title",
@@ -513,7 +577,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Контакты"
+            "default_value": "Контакты",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_footer_copyright",
@@ -529,7 +597,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Все права защищены."
+            "default_value": "Все права защищены.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_tab_a0f25",
@@ -563,7 +635,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Записаться на пробный урок"
+            "default_value": "Записаться на пробный урок",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_cta_label_short",
@@ -579,7 +655,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Записаться"
+            "default_value": "Записаться",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_tab_crm",
@@ -743,6 +823,84 @@
             "append": ""
         },
         {
+            "key": "field_map_set_schedule_eyebrow",
+            "label": "Расписание: надглавие",
+            "name": "schedule_eyebrow",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "ЗАПИСЬ ОНЛАЙН",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_set_schedule_title",
+            "label": "Расписание: заголовок",
+            "name": "schedule_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Расписание занятий",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_set_schedule_text",
+            "label": "Расписание: текст",
+            "name": "schedule_text",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "rows": 3,
+            "default_value": "Актуальные группы и свободное время — напрямую из системы «Мой класс».",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
+        },
+        {
+            "key": "field_map_set_tab_bf76a",
+            "label": "Уведомления о заявках",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
             "key": "field_map_notify_email",
             "label": "Куда слать заявки",
             "name": "notify_email",
@@ -762,11 +920,31 @@
             "append": ""
         },
         {
-            "key": "field_map_set_schedule_eyebrow",
-            "label": "Расписание: надглавие",
-            "name": "schedule_eyebrow",
+            "key": "field_map_set_notify_email_extra",
+            "label": "Копии на другие адреса",
+            "name": "notify_email_extra",
             "aria-label": "",
             "type": "text",
+            "instructions": "Через запятую. Письмо уйдёт и на основной адрес, и на эти.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_set_tg_enabled",
+            "label": "Дублировать заявки в Telegram",
+            "name": "tg_enabled",
+            "aria-label": "",
+            "type": "true_false",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -775,15 +953,19 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "ЗАПИСЬ ОНЛАЙН"
+            "ui": 1,
+            "default_value": 0,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
         },
         {
-            "key": "field_map_set_schedule_title",
-            "label": "Расписание: заголовок",
-            "name": "schedule_title",
+            "key": "field_map_set_tg_token",
+            "label": "Токен бота",
+            "name": "tg_token",
             "aria-label": "",
             "type": "text",
-            "instructions": "",
+            "instructions": "Выдаёт @BotFather по команде /newbot — строка вида 123456789:AA… Надёжнее прописать её в wp-config.php константой MAP_TG_BOT_TOKEN: тогда токен не попадёт в дамп базы и в резервную копию.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -791,15 +973,19 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Расписание занятий"
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
-            "key": "field_map_set_schedule_text",
-            "label": "Расписание: текст",
-            "name": "schedule_text",
+            "key": "field_map_set_tg_chats",
+            "label": "Куда слать",
+            "name": "tg_chats",
             "aria-label": "",
-            "type": "textarea",
-            "instructions": "",
+            "type": "repeater",
+            "instructions": "Чатов может быть сколько угодно — заявка уйдёт в каждый. Чтобы узнать ID: напишите боту @userinfobot, а для группы добавьте туда своего бота и откройте api.telegram.org/bot‹токен›/getUpdates. У групп и каналов ID начинается с минуса.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -807,8 +993,56 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 3,
-            "default_value": "Актуальные группы и свободное время — напрямую из системы «Мой класс»."
+            "layout": "table",
+            "button_label": "Добавить чат",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "",
+            "sub_fields": [
+                {
+                    "key": "field_map_set_sub_chat_id",
+                    "label": "ID чата",
+                    "name": "chat_id",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_set_tg_chats"
+                },
+                {
+                    "key": "field_map_set_sub_chat_title",
+                    "label": "Чей это чат",
+                    "name": "chat_title",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_set_tg_chats"
+                }
+            ]
         },
         {
             "key": "field_map_tab_form",
@@ -882,7 +1116,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Записаться на пробный урок"
+            "default_value": "Записаться на пробный урок",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_booking_subtitle",
@@ -898,7 +1136,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Заполните два поля — остальное уточним по телефону."
+            "default_value": "Заполните два поля — остальное уточним по телефону.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_booking_aside_title",
@@ -914,7 +1156,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Первый урок — чтобы просто попробовать"
+            "default_value": "Первый урок — чтобы просто попробовать",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_booking_aside_text",
@@ -931,7 +1177,10 @@
                 "id": ""
             },
             "rows": 3,
-            "default_value": "Знакомство с педагогом и инструментом. Ни к чему не обязывает."
+            "default_value": "Знакомство с педагогом и инструментом. Ни к чему не обязывает.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_booking_points",
@@ -948,7 +1197,10 @@
                 "id": ""
             },
             "rows": 4,
-            "default_value": "Подберём педагога под возраст и характер\nПокажем центр и инструменты\nОтветим на вопросы родителей"
+            "default_value": "Подберём педагога под возраст и характер\nПокажем центр и инструменты\nОтветим на вопросы родителей",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_booking_submit_label",
@@ -964,7 +1216,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Отправить заявку"
+            "default_value": "Отправить заявку",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_booking_consent_text",
@@ -981,7 +1237,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Я согласен(-на) на обработку персональных данных"
+            "default_value": "Я согласен(-на) на обработку персональных данных",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_booking_phone_label",
@@ -997,7 +1256,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Или позвоните"
+            "default_value": "Или позвоните",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_booking_crm_note",
@@ -1013,7 +1276,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Или выберите время сами в системе «Мой класс»"
+            "default_value": "Или выберите время сами в системе «Мой класс»",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_booking_success_text",
@@ -1030,7 +1297,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время."
+            "default_value": "Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_tab_4bb26",
@@ -1064,7 +1334,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Политика конфиденциальности"
+            "default_value": "Политика конфиденциальности",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_consent_url",
@@ -1102,7 +1376,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Согласие на обработку данных"
+            "default_value": "Согласие на обработку данных",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_tab_58009",
@@ -1136,7 +1414,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_set_err404_eyebrow",
@@ -1152,7 +1439,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Ошибка 404"
+            "default_value": "Ошибка 404",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_err404_title",
@@ -1168,7 +1459,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Такой страницы нет"
+            "default_value": "Такой страницы нет",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_err404_text",
@@ -1185,7 +1480,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Возможно, она переехала. Вернитесь на главную или запишитесь на урок."
+            "default_value": "Возможно, она переехала. Вернитесь на главную или запишитесь на урок.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_err404_btn_home",
@@ -1201,7 +1499,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "На главную"
+            "default_value": "На главную",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_err404_btn_cta",
@@ -1217,7 +1519,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Записаться на урок"
+            "default_value": "Записаться на урок",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_search_empty",
@@ -1234,7 +1540,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Ничего не нашлось. Попробуйте другой запрос."
+            "default_value": "Ничего не нашлось. Попробуйте другой запрос.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_archive_empty",
@@ -1251,7 +1560,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Здесь пока пусто."
+            "default_value": "Здесь пока пусто.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         }
     ],
     "location": [
@@ -1275,5 +1587,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787987869
+    "modified": 1788267524
 }

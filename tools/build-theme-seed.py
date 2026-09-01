@@ -140,7 +140,7 @@ about = {
     'intro_link_text': 'Познакомиться с педагогами',
     'intro_gallery': ['assets/img/gallery/' + x for x in ('g11.jpg', 'g02.jpg', 'g15.jpg', 'g04.jpg')],
 
-    'about_facts': [{'num': n, 'label': l} for n, l in ns['STATS']],
+    'about_facts': [{'num': n, 'label': l, 'source': src} for n, l, src in ns['STATS']],
 
     'steps_eyebrow': 'Как всё устроено',
     'steps_title': 'Путь ученика — от первой заявки до сцены',
@@ -187,7 +187,7 @@ front = {
     'hero_text': ('Музыка, живопись и сцена для детей от 3 лет и взрослых. '
                   'Сильная академическая база — в тёплой, живой атмосфере.'),
     'hero_slides': ['assets/img/gallery/' + img for img, _ in ns['HERO_SLIDES']],
-    'hero_facts': [{'num': n, 'label': l} for n, l in ns['FACTS']],
+    'hero_facts': [{'num': n, 'label': l, 'source': src} for n, l, src in ns['FACTS']],
     'videos': [{'title': t, 'url': src_, 'cover': poster, 'subtitle': sub}
                for src_, _typ, poster, t, sub in ns['VIDEOS_HOME']],
     'about_title': 'Мы учим не играть «правильно», а учим',
@@ -215,6 +215,8 @@ options = {
     'phone': ns['PHONE'],
     'phone_href': ns['PHONE_HREF'],
     'email': ns['MAIL'],
+    # Куда приходят заявки с сайта — та же почта центра.
+    'notify_email': ns['MAIL'],
     'address': ns['ADDR'],
     'address_note': 'вход со стороны запасного входа',
     'booking_crm_note': 'Или запишитесь сами в системе «Мой класс» —',

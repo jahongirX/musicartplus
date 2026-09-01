@@ -34,7 +34,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Центр искусств, где ребёнку хочется остаться"
+            "default_value": "Центр искусств, где ребёнку хочется остаться",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_about_hero_text",
@@ -51,7 +55,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Музыка, живопись и сцена для детей от трёх лет. Мы соединяем академическую базу с живым, радостным обучением."
+            "default_value": "Музыка, живопись и сцена для детей от трёх лет. Мы соединяем академическую базу с живым, радостным обучением.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_pgabout_about_hero_image",
@@ -67,7 +74,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_pgabout_tab_8d8f5",
@@ -101,7 +117,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Кто мы"
+            "default_value": "Кто мы",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_intro_title",
@@ -117,7 +137,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Центр, построенный вокруг"
+            "default_value": "Центр, построенный вокруг",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_intro_accent",
@@ -133,7 +157,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "ученика"
+            "default_value": "ученика",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_intro_text",
@@ -150,7 +178,10 @@
                 "id": ""
             },
             "media_upload": 0,
-            "toolbar": "basic"
+            "toolbar": "basic",
+            "tabs": "all",
+            "default_value": "",
+            "delay": 0
         },
         {
             "key": "field_map_pgabout_intro_btn_text",
@@ -166,7 +197,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Записаться на пробный урок"
+            "default_value": "Записаться на пробный урок",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_intro_link_text",
@@ -182,7 +217,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Познакомиться с педагогами"
+            "default_value": "Познакомиться с педагогами",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_intro_gallery",
@@ -198,7 +237,19 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "min": 0,
+            "max": 0,
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_pgabout_tab_2d9d0",
@@ -234,7 +285,44 @@
             },
             "layout": "table",
             "button_label": "Добавить цифру",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "collapsed": "",
             "sub_fields": [
+                {
+                    "key": "field_map_pgabout_sub_source",
+                    "label": "Что считать",
+                    "name": "source",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Оставьте пустым — покажется число из соседней колонки. Выберите, что считать, — сайт посчитает карточки сам, и цифра больше не разойдётся с составом педагогов.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "teachers_guests": "Педагоги и приглашённые мастера",
+                        "teachers": "Педагоги",
+                        "guests": "Приглашённые мастера",
+                        "directions": "Направления",
+                        "reviews": "Отзывы",
+                        "news": "Новости"
+                    },
+                    "allow_null": 1,
+                    "default_value": false,
+                    "ui": 0,
+                    "ajax": 0,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_map_pgabout_about_facts"
+                },
                 {
                     "key": "field_map_pgabout_sub_num",
                     "label": "Число",
@@ -248,7 +336,34 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_pgabout_about_facts"
+                },
+                {
+                    "key": "field_map_pgabout_sub_suffix",
+                    "label": "Приписка",
+                    "name": "suffix",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Приписка после посчитанного числа, например + или лет.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "maxlength": 4,
+                    "default_value": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_pgabout_about_facts"
                 },
                 {
                     "key": "field_map_pgabout_sub_label",
@@ -263,7 +378,13 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_pgabout_about_facts"
                 }
             ]
         },
@@ -299,7 +420,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Как всё устроено"
+            "default_value": "Как всё устроено",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_steps_title",
@@ -315,7 +440,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Путь ученика — от первой заявки до сцены"
+            "default_value": "Путь ученика — от первой заявки до сцены",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_steps",
@@ -332,6 +461,11 @@
                 "id": ""
             },
             "button_label": "Добавить шаг",
+            "min": 0,
+            "max": 0,
+            "rows_per_page": 20,
+            "layout": "table",
+            "collapsed": "",
             "sub_fields": [
                 {
                     "key": "field_map_pgabout_sub_step_label",
@@ -346,7 +480,13 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_pgabout_steps"
                 },
                 {
                     "key": "field_map_pgabout_sub_step_title",
@@ -361,7 +501,13 @@
                         "width": "",
                         "class": "",
                         "id": ""
-                    }
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_pgabout_steps"
                 },
                 {
                     "key": "field_map_pgabout_sub_step_text",
@@ -377,7 +523,12 @@
                         "class": "",
                         "id": ""
                     },
-                    "rows": 3
+                    "rows": 3,
+                    "default_value": "",
+                    "new_lines": "",
+                    "maxlength": "",
+                    "placeholder": "",
+                    "parent_repeater": "field_map_pgabout_steps"
                 }
             ]
         },
@@ -395,7 +546,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_pgabout_steps_quote_author",
@@ -410,7 +565,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_steps_card_image",
@@ -426,7 +586,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_pgabout_steps_card_title",
@@ -442,7 +611,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Пробный урок ни к чему не обязывает"
+            "default_value": "Пробный урок ни к чему не обязывает",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_steps_card_text",
@@ -458,7 +631,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 3
+            "rows": 3,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_pgabout_steps_card_btn",
@@ -474,7 +651,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Записаться"
+            "default_value": "Записаться",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_tab_f763",
@@ -508,7 +689,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Атмосфера"
+            "default_value": "Атмосфера",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_mood_title",
@@ -524,7 +709,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Как проходят наши занятия"
+            "default_value": "Как проходят наши занятия",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_mood_text",
@@ -541,7 +730,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Светлые классы, два рояля, мольберты и много воздуха. И дети, которым здесь интересно."
+            "default_value": "Светлые классы, два рояля, мольберты и много воздуха. И дети, которым здесь интересно.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_pgabout_mood_gallery",
@@ -557,7 +749,19 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "insert": "append",
+            "library": "all",
+            "min": 0,
+            "max": 0,
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_pgabout_tab_a8281",
@@ -591,7 +795,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Партнёр центра"
+            "default_value": "Партнёр центра",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_partner_title",
@@ -607,7 +815,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "При поддержке фонда ФОРТЕФОРМА"
+            "default_value": "При поддержке фонда ФОРТЕФОРМА",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_partner_text",
@@ -624,7 +836,10 @@
                 "id": ""
             },
             "rows": 4,
-            "default_value": "Фонд поддерживает музыкальное образование и культурные проекты. Благодаря этому партнёрству в центре проходят мастер-классы приглашённых профессоров, концерты и творческие программы для детей."
+            "default_value": "Фонд поддерживает музыкальное образование и культурные проекты. Благодаря этому партнёрству в центре проходят мастер-классы приглашённых профессоров, концерты и творческие программы для детей.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_pgabout_partner_btn_text",
@@ -640,7 +855,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Сайт фонда"
+            "default_value": "Сайт фонда",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_partner_note",
@@ -656,7 +875,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Фонд поддержки и развития культурных и социальных проектов"
+            "default_value": "Фонд поддержки и развития культурных и социальных проектов",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_tab_49145",
@@ -690,7 +913,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Отзывы"
+            "default_value": "Отзывы",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_about_reviews_title",
@@ -706,7 +933,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Родители — о центре"
+            "default_value": "Родители — о центре",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_about_reviews_link",
@@ -722,7 +953,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Все отзывы"
+            "default_value": "Все отзывы",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_pgabout_tab_e280",
@@ -804,5 +1039,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788008221
+    "modified": 1788267525
 }

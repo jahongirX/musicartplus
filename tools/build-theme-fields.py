@@ -12,6 +12,7 @@
 import io
 import json
 import os
+import time
 import zlib
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -98,6 +99,24 @@ SETTINGS = [
           default_value='Или выберите время сами в системе «Мой класс»'),
         f('booking_success_text', 'Сообщение после отправки', 'textarea', rows=2,
           default_value='Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.'),
+    ]),
+    ('Уведомления о заявках', [
+        f('notify_email_extra', 'Копии на другие адреса', 'text',
+          instructions='Через запятую. Письмо уйдёт и на основной адрес, и на эти.'),
+        f('tg_enabled', 'Дублировать заявки в Telegram', 'true_false', ui=1, default_value=0),
+        f('tg_token', 'Токен бота', 'text',
+          instructions='Выдаёт @BotFather по команде /newbot — строка вида 123456789:AA… '
+                       'Надёжнее прописать её в wp-config.php константой MAP_TG_BOT_TOKEN: '
+                       'тогда токен не попадёт в дамп базы и в резервную копию.'),
+        f('tg_chats', 'Куда слать', 'repeater', layout='table', button_label='Добавить чат',
+          instructions='Чатов может быть сколько угодно — заявка уйдёт в каждый. '
+                       'Чтобы узнать ID: напишите боту @userinfobot, а для группы добавьте '
+                       'туда своего бота и откройте api.telegram.org/bot‹токен›/getUpdates. '
+                       'У групп и каналов ID начинается с минуса.',
+          sub_fields=[
+              sub('set', 'chat_id', 'ID чата'),
+              sub('set', 'chat_title', 'Чей это чат'),
+          ]),
     ]),
     ('Правовые страницы', [
         f('privacy_label', 'Надпись ссылки на политику', 'text',
@@ -565,6 +584,11 @@ for key, prefix, plan in PLAN:
             have.add(spec['name'])
             added.append('%s/%s' % (tab_label, spec['name']))
 
+    if added:
+        # Файл должен стать новее записи в базе, иначе тема не перенесёт
+        # новые поля на другую копию сайта — см. map_acf_sync_json().
+        group['modified'] = int(time.time())
+
     io.open(path, 'w', encoding='utf-8').write(
         json.dumps(group, ensure_ascii=False, indent=4) + '\n')
 
@@ -628,10 +652,130 @@ for key, prefix, tabs in TABS_BEFORE:
         added += 1
 
     if added:
+        group['modified'] = int(time.time())
         io.open(path, 'w', encoding='utf-8').write(
             json.dumps(group, ensure_ascii=False, indent=4) + '\n')
 
     print('%-24s вкладок добавлено %d' % (key, added))
+
+# --------------------------------------------- подполя в повторителях
+# PLAN добавляет только поля верхнего уровня: повторитель, который уже есть в
+# файле, он не разбирает. Новые колонки внутри него дописываем здесь.
+FACT_SOURCES = {
+    'teachers_guests': 'Педагоги и приглашённые мастера',
+    'teachers': 'Педагоги',
+    'guests': 'Приглашённые мастера',
+    'directions': 'Направления',
+    'reviews': 'Отзывы',
+    'news': 'Новости',
+}
+
+FACT_SOURCE_HINT = ('Оставьте пустым — покажется число из соседней колонки. '
+                    'Выберите, что считать, — сайт посчитает карточки сам, и цифра '
+                    'больше не разойдётся с составом педагогов.')
+FACT_SUFFIX_HINT = 'Приписка после посчитанного числа, например + или лет.'
+
+
+def fact_subs(prefix):
+    """Колонки «что считать» и «приписка» для блока цифр."""
+    return [
+        (0, sub(prefix, 'source', 'Что считать', 'select', choices=FACT_SOURCES,
+                allow_null=1, default_value='', ui=0, ajax=0, return_format='value',
+                instructions=FACT_SOURCE_HINT)),
+        (2, sub(prefix, 'suffix', 'Приписка', 'text', maxlength=4,
+                instructions=FACT_SUFFIX_HINT)),
+    ]
+
+
+SUBFIELDS = [
+    ('group_map_front', 'hero_facts', fact_subs('home')),
+    ('group_map_page_about', 'about_facts', fact_subs('pgabout')),
+]
+
+for key, holder, specs in SUBFIELDS:
+    path = os.path.join(JSON_DIR, key + '.json')
+
+    if not os.path.exists(path):
+        continue
+
+    group = json.load(io.open(path, encoding='utf-8'))
+    parent = None
+
+    for x in group['fields']:
+        if x.get('name') == holder:
+            parent = x
+            break
+
+    if parent is None:
+        print('%-24s повторитель %s не найден' % (key, holder))
+        continue
+
+    subs = parent.setdefault('sub_fields', [])
+    have = set(x.get('name') for x in subs)
+    added = 0
+
+    for at, spec in specs:
+        if spec['name'] in have:
+            continue
+
+        subs.insert(len(subs) if at is None else min(at, len(subs)), spec)
+        have.add(spec['name'])
+        added += 1
+
+    if added:
+        # Отметка времени говорит ACF и теме, что файл новее записи в базе, —
+        # иначе новые колонки не доедут до чужой копии сайта.
+        group['modified'] = int(time.time())
+        io.open(path, 'w', encoding='utf-8').write(
+            json.dumps(group, ensure_ascii=False, indent=4) + '\n')
+
+    print('%-24s %s: подполей добавлено %d' % (key, holder, added))
+
+# --------------------------------------------- переезд полей между вкладками
+# Поле уже существует, а место ему нашлось другое: PLAN такое не умеет — он
+# пропускает всё, что уже есть под этим именем.
+MOVE = [
+    ('group_map_settings', 'notify_email', 'Уведомления о заявках'),
+]
+
+for key, name, tab_label in MOVE:
+    path = os.path.join(JSON_DIR, key + '.json')
+
+    if not os.path.exists(path):
+        continue
+
+    group = json.load(io.open(path, encoding='utf-8'))
+    fields = group['fields']
+
+    idx = next((i for i, x in enumerate(fields) if x.get('name') == name), None)
+    tab = next((i for i, x in enumerate(fields)
+                if x['type'] == 'tab' and x['label'] == tab_label), None)
+
+    if idx is None or tab is None:
+        print('%-24s %s: переносить нечего' % (key, name))
+        continue
+
+    end = len(fields)
+    for i in range(tab + 1, len(fields)):
+        if fields[i]['type'] == 'tab':
+            end = i
+            break
+
+    if tab < idx < end:
+        print('%-24s %s: уже на своей вкладке' % (key, name))
+        continue
+
+    # Кладём первым в своей вкладке: перенесённое поле обычно и есть главное
+    # в ней, а дописанные скриптом идут следом.
+    field = fields.pop(idx)
+    if idx < tab:
+        tab -= 1
+    fields.insert(tab + 1, field)
+
+    group['modified'] = int(time.time())
+    io.open(path, 'w', encoding='utf-8').write(
+        json.dumps(group, ensure_ascii=False, indent=4) + '\n')
+    print('%-24s %s -> вкладка «%s»' % (key, name, tab_label))
 
 # --------------------------------------------- порядок вкладок
 # Новые вкладки скрипт дописывает в конец. Здесь задаём, в каком порядке они
@@ -640,7 +784,7 @@ for key, prefix, tabs in TABS_BEFORE:
 TAB_ORDER = {
     'group_map_settings': [
         'Логотип', 'Контакты', 'Соцсети', 'Подвал', 'Кнопки',
-        'CRM «Мой класс»', 'Форма записи', 'Правовые страницы',
+        'CRM «Мой класс»', 'Уведомления о заявках', 'Форма записи', 'Правовые страницы',
         'Служебные страницы',
     ],
     'group_map_page_about': [
@@ -695,6 +839,7 @@ for key, order in TAB_ORDER.items():
 
     if [x['key'] for x in new_fields] != [x['key'] for x in fields]:
         group['fields'] = new_fields
+        group['modified'] = int(time.time())
         io.open(path, 'w', encoding='utf-8').write(
             json.dumps(group, ensure_ascii=False, indent=4) + '\n')
         print('%-24s вкладки переставлены' % key)

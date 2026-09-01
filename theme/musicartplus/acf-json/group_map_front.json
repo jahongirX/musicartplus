@@ -130,6 +130,39 @@
             "collapsed": "",
             "sub_fields": [
                 {
+                    "key": "field_map_home_sub_source",
+                    "label": "Что считать",
+                    "name": "source",
+                    "aria-label": "",
+                    "type": "select",
+                    "instructions": "Оставьте пустым — покажется число из соседней колонки. Выберите, что считать, — сайт посчитает карточки сам, и цифра больше не разойдётся с составом педагогов.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "choices": {
+                        "teachers_guests": "Педагоги и приглашённые мастера",
+                        "teachers": "Педагоги",
+                        "guests": "Приглашённые мастера",
+                        "directions": "Направления",
+                        "reviews": "Отзывы",
+                        "news": "Новости"
+                    },
+                    "allow_null": 1,
+                    "default_value": false,
+                    "ui": 0,
+                    "ajax": 0,
+                    "return_format": "value",
+                    "multiple": 0,
+                    "placeholder": "",
+                    "create_options": 0,
+                    "save_options": 0,
+                    "parent_repeater": "field_map_hero_facts"
+                },
+                {
                     "key": "field_map_sub_fact_num",
                     "label": "Число",
                     "name": "num",
@@ -145,6 +178,27 @@
                     },
                     "default_value": "",
                     "maxlength": "",
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": "",
+                    "parent_repeater": "field_map_hero_facts"
+                },
+                {
+                    "key": "field_map_home_sub_suffix",
+                    "label": "Приписка",
+                    "name": "suffix",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "Приписка после посчитанного числа, например + или лет.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "maxlength": 4,
+                    "default_value": "",
                     "placeholder": "",
                     "prepend": "",
                     "append": "",
@@ -212,7 +266,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Записаться на пробный урок"
+            "default_value": "Записаться на пробный урок",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_hero_btn_secondary",
@@ -228,7 +286,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Наши направления"
+            "default_value": "Наши направления",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_hero_btn_secondary_url",
@@ -244,7 +306,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "#directions"
+            "default_value": "#directions",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_hero_eyebrow_prefix",
@@ -260,7 +326,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Центр искусств"
+            "default_value": "Центр искусств",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_tab_about",
@@ -379,7 +449,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "О центре"
+            "default_value": "О центре",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_about_point_icon",
@@ -420,7 +494,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Подробнее о центре"
+            "default_value": "Подробнее о центре",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_about_link_text",
@@ -436,7 +514,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Наши педагоги"
+            "default_value": "Наши педагоги",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_about_badge_note",
@@ -452,7 +534,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "центр искусств"
+            "default_value": "центр искусств",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_about_accent",
@@ -468,7 +554,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "слышать и чувствовать Музыку"
+            "default_value": "слышать и чувствовать Музыку",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_tab_842ca",
@@ -502,7 +592,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Новости"
+            "default_value": "Новости",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_news_title",
@@ -518,7 +612,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Чем живёт центр"
+            "default_value": "Чем живёт центр",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_news_text",
@@ -534,7 +632,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_news_count",
@@ -552,7 +654,11 @@
             },
             "default_value": 3,
             "min": 1,
-            "max": 9
+            "max": 9,
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_news_btn_text",
@@ -568,7 +674,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Все новости"
+            "default_value": "Все новости",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_tab_5eeb2",
@@ -602,7 +712,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Наши направления"
+            "default_value": "Наши направления",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_dirs_title",
@@ -618,7 +732,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "%d путей к искусству"
+            "default_value": "%d путей к искусству",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_dirs_text",
@@ -635,7 +753,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Инструменты, вокал, сцена и живопись — можно выбрать одно направление или собрать своё сочетание."
+            "default_value": "Инструменты, вокал, сцена и живопись — можно выбрать одно направление или собрать своё сочетание.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_dirs_limit",
@@ -653,7 +774,11 @@
             },
             "default_value": 6,
             "min": 1,
-            "max": 12
+            "max": 12,
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_dirs_btn_text",
@@ -669,7 +794,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Посмотреть все направления"
+            "default_value": "Посмотреть все направления",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_tab_a64cb",
@@ -703,7 +832,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Педагоги"
+            "default_value": "Педагоги",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_teachers_title",
@@ -719,7 +852,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Люди, к которым хочется возвращаться"
+            "default_value": "Люди, к которым хочется возвращаться",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_teachers_text",
@@ -736,7 +873,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Нажмите на фотографию, чтобы открыть биографию, расписание и записаться на урок."
+            "default_value": "Нажмите на фотографию, чтобы открыть биографию, расписание и записаться на урок.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_teachers_btn_text",
@@ -752,7 +892,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Все педагоги"
+            "default_value": "Все педагоги",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_tab_video",
@@ -895,7 +1039,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Видео"
+            "default_value": "Видео",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_video_title",
@@ -911,7 +1059,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Как у нас проходят занятия"
+            "default_value": "Как у нас проходят занятия",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_video_text",
@@ -927,7 +1079,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_tab_a06af",
@@ -960,7 +1116,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_brush_title",
@@ -975,7 +1136,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_brush_text",
@@ -991,7 +1157,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_brush_video",
@@ -1008,7 +1178,10 @@
                 "id": ""
             },
             "return_format": "url",
-            "mime_types": "mp4,webm"
+            "mime_types": "mp4,webm",
+            "library": "all",
+            "min_size": 0,
+            "max_size": 0
         },
         {
             "key": "field_map_home_brush_poster",
@@ -1024,7 +1197,16 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "id"
+            "return_format": "id",
+            "preview_size": "medium",
+            "library": "all",
+            "min_width": 0,
+            "min_height": 0,
+            "min_size": 0,
+            "max_width": 0,
+            "max_height": 0,
+            "max_size": 0,
+            "mime_types": ""
         },
         {
             "key": "field_map_home_notes_caption",
@@ -1039,7 +1221,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_tab_49145",
@@ -1073,7 +1260,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Отзывы"
+            "default_value": "Отзывы",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_reviews_title",
@@ -1089,7 +1280,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Что говорят родители и ученики"
+            "default_value": "Что говорят родители и ученики",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_reviews_text",
@@ -1105,7 +1300,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_tab_16c67",
@@ -1139,7 +1338,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Как нас найти"
+            "default_value": "Как нас найти",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_contacts_title",
@@ -1155,7 +1358,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Мы рядом с метро Минская"
+            "default_value": "Мы рядом с метро Минская",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_contacts_text",
@@ -1171,7 +1378,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_contacts_address_note",
@@ -1187,7 +1398,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Вход не через главный, а через запасной вход"
+            "default_value": "Вход не через главный, а через запасной вход",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_tab_cta",
@@ -1261,7 +1476,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Запись"
+            "default_value": "Запись",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_cta_form_title",
@@ -1276,7 +1495,12 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_home_cta_form_text",
@@ -1292,7 +1516,11 @@
                 "class": "",
                 "id": ""
             },
-            "rows": 2
+            "rows": 2,
+            "default_value": "",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_cta_quote",
@@ -1309,7 +1537,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Мой сын бежит на занятия с горящими глазами, а возвращается — с новой искрой во взгляде."
+            "default_value": "Мой сын бежит на занятия с горящими глазами, а возвращается — с новой искрой во взгляде.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_home_cta_quote_author",
@@ -1325,7 +1556,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Валентина, мама ученика"
+            "default_value": "Валентина, мама ученика",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         }
     ],
     "location": [
@@ -1349,5 +1584,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787987869
+    "modified": 1788267524
 }
