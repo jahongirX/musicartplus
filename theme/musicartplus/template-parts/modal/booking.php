@@ -99,7 +99,11 @@ $map_privacy = map_privacy_url();
 
 					<button class="btn btn--gold btn--block btn--lg" type="submit" data-label="<?php echo esc_attr( map_opt( 'booking_submit_label', __( 'Отправить заявку', 'musicartplus' ) ) ); ?>"><?php echo esc_html( map_opt( 'booking_submit_label', __( 'Отправить заявку', 'musicartplus' ) ) ); ?></button>
 
-					<div class="form__ok"><?php echo esc_html( map_opt( 'booking_success_text', __( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ) ) ); ?></div>
+					<?php // Показывается вместо полей, когда заявка ушла. ?>
+					<div class="form__ok" role="status" aria-live="polite">
+						<span class="form__ok-ico"><?php map_the_icon( 'check' ); ?></span>
+						<span><?php echo esc_html( map_opt( 'booking_success_text', __( 'Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.', 'musicartplus' ) ) ); ?></span>
+					</div>
 
 					<p class="form__note">
 						<?php echo esc_html( map_opt( 'booking_crm_note', __( 'Или выберите время сами в системе «Мой класс» —', 'musicartplus' ) ) ); ?>

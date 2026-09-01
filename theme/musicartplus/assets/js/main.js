@@ -234,6 +234,19 @@
   });
 
   /* ---------- 9. Универсальные модальные окна ---------- */
+  /* Возврат формы в исходный вид после отправки. Вынесен сюда, потому что
+     нужен и окну (при закрытии), и самой отправке. */
+  var restoreForm = function (form) {
+    if (form.mapTimer) { clearTimeout(form.mapTimer); form.mapTimer = null; }
+    form.reset();
+    form.classList.remove('is-sent');
+    $$('.field.has-error', form).forEach(function (f) { f.classList.remove('has-error'); });
+    var btn = $('button[type="submit"]', form);
+    if (btn) { btn.disabled = false; btn.textContent = btn.getAttribute('data-label') || btn.textContent; }
+    var note = $('.form__msg', form);
+    if (note) note.textContent = '';
+  };
+
   var openModal = function (m) {
     m.classList.add('is-open');
     document.body.style.overflow = 'hidden';
@@ -245,6 +258,11 @@
     document.body.style.overflow = '';
     var v = $('.modal__video', m);
     if (v) v.innerHTML = ''; // остановить воспроизведение
+
+    // Отправленную форму приводим в исходный вид уже за закрытым окном:
+    // на глазах у посетителя она бы моргнула пустыми полями.
+    var sent = $('form.is-sent', m);
+    if (sent) restoreForm(sent);
   };
   $$('.modal').forEach(function (m) {
     $$('[data-close], .modal__backdrop', m).forEach(function (el) {
@@ -551,14 +569,19 @@
       if (!res.ok || !res.body || !res.body.ok) {
         throw new Error((res.body && res.body.message) || 'error');
       }
+      // Поля прячем, на их месте — подтверждение: заявка уже ушла, и
+      // заполненная форма рядом с ней только сбивает с толку.
       form.classList.add('is-sent');
-      if (btn) btn.textContent = 'Заявка отправлена';
-      setTimeout(function () {
-        form.reset();
-        form.classList.remove('is-sent');
-        if (btn) { btn.disabled = false; btn.textContent = label; }
-        setNote(form, '');
-      }, 6000);
+
+      var modal = form.closest ? form.closest('.modal') : null;
+
+      if (modal) {
+        // Окно закрывается само — искать крестик после отправки незачем.
+        // В исходный вид форму вернёт closeModal.
+        form.mapTimer = setTimeout(function () { closeModal(modal); }, 2600);
+      } else {
+        form.mapTimer = setTimeout(function () { restoreForm(form); }, 8000);
+      }
     }).catch(function (err) {
       if (btn) { btn.disabled = false; btn.textContent = label; }
       var msg = (err && err.message && err.message !== 'error') ? err.message : null;

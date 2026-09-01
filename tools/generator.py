@@ -398,7 +398,10 @@ MODALS = '''
             <span>Я согласен(-на) на обработку персональных данных и принимаю <a href="#">политику конфиденциальности</a></span>
           </label>
           <button class="btn btn--gold btn--block btn--lg" type="submit" data-label="Отправить заявку">Отправить заявку</button>
-          <div class="form__ok">Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.</div>
+          <div class="form__ok" role="status" aria-live="polite">
+            <span class="form__ok-ico">''' + I['check'] + '''</span>
+            <span>Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.</span>
+          </div>
           <p class="form__note">Или выберите время сами в системе «Мой класс» —
             <a data-bk-crm href="#" target="_blank" rel="noopener" style="color:var(--gold-dark);font-weight:600">открыть расписание</a></p>
         </form>
@@ -608,7 +611,10 @@ def form_block(title, subtitle, btn='Записаться на пробный у
       <span>Я согласен(-на) на обработку персональных данных и принимаю <a href="#">политику конфиденциальности</a></span>
     </label>
     <button class="btn btn--gold btn--block btn--lg" type="submit" data-label="''' + btn + '''">''' + btn + '''</button>
-    <div class="form__ok">Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.</div>
+    <div class="form__ok" role="status" aria-live="polite">
+      <span class="form__ok-ico">''' + I['check'] + '''</span>
+      <span>Спасибо! Заявка принята — мы перезвоним в ближайшее рабочее время.</span>
+    </div>
     <p class="form__note">Или запишитесь сами в системе «Мой класс» — <a data-crm="true" href="#" style="color:var(--gold-dark);font-weight:600">открыть расписание</a></p>
   </form>
 </div>'''
