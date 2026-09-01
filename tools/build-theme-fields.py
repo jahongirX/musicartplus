@@ -80,6 +80,22 @@ SETTINGS = [
         f('schedule_text', 'Расписание: текст', 'textarea', rows=3,
           default_value='Актуальные группы и свободное время — напрямую из системы «Мой класс».'),
     ]),
+    ('Свободные окна', [
+        f('slots_enabled', 'Показывать свободное время педагогов', 'true_false', ui=1, default_value=0,
+          instructions='Окна считаются по данным CRM: рабочий день центра минус нерабочее время '
+                       'педагога и его занятия.'),
+        f('slots_title', 'Заголовок блока', 'text', default_value='Свободное время'),
+        f('slots_note', 'Подпись под окнами', 'text',
+          default_value='Выберите удобное время — мы перезвоним и подтвердим запись.'),
+        f('slots_from', 'Рабочий день: с', 'text', default_value='10:00',
+          instructions='Часы работы центра. В API «Моего класса» их нет, поэтому задаются здесь — '
+                       'и должны совпадать с настройками компании в CRM.'),
+        f('slots_to', 'Рабочий день: до', 'text', default_value='22:00'),
+        f('slots_step', 'Длительность занятия, минут', 'number', default_value=45, min=15, max=180, step=5),
+        f('slots_days', 'На сколько дней вперёд', 'number', default_value=7, min=1, max=21),
+        f('slots_lead', 'Не предлагать окна ближе чем через, часов', 'number',
+          default_value=3, min=0, max=72),
+    ]),
     ('Форма записи', [
         f('booking_title', 'Заголовок окна', 'text', default_value='Записаться на пробный урок'),
         f('booking_subtitle', 'Подзаголовок окна', 'text',
@@ -474,8 +490,17 @@ PAGE_NEWS = [
     ]),
 ]
 
+TEACHER = [
+    ('Расписание', [
+        f('crm_teacher_id', 'ID педагога в «Моём классе»', 'number',
+          instructions='Нужен только если имя в CRM не совпадает с именем на сайте: '
+                       'по совпадающему имени педагог находится сам.'),
+    ]),
+]
+
 # группа -> (файл, префикс ключей, описание вкладок)
 PLAN = [
+    ('group_map_teacher',    'teach',   TEACHER),
     ('group_map_settings',   'set',     SETTINGS),
     ('group_map_front',      'home',    HOME),
     ('group_map_page_about', 'pgabout', PAGE_ABOUT),
@@ -784,7 +809,8 @@ for key, name, tab_label in MOVE:
 TAB_ORDER = {
     'group_map_settings': [
         'Логотип', 'Контакты', 'Соцсети', 'Подвал', 'Кнопки',
-        'CRM «Мой класс»', 'Уведомления о заявках', 'Форма записи', 'Правовые страницы',
+        'CRM «Мой класс»', 'Свободные окна', 'Уведомления о заявках', 'Форма записи',
+        'Правовые страницы',
         'Служебные страницы',
     ],
     'group_map_page_about': [

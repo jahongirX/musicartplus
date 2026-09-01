@@ -233,6 +233,21 @@
                     "parent_repeater": "field_map_schedule"
                 }
             ]
+        },
+        {
+            "key": "field_map_teach_crm_teacher_id",
+            "label": "ID педагога в «Моём классе»",
+            "name": "crm_teacher_id",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "Нужен только если имя в CRM не совпадает с именем на сайте: по совпадающему имени педагог находится сам.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            }
         }
     ],
     "location": [
@@ -256,5 +271,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1787987869
+    "modified": 1788284163
 }

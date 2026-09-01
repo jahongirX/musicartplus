@@ -365,12 +365,14 @@
             '<div class="tm__role">' + esc(d.role || '') + '</div>' +
             (d.bio ? '<p style="margin-top:16px">' + esc(d.bio) + '</p>' : '') +
             (facts ? '<ul class="tm__list">' + facts + '</ul>' : '') +
-            (sched ?
-              '<div class="tm__schedule">' +
+            // Блок рисуем всегда: даже когда расписание в карточке не
+            // заполнено, в него потом лягут свободные окна из CRM.
+            '<div class="tm__schedule"' + (sched ? '' : ' hidden') + '>' +
+              (sched ?
                 '<h4><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Расписание педагога</h4>' +
                 '<div class="tm__days">' + sched + '</div>' +
-                '<p class="tm__note">Актуальные свободные слоты и запись — в системе «Мой класс».</p>' +
-              '</div>' : '') +
+                '<p class="tm__note">Актуальные свободные слоты и запись — в системе «Мой класс».</p>' : '') +
+            '</div>' +
             '<div class="tm__actions">' +
               '<a class="btn btn--gold" href="' + CRM.forTeacher(d.slug) + '"' +
                 ' data-crm="' + esc(d.slug) + '" data-crm-name="' + esc(d.name) + '"' +
@@ -382,6 +384,87 @@
           '</div>' +
         '</div>';
     };
+
+    /* Свободные окна педагога.
+       В страницу их не вшить: расписание меняется в течение дня, а страница
+       может быть отдана из кэша. Поэтому карточка спрашивает их у сайта,
+       а сайт — у CRM. Пока ответа нет, на месте блока висит расписание,
+       заполненное вручную, — так карточка не мигает пустотой. */
+    var slotsCache = {};
+
+    var slotsMarkup = function (data) {
+      var cal = '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/>' +
+                '<path d="M8 3v4M16 3v4M3 10h18"/></svg>';
+
+      var dates = data.days.map(function (d, i) {
+        return '<button type="button" class="tm__date' + (i ? '' : ' is-active') + '" data-slot-day="' + i + '">' +
+               '<b>' + esc(d.weekday) + '</b><span>' + esc(d.label) + '</span></button>';
+      }).join('');
+
+      var times = data.days.map(function (d, i) {
+        return '<div class="tm__times' + (i ? '' : ' is-active') + '" data-slot-times="' + i + '">' +
+          d.times.map(function (t) {
+            return '<button type="button" class="tm__time" data-slot-time="' + esc(t) + '"' +
+                   ' data-slot-date="' + esc(d.date) + '" data-slot-label="' + esc(d.label) + '">' +
+                   esc(t) + '</button>';
+          }).join('') + '</div>';
+      }).join('');
+
+      return '<h4>' + cal + esc(data.title || 'Свободное время') + '</h4>' +
+             '<div class="tm__dates">' + dates + '</div>' + times +
+             (data.note ? '<p class="tm__note">' + esc(data.note) + '</p>' : '');
+    };
+
+    var showSlots = function (data) {
+      var box = $('.tm__schedule', tModal);
+
+      if (!box || !data || !data.ok || !data.days || !data.days.length) return;
+
+      box.classList.add('tm__schedule--slots');
+      box.hidden = false;
+      box.innerHTML = slotsMarkup(data);
+    };
+
+    var loadSlots = function (id) {
+      if (!id || !CFG.restUrl) return;
+
+      if (slotsCache[id]) { showSlots(slotsCache[id]); return; }
+
+      fetch(CFG.restUrl + 'slots?teacher=' + encodeURIComponent(id))
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          slotsCache[id] = data;
+          showSlots(data);
+        })
+        // Молча: не получилось — на экране остаётся расписание из карточки.
+        .catch(function () {});
+    };
+
+    tModal.addEventListener('click', function (e) {
+      var day = e.target.closest ? e.target.closest('[data-slot-day]') : null;
+
+      if (day) {
+        var n = day.getAttribute('data-slot-day');
+        $$('[data-slot-day]', tModal).forEach(function (b) { b.classList.toggle('is-active', b === day); });
+        $$('[data-slot-times]', tModal).forEach(function (b) {
+          b.classList.toggle('is-active', b.getAttribute('data-slot-times') === n);
+        });
+        return;
+      }
+
+      var time = e.target.closest ? e.target.closest('.tm__time') : null;
+
+      if (!time) return;
+
+      // Выбранное время передаём кнопке записи — форму открывает она.
+      var go = $('.tm__actions [data-crm]', tModal);
+
+      if (!go) return;
+
+      go.setAttribute('data-crm-slot', time.getAttribute('data-slot-date') + ' ' + time.getAttribute('data-slot-time'));
+      go.setAttribute('data-crm-slot-label', time.getAttribute('data-slot-label') + ', ' + time.getAttribute('data-slot-time'));
+      go.click();
+    });
 
     $$('[data-teacher]').forEach(function (card) {
       var open = function (e) {
@@ -397,6 +480,7 @@
           schedule: card.getAttribute('data-schedule')
         });
         openModal(tModal);
+        loadSlots(card.getAttribute('data-id'));
       };
       $$('[data-teacher-open]', card).forEach(function (t) { t.addEventListener('click', open); });
     });
@@ -422,6 +506,8 @@
     var bkDir   = $('[data-bk-dir]', bkModal);
     var bkCrm   = $('[data-bk-crm]', bkModal);
     var bkForm  = $('#form-booking', bkModal);
+    var bkSlot  = $('[data-bk-slot]', bkModal);
+    var bkWhen  = $('[data-bk-when]', bkModal);
 
     var openBooking = function (trigger) {
       var slug    = trigger.getAttribute('data-crm');
@@ -430,10 +516,23 @@
       var photo   = trigger.getAttribute('data-crm-photo') || (card && card.getAttribute('data-photo')) || '';
       var subject = trigger.getAttribute('data-crm-subject') || '';
 
+      var slot  = trigger.getAttribute('data-crm-slot') || '';
+      var when  = trigger.getAttribute('data-crm-slot-label') || '';
+
       // сброс предыдущего состояния
       bkCtx.classList.remove('is-shown');
       bkPhoto.removeAttribute('src');
       bkInput.value = '';
+
+      // Время выбирают в карточке педагога; открытая с кнопки форма его не
+      // знает — тогда поле пустое, и менеджер согласует время по телефону.
+      if (bkSlot) bkSlot.value = slot;
+
+      if (bkWhen) {
+        bkWhen.textContent = when ? 'Выбранное время: ' + when : '';
+        bkWhen.hidden = !when;
+      }
+
       bkForm.classList.remove('is-sent');
       $$('.field.has-error', bkForm).forEach(function (f) { f.classList.remove('has-error'); });
 
@@ -468,6 +567,9 @@
       }
 
       if (bkCrm) bkCrm.setAttribute('href', CRM.forTeacher(slug === 'true' ? '' : slug));
+
+      trigger.removeAttribute('data-crm-slot');
+      trigger.removeAttribute('data-crm-slot-label');
 
       // если открыто другое окно — закрываем его
       $$('.modal.is-open').forEach(function (m) { if (m !== bkModal) closeModal(m); });

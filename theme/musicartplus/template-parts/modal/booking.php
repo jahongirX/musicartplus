@@ -56,8 +56,12 @@ $map_privacy = map_privacy_url();
 					<div><span data-bk-label><?php esc_html_e( 'Педагог', 'musicartplus' ); ?></span><b data-bk-name></b></div>
 				</div>
 
+				<?php // Появляется, когда время выбрали в карточке педагога. ?>
+				<p class="bk__when" data-bk-when hidden></p>
+
 				<form class="form" data-form id="form-booking" novalidate>
 					<input type="hidden" name="teacher" data-bk-input>
+					<input type="hidden" name="slot" data-bk-slot>
 					<input type="hidden" name="t" value="<?php echo esc_attr( time() ); ?>">
 					<?php // Ловушка для ботов: поле скрыто и человеком не заполняется. ?>
 					<div class="hp" aria-hidden="true">

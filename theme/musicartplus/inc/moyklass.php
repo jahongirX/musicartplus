@@ -140,7 +140,10 @@ class MAP_Moyklass {
 		$url = self::API . '/' . ltrim( $path, '/' );
 
 		if ( ! empty( $args['query'] ) ) {
-			$url = add_query_arg( array_map( 'rawurlencode', array_map( 'strval', $args['query'] ) ), $url );
+			// http_build_query, а не add_query_arg: часть маршрутов ждёт список
+			// значений (date[]=…&date[]=…), а add_query_arg приводит массив к
+			// строке «Array» — и CRM отвечает ошибкой проверки формата.
+			$url .= ( false === strpos( $url, '?' ) ? '?' : '&' ) . http_build_query( $args['query'] );
 		}
 
 		$request = array(
@@ -334,10 +337,49 @@ class MAP_Moyklass {
 	 */
 	public static function lessons( $from, $to ) {
 		return self::get( 'company/lessons', array(
-			'date'   => $from,
-			'dateTo' => $to,
-			'limit'  => 200,
+			// Две даты в параметре date — это диапазон «с … по …».
+			'date'  => array( $from, $to ),
+			'limit' => 500,
 		), 15 * MINUTE_IN_SECONDS );
+	}
+
+	/**
+	 * Нерабочее время педагогов за период.
+	 *
+	 * Так CRM хранит выходные и перерывы: рабочим считается всё, что не попало
+	 * в этот список и не занято уроком.
+	 *
+	 * @param string $from Дата начала, Y-m-d.
+	 * @param string $to   Дата конца, Y-m-d.
+	 * @return array|WP_Error
+	 */
+	public static function busy_times( $from, $to ) {
+		return self::get( 'company/busyTimes', array(
+			'date' => array( $from, $to ),
+		), 15 * MINUTE_IN_SECONDS );
+	}
+
+	/**
+	 * Часовой пояс филиала.
+	 *
+	 * Свободные окна считаются по времени центра, а не по времени сервера.
+	 *
+	 * @return string
+	 */
+	public static function timezone() {
+		$filials = self::filials();
+
+		if ( is_wp_error( $filials ) ) {
+			return 'Europe/Moscow';
+		}
+
+		foreach ( (array) $filials as $filial ) {
+			if ( ! empty( $filial['timezone'] ) ) {
+				return (string) $filial['timezone'];
+			}
+		}
+
+		return 'Europe/Moscow';
 	}
 
 	/**
@@ -460,6 +502,10 @@ class MAP_Moyklass {
 
 		if ( ! empty( $lead['teacher'] ) ) {
 			$parts[] = 'Педагог: ' . $lead['teacher'];
+		}
+
+		if ( ! empty( $lead['slot'] ) ) {
+			$parts[] = 'Выбранное время: ' . $lead['slot'];
 		}
 
 		if ( ! empty( $lead['comment'] ) ) {

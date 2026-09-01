@@ -663,6 +663,25 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 .tm__day span{color:var(--ink-60)}
 .tm__day--off{opacity:.42}
 .tm__note{font-size:13px;color:var(--ink-40);margin-top:12px}
+/* Свободные окна из CRM: сверху дни, под ними время выбранного дня.
+   Всё время сразу — это полторы сотни кнопок, в окно они не помещаются. */
+.tm__dates{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.tm__date{
+  flex:none;background:#fff;border:1px solid var(--ink-06);border-radius:10px;padding:7px 12px;
+  font-size:13px;line-height:1.25;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;
+}
+.tm__date b{display:block;font-weight:600;text-transform:lowercase}
+.tm__date span{color:var(--ink-60);font-size:12.4px;white-space:nowrap}
+.tm__date:hover{border-color:var(--gold)}
+.tm__date.is-active{background:var(--gold);border-color:var(--gold)}
+.tm__date.is-active span{color:var(--ink-80)}
+.tm__times{display:none;flex-wrap:wrap;gap:8px;margin-top:12px}
+.tm__times.is-active{display:flex}
+.tm__time{
+  background:#fff;border:1px solid var(--ink-12);border-radius:9px;padding:7px 12px;
+  font-size:14px;font-weight:600;color:var(--ink);cursor:pointer;transition:border-color .2s,background .2s;
+}
+.tm__time:hover{border-color:var(--gold-deep);background:var(--gold-mist)}
 .tm__actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
 
 /* ---------- 15. Видео ---------- */
@@ -1171,6 +1190,11 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 .bk__ctx.is-shown{display:flex}
 .bk__ctx img{width:50px;height:50px;border-radius:50%;object-fit:cover;object-position:center 20%;flex:none}
 .bk__ctx img[src=""],.bk__ctx img:not([src]){display:none}
+/* Время, выбранное в карточке педагога. */
+.bk__when{
+  margin-top:12px;padding:9px 14px;border-radius:10px;background:var(--gold-mist);
+  border:1px solid var(--gold);font-size:14px;font-weight:600;color:var(--gold-dark);
+}
 .bk__ctx span{display:block;font-size:12px;font-family:var(--font-sc);letter-spacing:.14em;
   text-transform:uppercase;color:var(--gold-dark);margin-bottom:3px}
 .bk__ctx b{color:var(--ink);font-size:16.5px;line-height:1.25;font-weight:600}

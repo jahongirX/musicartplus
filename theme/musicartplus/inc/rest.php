@@ -32,6 +32,15 @@ function map_register_rest_routes() {
 		'callback'            => 'map_rest_schedule',
 		'permission_callback' => '__return_true',
 	) );
+
+	register_rest_route( 'map/v1', '/slots', array(
+		'methods'             => WP_REST_Server::READABLE,
+		'callback'            => 'map_rest_slots',
+		'permission_callback' => '__return_true',
+		'args'                => array(
+			'teacher' => array( 'required' => true, 'type' => 'integer' ),
+		),
+	) );
 }
 add_action( 'rest_api_init', 'map_register_rest_routes' );
 
@@ -146,4 +155,34 @@ function map_public_schedule() {
 	set_transient( 'map_schedule_public', $data, 15 * MINUTE_IN_SECONDS );
 
 	return $data;
+}
+
+/**
+ * Свободные окна педагога.
+ *
+ * Наружу уходит только время: ни учеников, ни занятий, ни их названий.
+ *
+ * @param WP_REST_Request $request Запрос.
+ * @return WP_REST_Response
+ */
+function map_rest_slots( WP_REST_Request $request ) {
+	$id   = (int) $request->get_param( 'teacher' );
+	$post = $id ? get_post( $id ) : null;
+
+	if ( ! $post || 'map_teacher' !== $post->post_type || 'publish' !== $post->post_status ) {
+		return new WP_REST_Response( array( 'ok' => false, 'days' => array() ), 404 );
+	}
+
+	if ( ! map_slots_enabled() ) {
+		return new WP_REST_Response( array( 'ok' => false, 'days' => array() ), 200 );
+	}
+
+	$days = map_teacher_slots( $post );
+
+	return new WP_REST_Response( array(
+		'ok'    => (bool) $days,
+		'title' => map_opt( 'slots_title', __( 'Свободное время', 'musicartplus' ) ),
+		'note'  => map_opt( 'slots_note' ),
+		'days'  => $days,
+	), 200 );
 }

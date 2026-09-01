@@ -30,6 +30,8 @@ function map_defaults() {
 		'rutube'       => 'https://rutube.ru/channel/76411207',
 		'fund_url'     => 'https://forteforma.ru/',
 		'fund_name'    => 'ФОРТЕФОРМА',
+		'slots_title'  => 'Свободное время',
+		'slots_note'   => 'Выберите удобное время — мы перезвоним и подтвердим запись.',
 	);
 }
 

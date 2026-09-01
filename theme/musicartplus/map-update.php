@@ -277,6 +277,29 @@ if ( function_exists( 'map_notify_recipients' ) ) {
 		map_update_row( 'Telegram', sprintf( 'работает, чатов: %d', count( $map_tg_chats ) ) );
 	}
 
+	if ( function_exists( 'map_slots_enabled' ) ) {
+		if ( ! map_slots_enabled() ) {
+			map_update_row( 'Свободные окна', 'выключены — включаются в «Настройки сайта → Свободные окна»', 'warn' );
+		} else {
+			$map_slots = map_slots_all();
+			$map_free  = 0;
+
+			foreach ( $map_slots as $map_days ) {
+				foreach ( $map_days as $map_times ) {
+					$map_free += count( $map_times );
+				}
+			}
+
+			map_update_row(
+				'Свободные окна',
+				$map_free
+					? sprintf( 'считаются из CRM: педагогов %d, окон на ближайшие дни %d', count( $map_slots ), $map_free )
+					: 'CRM не отдала ни одного окна — проверьте рабочие часы в настройках',
+				$map_free ? 'ok' : 'warn'
+			);
+		}
+	}
+
 	map_update_row(
 		'Проверка бота',
 		sprintf(

@@ -63,6 +63,9 @@ function map_teacher_data( $post ) {
 	}
 
 	return array(
+		// ID нужен окну карточки: по нему оно спрашивает у сайта свободные
+		// окна педагога — см. маршрут map/v1/slots.
+		'id'       => $post->ID,
 		'slug'     => $post->post_name,
 		'name'     => get_the_title( $post ),
 		'role'     => map_field( 'role', $post->ID ),
@@ -95,6 +98,7 @@ function map_teacher_card( $post, $delay = 0, $reveal = true ) {
 	?>
 	<article class="teacher<?php echo $reveal ? ' reveal' : ''; ?>" data-delay="<?php echo (int) $delay; ?>"
 		data-teacher="<?php echo esc_attr( $t['slug'] ); ?>"
+		data-id="<?php echo (int) $t['id']; ?>"
 		data-name="<?php echo esc_attr( $t['name'] ); ?>"
 		data-role="<?php echo esc_attr( $t['role'] ); ?>"
 		data-subject="<?php echo esc_attr( $t['subject'] ); ?>"

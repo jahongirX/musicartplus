@@ -883,6 +883,160 @@
             "placeholder": ""
         },
         {
+            "key": "field_map_set_tab_926e9",
+            "label": "Свободные окна",
+            "name": "",
+            "aria-label": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "top",
+            "endpoint": 0,
+            "selected": 0
+        },
+        {
+            "key": "field_map_set_slots_enabled",
+            "label": "Показывать свободное время педагогов",
+            "name": "slots_enabled",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Окна считаются по данным CRM: рабочий день центра минус нерабочее время педагога и его занятия.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 0
+        },
+        {
+            "key": "field_map_set_slots_title",
+            "label": "Заголовок блока",
+            "name": "slots_title",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Свободное время"
+        },
+        {
+            "key": "field_map_set_slots_note",
+            "label": "Подпись под окнами",
+            "name": "slots_note",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "Выберите удобное время — мы перезвоним и подтвердим запись."
+        },
+        {
+            "key": "field_map_set_slots_from",
+            "label": "Рабочий день: с",
+            "name": "slots_from",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "Часы работы центра. В API «Моего класса» их нет, поэтому задаются здесь — и должны совпадать с настройками компании в CRM.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "10:00"
+        },
+        {
+            "key": "field_map_set_slots_to",
+            "label": "Рабочий день: до",
+            "name": "slots_to",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "22:00"
+        },
+        {
+            "key": "field_map_set_slots_step",
+            "label": "Длительность занятия, минут",
+            "name": "slots_step",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 45,
+            "min": 15,
+            "max": 180,
+            "step": 5
+        },
+        {
+            "key": "field_map_set_slots_days",
+            "label": "На сколько дней вперёд",
+            "name": "slots_days",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 7,
+            "min": 1,
+            "max": 21
+        },
+        {
+            "key": "field_map_set_slots_lead",
+            "label": "Не предлагать окна ближе чем через, часов",
+            "name": "slots_lead",
+            "aria-label": "",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": 3,
+            "min": 0,
+            "max": 72
+        },
+        {
             "key": "field_map_set_tab_bf76a",
             "label": "Уведомления о заявках",
             "name": "",
@@ -1587,5 +1741,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788267524
+    "modified": 1788284163
 }

@@ -185,10 +185,36 @@ function map_sanitize_lead( $input ) {
 		'email'     => $email,
 		'direction' => isset( $input['direction'] ) ? mb_substr( sanitize_text_field( $input['direction'] ), 0, 120 ) : '',
 		'teacher'   => isset( $input['teacher'] ) ? mb_substr( sanitize_text_field( $input['teacher'] ), 0, 120 ) : '',
+		'slot'      => map_sanitize_slot( isset( $input['slot'] ) ? $input['slot'] : '' ),
 		'comment'   => isset( $input['comment'] ) ? mb_substr( sanitize_textarea_field( $input['comment'] ), 0, 1000 ) : '',
 		'page'      => isset( $input['page'] ) ? esc_url_raw( $input['page'] ) : '',
 		'utms'      => map_collect_utms( $input ),
 	);
+}
+
+/**
+ * Выбранное на сайте время занятия.
+ *
+ * Приходит из карточки педагога в виде «2026-09-03 15:15». Всё, что не похоже
+ * на дату со временем, отбрасываем: в заявку и в CRM это уходит текстом.
+ *
+ * @param string $raw Значение поля.
+ * @return string
+ */
+function map_sanitize_slot( $raw ) {
+	$raw = trim( (string) $raw );
+
+	if ( ! preg_match( '/^(\d{4}-\d{2}-\d{2})[ T](\d{2}:\d{2})$/', $raw, $m ) ) {
+		return '';
+	}
+
+	$stamp = strtotime( $m[1] );
+
+	if ( ! $stamp ) {
+		return '';
+	}
+
+	return wp_date( 'j F', $stamp ) . ', ' . $m[2];
 }
 
 /**
@@ -267,7 +293,7 @@ function map_store_lead( $lead ) {
 		return 0;
 	}
 
-	foreach ( array( 'name', 'phone', 'email', 'direction', 'teacher', 'comment', 'page' ) as $key ) {
+	foreach ( array( 'name', 'phone', 'email', 'direction', 'teacher', 'comment', 'page', 'slot' ) as $key ) {
 		if ( ! empty( $lead[ $key ] ) ) {
 			update_post_meta( $lead_id, '_map_' . $key, $lead[ $key ] );
 		}
@@ -300,7 +326,7 @@ function map_store_lead( $lead ) {
 function map_lead_from_post( $post_id ) {
 	$lead = array();
 
-	foreach ( array( 'name', 'phone', 'email', 'direction', 'teacher', 'comment', 'page', 'utms' ) as $key ) {
+	foreach ( array( 'name', 'phone', 'email', 'direction', 'teacher', 'comment', 'page', 'slot', 'utms' ) as $key ) {
 		$lead[ $key ] = get_post_meta( $post_id, '_map_' . $key, true );
 	}
 

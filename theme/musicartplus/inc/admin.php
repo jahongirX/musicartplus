@@ -352,6 +352,7 @@ function map_render_lead_metabox( $post ) {
 		'_map_email'     => __( 'Почта', 'musicartplus' ),
 		'_map_direction' => __( 'Направление', 'musicartplus' ),
 		'_map_teacher'   => __( 'Педагог', 'musicartplus' ),
+		'_map_slot'      => __( 'Выбранное время', 'musicartplus' ),
 		'_map_comment'   => __( 'Комментарий', 'musicartplus' ),
 		'_map_page'      => __( 'Страница', 'musicartplus' ),
 	);

@@ -48,6 +48,7 @@ function map_lead_summary( $lead, $lead_id, $synced ) {
 		'email'     => __( 'Почта', 'musicartplus' ),
 		'direction' => __( 'Направление', 'musicartplus' ),
 		'teacher'   => __( 'Педагог', 'musicartplus' ),
+		'slot'      => __( 'Выбранное время', 'musicartplus' ),
 		'comment'   => __( 'Комментарий', 'musicartplus' ),
 		'page'      => __( 'Страница', 'musicartplus' ),
 	);
