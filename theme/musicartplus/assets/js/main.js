@@ -350,6 +350,10 @@
       var days = [];
       try { days = JSON.parse(d.schedule || '[]'); } catch (e) {}
 
+      var free = slotsCache[d.id];
+
+      if (free && (!free.days || !free.days.length)) free = null;
+
       var facts = items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
       var sched = days.map(function (x) {
         return '<div class="tm__day' + (x.time ? '' : ' tm__day--off') + '">' +
@@ -365,14 +369,17 @@
             '<div class="tm__role">' + esc(d.role || '') + '</div>' +
             (d.bio ? '<p style="margin-top:16px">' + esc(d.bio) + '</p>' : '') +
             (facts ? '<ul class="tm__list">' + facts + '</ul>' : '') +
-            // Блок рисуем всегда: даже когда расписание в карточке не
-            // заполнено, в него потом лягут свободные окна из CRM.
-            '<div class="tm__schedule"' + (sched ? '' : ' hidden') + '>' +
-              (sched ?
-                '<h4><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Расписание педагога</h4>' +
-                '<div class="tm__days">' + sched + '</div>' +
-                '<p class="tm__note">Актуальные свободные слоты и запись — в системе «Мой класс».</p>' : '') +
-            '</div>' +
+            // Окна из CRM, если они уже на руках; иначе расписание из
+            // админки. Блок рисуем в любом случае: если окна приедут позже,
+            // им будет куда лечь.
+            (free ?
+              '<div class="tm__schedule tm__schedule--slots">' + slotsMarkup(free) + '</div>' :
+              '<div class="tm__schedule"' + (sched ? '' : ' hidden') + '>' +
+                (sched ?
+                  '<h4><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg>Расписание педагога</h4>' +
+                  '<div class="tm__days">' + sched + '</div>' +
+                  '<p class="tm__note">Актуальные свободные слоты и запись — в системе «Мой класс».</p>' : '') +
+              '</div>') +
             '<div class="tm__actions">' +
               '<a class="btn btn--gold" href="' + CRM.forTeacher(d.slug) + '"' +
                 ' data-crm="' + esc(d.slug) + '" data-crm-name="' + esc(d.name) + '"' +
@@ -385,12 +392,14 @@
         '</div>';
     };
 
-    /* Свободные окна педагога.
+    /* Свободные окна педагогов.
        В страницу их не вшить: расписание меняется в течение дня, а страница
-       может быть отдана из кэша. Поэтому карточка спрашивает их у сайта,
-       а сайт — у CRM. Пока ответа нет, на месте блока висит расписание,
-       заполненное вручную, — так карточка не мигает пустотой. */
+       может быть отдана из кэша. Поэтому один запрос сразу после загрузки
+       забирает окна всех педагогов — к первому клику они уже на руках, и
+       карточка открывается с готовой таблицей, ничего не подменяя на глазах. */
     var slotsCache = {};
+    var slotsReq = null;
+    var slotsFor = 0;
 
     var slotsMarkup = function (data) {
       var cal = '<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="3"/>' +
@@ -418,26 +427,45 @@
     var showSlots = function (data) {
       var box = $('.tm__schedule', tModal);
 
-      if (!box || !data || !data.ok || !data.days || !data.days.length) return;
+      if (!box || !data || !data.days || !data.days.length) return;
 
       box.classList.add('tm__schedule--slots');
       box.hidden = false;
       box.innerHTML = slotsMarkup(data);
     };
 
-    var loadSlots = function (id) {
-      if (!id || !CFG.restUrl) return;
+    var fetchSlots = function () {
+      if (slotsReq) return slotsReq;
 
-      if (slotsCache[id]) { showSlots(slotsCache[id]); return; }
+      if (!CFG.restUrl) return null;
 
-      fetch(CFG.restUrl + 'slots?teacher=' + encodeURIComponent(id))
+      slotsReq = fetch(CFG.restUrl + 'slots')
         .then(function (r) { return r.json(); })
         .then(function (data) {
-          slotsCache[id] = data;
-          showSlots(data);
+          if (!data || !data.teachers) return;
+
+          Object.keys(data.teachers).forEach(function (id) {
+            slotsCache[id] = { title: data.title, note: data.note, days: data.teachers[id] };
+          });
         })
-        // Молча: не получилось — на экране остаётся расписание из карточки.
+        // Молча: не получилось — в карточке остаётся расписание из админки.
         .catch(function () {});
+
+      return slotsReq;
+    };
+
+    var loadSlots = function (id) {
+      // Данные уже разложены по карточкам — окна нарисовал сам render().
+      if (!id || slotsCache[id]) return;
+
+      var req = fetchSlots();
+
+      if (!req) return;
+
+      req.then(function () {
+        // Пока ходили за ответом, могли открыть другого педагога.
+        if (String(slotsFor) === String(id)) showSlots(slotsCache[id]);
+      });
     };
 
     tModal.addEventListener('click', function (e) {
@@ -466,10 +494,16 @@
       go.click();
     });
 
+    // Окна запрашиваем сразу после загрузки страницы: посетителю нужно
+    // хотя бы секунду, чтобы дойти до карточки, и к клику они уже есть.
+    if ($('[data-teacher]')) setTimeout(fetchSlots, 250);
+
     $$('[data-teacher]').forEach(function (card) {
       var open = function (e) {
         e.preventDefault();
+        slotsFor = card.getAttribute('data-id');
         slot.innerHTML = render({
+          id:       card.getAttribute('data-id'),
           slug:     card.getAttribute('data-teacher'),
           name:     card.getAttribute('data-name'),
           role:     card.getAttribute('data-role'),
