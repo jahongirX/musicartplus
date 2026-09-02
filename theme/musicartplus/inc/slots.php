@@ -300,12 +300,19 @@ function map_slots_answered( $set = false ) {
  * Что показать в карточке педагога.
  *
  * free — есть свободные окна, busy — CRM знает педагога, но свободного
- * времени нет, none — педагога в CRM не нашли.
+ * времени нет, none — педагога в CRM не нашли, off — блок выключен в карточке.
  *
  * @param WP_Post|int $post Запись педагога.
  * @return string
  */
 function map_teacher_slot_state( $post ) {
+	$post = get_post( $post );
+
+	// Галочка в карточке: к этому педагогу через сайт не записывают.
+	if ( $post && map_field( 'hide_slots', $post->ID ) ) {
+		return 'off';
+	}
+
 	$id = map_teacher_crm_id( $post );
 
 	if ( ! $id ) {

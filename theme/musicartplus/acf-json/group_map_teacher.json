@@ -247,7 +247,34 @@
                 "width": "",
                 "class": "",
                 "id": ""
-            }
+            },
+            "default_value": "",
+            "min": "",
+            "max": "",
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_map_teach_hide_slots",
+            "label": "Не показывать свободное время",
+            "name": "hide_slots",
+            "aria-label": "",
+            "type": "true_false",
+            "instructions": "Блок со свободным временем в карточке этого педагога не появится — например, если к нему не записывают через сайт.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "ui": 1,
+            "default_value": 0,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
         }
     ],
     "location": [
@@ -271,5 +298,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788284163
+    "modified": 1788308677
 }

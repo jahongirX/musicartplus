@@ -113,6 +113,10 @@ function map_admin_handle_actions() {
 	}
 
 	if ( 'seed' === $action ) {
+		if ( ! apply_filters( 'map_show_seed_button', false ) ) {
+			return array( 'error', __( 'Первичное наполнение выключено: оно переписывает тексты страниц.', 'musicartplus' ) );
+		}
+
 		$result = map_seed_content();
 
 		return array( 'success', $result );
@@ -312,12 +316,23 @@ function map_admin_actions_form() {
 		esc_html__( 'Отправит в указанные чаты пробное сообщение.', 'musicartplus' )
 	);
 
-	printf(
-		'<p><button class="button button-primary" name="map_action" value="seed" onclick="return confirm(\'%s\')">%s</button> <span class="description">%s</span></p>',
-		esc_js( __( 'Создать страницы и карточки? Существующие записи затронуты не будут.', 'musicartplus' ) ),
-		esc_html__( 'Наполнить сайт', 'musicartplus' ),
-		esc_html__( 'Создаёт страницы, педагогов, направления и отзывы из вёрстки. Повторный запуск ничего не дублирует.', 'musicartplus' )
-	);
+	/**
+	 * Показывать ли кнопку первичного наполнения.
+	 *
+	 * На сайте с настоящим контентом ей делать нечего: она переписывает тексты
+	 * страниц демонстрационными, и нажать её случайно — потерять правки. Нужна
+	 * она ровно один раз, на пустой установке; тогда её включают строкой
+	 * add_filter( 'map_show_seed_button', '__return_true' ) — или вызывают
+	 * map_seed_content() из WP-CLI.
+	 */
+	if ( apply_filters( 'map_show_seed_button', false ) ) {
+		printf(
+			'<p><button class="button" name="map_action" value="seed" onclick="return confirm(\'%s\')">%s</button> <span class="description">%s</span></p>',
+			esc_js( __( 'Создать страницы и карточки? Тексты страниц будут заменены на демонстрационные.', 'musicartplus' ) ),
+			esc_html__( 'Наполнить сайт', 'musicartplus' ),
+			esc_html__( 'Только для пустой установки: переписывает тексты страниц.', 'musicartplus' )
+		);
+	}
 
 	echo '</form>';
 }

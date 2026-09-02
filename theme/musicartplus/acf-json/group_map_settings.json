@@ -915,7 +915,10 @@
                 "id": ""
             },
             "ui": 1,
-            "default_value": 0
+            "default_value": 0,
+            "message": "",
+            "ui_on_text": "",
+            "ui_off_text": ""
         },
         {
             "key": "field_map_set_slots_title",
@@ -931,7 +934,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Свободное время"
+            "default_value": "Свободное время",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_slots_note",
@@ -947,7 +954,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "Выберите удобное время — мы перезвоним и подтвердим запись."
+            "default_value": "Выберите удобное время — мы перезвоним и подтвердим запись.",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_slots_from",
@@ -963,7 +974,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "10:00"
+            "default_value": "10:00",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_slots_to",
@@ -979,7 +994,11 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "22:00"
+            "default_value": "22:00",
+            "maxlength": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_slots_step",
@@ -998,7 +1017,10 @@
             "default_value": 45,
             "min": 15,
             "max": 180,
-            "step": 5
+            "step": 5,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_slots_days",
@@ -1016,7 +1038,11 @@
             },
             "default_value": 7,
             "min": 1,
-            "max": 21
+            "max": 21,
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_slots_lead",
@@ -1034,7 +1060,11 @@
             },
             "default_value": 3,
             "min": 0,
-            "max": 72
+            "max": 72,
+            "step": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
         },
         {
             "key": "field_map_set_slots_busy",
@@ -1051,7 +1081,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "На ближайшие дни свободного времени нет. Оставьте заявку — подберём удобное."
+            "default_value": "На ближайшие дни свободного времени нет. Оставьте заявку — подберём удобное.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_slots_none",
@@ -1068,7 +1101,10 @@
                 "id": ""
             },
             "rows": 2,
-            "default_value": "Время для записи к этому педагогу пока не добавлено. Оставьте заявку — мы перезвоним и подберём время."
+            "default_value": "Время для записи к этому педагогу пока не добавлено. Оставьте заявку — мы перезвоним и подберём время.",
+            "new_lines": "",
+            "maxlength": "",
+            "placeholder": ""
         },
         {
             "key": "field_map_set_tab_bf76a",
@@ -1153,7 +1189,7 @@
             "name": "tg_token",
             "aria-label": "",
             "type": "text",
-            "instructions": "Выдаёт @BotFather по команде /newbot — строка вида 123456789:AA… Надёжнее прописать её в wp-config.php константой MAP_TG_BOT_TOKEN: тогда токен не попадёт в дамп базы и в резервную копию.",
+            "instructions": "Выдаёт @BotFather по команде \/newbot — строка вида 123456789:AA… Надёжнее прописать её в wp-config.php константой MAP_TG_BOT_TOKEN: тогда токен не попадёт в дамп базы и в резервную копию.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -1173,7 +1209,7 @@
             "name": "tg_chats",
             "aria-label": "",
             "type": "repeater",
-            "instructions": "Чатов может быть сколько угодно — заявка уйдёт в каждый. Чтобы узнать ID: напишите боту @userinfobot, а для группы добавьте туда своего бота и откройте api.telegram.org/bot‹токен›/getUpdates. У групп и каналов ID начинается с минуса.",
+            "instructions": "Чатов может быть сколько угодно — заявка уйдёт в каждый. Чтобы узнать ID: напишите боту @userinfobot, а для группы добавьте туда своего бота и откройте api.telegram.org\/bot‹токен›\/getUpdates. У групп и каналов ID начинается с минуса.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -1775,5 +1811,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1788285954
+    "modified": 1788308677
 }

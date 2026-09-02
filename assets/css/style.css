@@ -606,7 +606,7 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 .modal.is-open{opacity:1;visibility:visible}
 .modal__backdrop{position:absolute;inset:0;background:rgba(18,16,14,.62);backdrop-filter:blur(5px)}
 .modal__box{
-  position:relative;background:#fff;border-radius:var(--r-lg);width:min(920px,100%);
+  position:relative;background:#fff;border-radius:var(--r-lg);width:min(970px,100%);
   max-height:min(88vh,900px);overflow-y:auto;overscroll-behavior:contain;box-shadow:var(--sh-3);
   transform:translateY(24px) scale(.98);transition:transform .45s var(--e-out);
 }
@@ -683,6 +683,12 @@ body.menu-open .mobile-menu{opacity:1;visibility:visible;transform:none}
 }
 .tm__time:hover{border-color:var(--gold-deep);background:var(--gold-mist)}
 .tm__empty{font-size:14.5px;color:var(--ink-60);line-height:1.5}
+/* На телефоне дни не помещаются в строку и уезжали за край — раскладываем
+   их сеткой по три. */
+@media (max-width:768px){
+  .tm__dates{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;overflow:visible}
+  .tm__date{width:100%}
+}
 .tm__actions{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
 
 /* ---------- 15. Видео ---------- */

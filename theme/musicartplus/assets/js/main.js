@@ -351,6 +351,9 @@
       try { days = JSON.parse(d.schedule || '[]'); } catch (e) {}
 
       var free = slotsCache[d.id];
+      // Блок выключен в карточке педагога — не показываем ни окна, ни
+      // расписание из админки: его выключили целиком.
+      var off = free && 'off' === free.state;
 
       var facts = items.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join('');
       var sched = days.map(function (x) {
@@ -370,7 +373,8 @@
             // Окна из CRM, если они уже на руках; иначе расписание из
             // админки. Блок рисуем в любом случае: если окна приедут позже,
             // им будет куда лечь.
-            (free ?
+            (off ? '' :
+             free ?
               '<div class="tm__schedule tm__schedule--slots">' + slotsMarkup(free) + '</div>' :
               '<div class="tm__schedule"' + (sched ? '' : ' hidden') + '>' +
                 (sched ?
@@ -435,6 +439,12 @@
       var box = $('.tm__schedule', tModal);
 
       if (!box || !data) return;
+
+      if ('off' === data.state) {
+        box.remove();
+
+        return;
+      }
 
       box.classList.add('tm__schedule--slots');
       box.hidden = false;
